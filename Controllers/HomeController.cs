@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-using Nhom8_DACS.Models;
+using Nhom8.Models;
 using Nhom8_DACS.ViewModels;
 using System.Diagnostics;
 

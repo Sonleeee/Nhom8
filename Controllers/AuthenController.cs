@@ -8,7 +8,6 @@ using Nhom8_DACS.Helpers;
 using Nhom8_DACS.ViewModels;
 using System.Security.Claims;
 using Nhom8_DACS.Services.Email;
-//using IEmailSender = Nhom8_DACS.Services.Email.IEmailSender;
 
 namespace Nhom8_DACS.Controllers
 {
