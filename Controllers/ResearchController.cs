@@ -2,7 +2,7 @@
 using static NuGet.Packaging.PackagingConstants;
 
 using Microsoft.EntityFrameworkCore;
-using Nhom8_DACS.ViewModels;
+using Nhom8.ViewModels;
 using System;
 using NuGet.Protocol.Plugins;
 

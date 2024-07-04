@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Nhom8_DACS.ViewModels
+namespace Nhom8.ViewModels
 {
     public class LoginVM
     {

@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Nhom8_DACS.Helpers
+namespace Nhom8.Helpers
 {
     public static class DataEncryptionExtensions
     {
