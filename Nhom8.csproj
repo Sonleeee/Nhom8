@@ -28,6 +28,7 @@
     <Folder Include="Areas\Hotel\Data\" />
     <Folder Include="Areas\Hotel\Models\" />
     <Folder Include="Areas\Hotel\Views\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

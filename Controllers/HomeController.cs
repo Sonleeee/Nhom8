@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Nhom8.Models;
-using Nhom8_DACS.ViewModels;
+using Nhom8.ViewModels;
 using System.Diagnostics;
 
-namespace Nhom8_DACS.Controllers
+namespace Nhom8.Controllers
 {
     public class HomeController : Controller
     {

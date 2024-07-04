@@ -2,7 +2,7 @@
 using System.Numerics;
 using System.Text;
 
-namespace Nhom8_DACS.Helpers
+namespace Nhom8.Helpers
 {
     public class MyUtil
     {

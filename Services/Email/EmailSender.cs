@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
 using System.Net;
 
-namespace Nhom8_DACS.Services.Email
+namespace Nhom8.Services.Email
 {
     public class EmailSender : IEmailSender
     {

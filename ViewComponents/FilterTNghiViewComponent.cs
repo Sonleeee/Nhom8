@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using Nhom8_DACS.ViewModels;
+using Nhom8.ViewModels;
 using System.ComponentModel;
 
-namespace Nhom8_DACS.ViewComponents
+namespace Nhom8.ViewComponents
 {
     public class FilterTNghiViewComponent : ViewComponent
     {

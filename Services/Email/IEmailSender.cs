@@ -1,4 +1,4 @@
-﻿namespace Nhom8_DACS.Services.Email
+﻿namespace Nhom8.Services.Email
 {
     public interface IEmailSender
     {

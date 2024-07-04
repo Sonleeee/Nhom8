@@ -4,26 +4,26 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Nhom8_DACS.Helpers;
-using Nhom8_DACS.ViewModels;
 using System.Security.Claims;
-using Nhom8_DACS.Services.Email;
+using Nhom8.Data;
+using Nhom8.Services.Email;
+using Nhom8.ViewModels;
 
-namespace Nhom8_DACS.Controllers
+namespace Nhom8.Controllers
 {
     //[Route("Authen")]
     public class AuthenController : Controller
     {
-        //private readonly BookingHotelContext db;
+        private readonly BookingHotelContext db;
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailSender;
 
-        //public AuthenController(BookingHotelContext context, IMapper mapper, IEmailSender emailSender)
-        //{
-        //    db = context;
-        //    _mapper = mapper;
-        //    _emailSender = emailSender;
-        //}
+        public AuthenController(BookingHotelContext context, IMapper mapper, IEmailSender emailSender)
+        {
+            db = context;
+            _mapper = mapper;
+            _emailSender = emailSender;
+        }
 
         #region đăng nhập
         [HttpGet]
@@ -49,7 +49,7 @@ namespace Nhom8_DACS.Controllers
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, model.Email),
-                        new Claim(ClaimTypes.Role, "Khachhang"),
+                        new Claim(ClaimTypes.Role, "KH"),
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
