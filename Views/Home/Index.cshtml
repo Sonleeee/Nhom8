@@ -1,8 +1,229 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Nhom8_DACS.ViewModels.HotelViewModel>
+@{
+    ViewData["Title"] = "Trang chủ";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="content">
+    <div class="container" style="padding-left: 100px; padding-right: 100px; padding-top: 100px;">       
+
+        <div class="container">
+            <h2 class="px-3">Khám phá Việt Nam</h2>
+            <p class="px-3">Các điểm đến phổ biến này có nhiều điều chờ đón bạn</p>
+            <div id="cardCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+
+                            <div class="col-md-3 col-sm-6 mb-4 px-3">
+                                <div class="card">
+                                    <a asp-controller="research" asp-action="research" asp-route-TP="VungTau" style="text-decoration: none; color: black;">
+                                        <img src="https://cdn.tgdd.vn/Files/2021/06/15/1360385/top-10-bai-bien-vung-tau-dep-noi-tieng-ban-nhat-dinh-phai-di-202106160011402743.jpg" class="card-img-top-2" alt="Vũng Tàu">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-center">Vũng Tàu</h6>
+                                            <p class="text-center">1.826 chỗ nghỉ</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 mb-4 px-3">
+                                <div class="card">
+                                    <a asp-controller="research" asp-action="research" asp-route-TP="DaLat" style="text-decoration: none; color: black;">
+                                        <img src="https://dulichkhatvongviet.com/wp-content/uploads/2014/07/da-lat-tu-tren-cao.jpg" class="card-img-top-2" alt="Đà Lạt">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-center">Đà Lạt</h6>
+                                            <p class="text-center">2.145 chỗ nghỉ</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 mb-4 px-3">
+                                <div class="card">
+                                    <a asp-controller="research" asp-action="research" asp-route-TP="DaNang" style="text-decoration: none; color: black;">
+                                        <img src="~/assets/img/img_customer/Danang.webp" class="card-img-top-2" alt="Đà Nẵng">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-center">Đà Nẵng</h6>
+                                            <p class="text-center">2.513 chỗ nghỉ</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 mb-4 px-3">
+                                <div class="card">
+                                    <a asp-controller="research" asp-action="research" asp-route-TP="HoChiMinh" style="text-decoration: none; color: black;">
+                                        <img src="~/assets/img/img_customer/hcm.jpg" class="card-img-top-2" alt="TP. Hồ Chí Minh">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-center">TP. Hồ Chí Minh</h6>
+                                            <p class="text-center">5.612 chỗ nghỉ</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6 mb-4 px-3">
+                                <div class="card">
+                                    <a asp-controller="research" asp-action="research" asp-route-TP="NhaTrang" style="text-decoration: none; color: black;">
+                                        <img src="https://anhdep99.com/wp-content/uploads/2023/06/anh-nha-trang-dep-voi-toa-nha-cao-bai-bien-dep.jpg" class="card-img-top-2" alt="Nha Trang">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-center">Nha Trang</h6>
+                                            <p class="text-center">1.657 chỗ nghỉ</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 mb-4 px-3">
+                                <div class="card">
+                                    <a asp-controller="research" asp-action="research" asp-route-TP="HaNoi" style="text-decoration: none; color: black;">
+                                        <img src="~/assets/img/img_customer/hanoi.jpg" class="card-img-top-2" alt="Hà Nội">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-center">Hà Nội</h6>
+                                            <p class="text-center">3.810 chỗ nghỉ</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 mb-4 px-3">
+                                <div class="card">
+                                    <a asp-controller="research" asp-action="research" asp-route-TP="PhuQuoc" style="text-decoration: none; color: black;">
+                                        <img src="~/assets/img/img_customer/phuquoc.webp" class="card-img-top-2" alt="Hà Nội">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-center">Phú Quốc</h6>
+                                            <p class="text-center">3.810 chỗ nghỉ</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 mb-4 px-3">
+                                <div class="card">
+                                    <a asp-controller="research" asp-action="research" asp-route-TP="PhanThiet" style="text-decoration: none; color: black;">
+                                        <img src="~/assets/img/img_customer/phanthiet.jpg" class="card-img-top-2" alt="Hà Nội">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-center">Phan Thiết</h6>
+                                            <p class="text-center">3.810 chỗ nghỉ</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev btn-arr rounded-circle" type="button" data-bs-target="#cardCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon carousel-control-icon" aria-hidden="true"><i class="ti-angle-l"></i></span>
+                    <span class="visually-hidden"></span>
+                </button>
+                <button class="carousel-control-next btn-arr rounded-circle" type="button" data-bs-target="#cardCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon carousel-control-icon" aria-hidden="true"><i class="ti-angle-right"></i></span>
+                    <span class="visually-hidden"></span>
+                </button>
+            </div>           
+        </div>
+
+        <div class="container mt-5">
+            <h4 style="padding-bottom:20px">LambiengTravel đề xuất cho bạn</h4>
+                       
+            <div id="searchResults">
+                <div id="carouselExampleControls" class="carousel carousel-dar slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                @* @foreach (var hotel in Model) *@
+                                {
+                                    <div class="col-md-4 col-lg-3 mb-4">
+                                        <div class="card">
+                                            <div class="position-relative">
+                                                <img src="https://cdn1.ivivu.com/iVivu/2019/08/22/18/landscape-4096-1-800x450.webp?o=jpg" class="card-img-top-2" alt="The Malibu Hotel">
+                                            </div>
+                                            <div class="card-body">
+                                                @* <h5 class="card-title">@hotel.TenKS</h5>
+                                                <p class="hotel-price">@hotel.DanhGia</p>
+                                                <p class="card-text">@hotel.Tinh</p> *@
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item">
+                            <div class="row">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true" style="border-radius: 50%;background-color: black ;border: 5px solid rgba(0, 0, 0, 0.8) ;"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true" style="border-radius: 50%;background-color: black ;border: 5px solid rgba(60, 60, 60, 1) ;"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container" style="padding-bottom: 20px;">
+            <div class="ticker">
+                <div class="content-ticked">
+                    <h2><b>Nhận ngay giảm giá tức thì</b></h2>
+                    <p>Chỉ cần đăng nhập nhận ngay những ưu đãi bất ngờ từ Booking.com</p>
+                </div>
+                <div class="ms-auto">
+                    <a class="btn" style=" color: #006ce4; border: 1px solid #006ce4; background: #fff;" asp-controller="Authen" asp-action="register" >Đăng ký</a>
+                    <a class="btn" style="color: #006ce4; border: 1px solid #006ce4; background: #fff" asp-controller="Authen" asp-action="login">Đăng nhập</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container" style="padding-bottom: 20px;">
+            <div class="ticker">
+                <div class="content-ticked">
+                    <h2><b>Đăng ký nơi nghỉ của bạn</b></h2>
+                    <p>Tiếp cận hàng triệu khách hàng tiềm năng và nâng tầm doanh nghiệp của bạn với chúng tôi</p>
+                </div>
+                <div class="ms-auto">
+                    <a class="btn" style=" color: #006ce4; border: 1px solid #006ce4; background: #fff;" href="http://127.0.0.1:5501/register.html">Đăng ký</a>                    
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
+
+@* <script>
+    $(document).ready(function () {
+        $('.nav-link').on('click', function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+
+            var destination = $(this).data('destination'); // Lấy giá trị data-destination
+
+            // Gửi yêu cầu AJAX đến controller để xử lý
+            $.ajax({
+                url: '@Url.Action("SearchDestination", "Home")', // Đường dẫn đến controller và action
+                type: 'POST', // Phương thức POST
+                data: { destination: destination }, // Dữ liệu gửi lên controller
+                success: function (response) {
+                    $('#searchResults').html(response); // Cập nhật nội dung của #searchResults với kết quả trả về từ controller
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi!'); // Xử lý khi có lỗi xảy ra
+                }
+            });
+        });
+    });
+</script> *@

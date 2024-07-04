@@ -1,0 +1,67 @@
+﻿@* @using Nhom8_DACS.Data;
+@{
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model List<User>
+
+<div class="content">
+	<h1>Danh sách khách hàng</h1>
+	<p>bạn có tổng cộng @Model.Count khách hàng</p>
+	<div class="content-bang">
+		<table>
+			<thead>
+			<th colspan="7">
+				<div class="header-bang">
+					<input type="text" placeholder="name">
+					<button class="bt-search"><i class="fas fa-search"></i></button>
+				</div>
+			</th>
+			</thead>
+			<thead>
+			<th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th>
+			<th>Khách hàng</th>
+			<th>SĐT</th>
+			<th>Xác minh</th>
+			<th>Hạng</th>
+			<th><input type="button" value="+"></th>
+			</thead>
+			@foreach (var item in Model)
+			{
+				if (item.Role == "CUS")
+				{
+							<tr>
+								<td><input type="checkbox" class="checkbox1" name="checkbox-customer"></td>
+							<td class="checkbox-container">
+								<div class="avatar">
+											<img class="avatar-cus" src="@item.Img" alt="">
+								</div>
+								<div>
+									<strong>@item.TenKh</strong><br>
+									<p>@item.Email</p>
+								</div>
+							</td>
+							<td>@item.Sdt</td>
+							<td>
+								<img src="/image/icons8-verified-48.png" alt="" id="img-verified">
+								<label for="img">Email</label>
+							</td>
+							<td>Kim cương</td>
+							<td>
+								<div class="dropdown">
+									<button class="bt-more">...</button>
+									<div class="dropdown-content">
+										<a href="#">Chi tiết</a>
+										<a href="#">Sửa</a>
+										<a href="#">Xóa</a>
+									</div>
+								</div>
+							</td>
+						</tr>
+				}
+			}
+
+
+		</table>
+	</div>
+
+</div> *@

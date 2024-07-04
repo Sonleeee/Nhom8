@@ -1,0 +1,68 @@
+﻿@* @model Nhom8_DACS.ViewModels.RegisterViewModel *@
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutCustomer2.cshtml";
+}
+
+
+<div id="content">
+    <section class="vh-90">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-2">Đăng ký tài khoản khách sạn</h2>
+                                <form asp-action="Register" enctype="multipart/form-data" method="post">
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" asp-for=""></label>
+                                        <input type="text" asp-for="" class="form-control form-control-lg" asp />
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" asp-for=""></label>
+                                        <input type="email" asp-route-id="asdas" asp-for="" class="form-control form-control-lg" />
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" asp-for=""></label>
+                                        <input type="password" asp-for="" class="form-control form-control-lg" />
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" asp-for=""></label>
+                                        <input type="password" asp-for="" class="form-control form-control-lg" />
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" asp-for=""></label>
+                                        <input type="text" asp-for="" class="form-control form-control-lg" asp />
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" asp-for=""></label>
+                                        <input type="text" asp-for="" class="form-control form-control-lg asp" />
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" data-mdb-button-init
+                                                data-mdb-ripple-init class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body">
+                                            Đăng ký
+                                        </button>
+                                    </div>
+
+                                    <div style="">
+                                        <p class="text-center text-muted mt-2 mb-0">
+                                            Bạn đã có tại khoản? <a asp-controller="Authen" asp-action="Login"
+                                                                    class="fw-bold text-body"><u>Đăng nhập</u></a>
+                                        </p>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

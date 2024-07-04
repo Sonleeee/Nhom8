@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<h1>Profile</h1>
+
+
+<h2>welconm @Context.User.Identity.Name</h2>
+
+<a asp-action="Logout">Đăng xuất</a>

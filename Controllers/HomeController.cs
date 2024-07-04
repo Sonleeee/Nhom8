@@ -1,27 +1,49 @@
 using Microsoft.AspNetCore.Mvc;
-using Nhom8.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+using Nhom8_DACS.Models;
+using Nhom8_DACS.ViewModels;
 using System.Diagnostics;
 
-namespace Nhom8.Controllers
+namespace Nhom8_DACS.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        //private readonly BookingHotelContext db;
 
-        public IActionResult Index()
+        //public HomeController(BookingHotelContext context)
+        //{
+        //    db = context;
+        //}
+
+        public IActionResult Index(string? destination)
         {
+            //var tinh = db.KhachSans.AsQueryable();
+
+            //if (destination != null)
+            //{
+            //    tinh = tinh.Where(t => t.Tinh == destination);
+            //}
+
+            //var ks_tinh = tinh.Select(t => new HotelViewModel
+            //{
+            //    ID_KS = t.IdKs,
+            //    TenKS = t.TenKs,
+            //    Tinh = t.Tinh,
+            //    DanhGia = t.DanhGia,
+            //    Image_KS = t.ImageKs,
+            //});
+            //return View(ks_tinh);
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

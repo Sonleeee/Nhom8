@@ -1,0 +1,429 @@
+﻿@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<div id="content-detail">
+
+    <div class="container" style="padding-left: 100px; padding-right: 100px; padding-top: 100px;">
+
+
+        <div class="container">
+            <nav class="sticker-nav">
+                <ul class="nav justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Tổng quan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Thông tin và giá</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tiện nghi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ghi chú</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Quy tắc chung</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Đánh giá</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="container mt-4">
+                <!-- Hotel Header -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div style="padding-left: 10px;">
+                        <h1 class="h3">TN Central Hotel</h1>
+                        <p><i class="bi bi-geo-alt-fill"></i> 22 Hai Bà Trưng, Quận 1, TP. Hồ Chí Minh, Việt Nam – <a href="#">Vị trí xuất sắc - hiển thị bản đồ</a></p>
+                    </div>
+                </div>
+
+                <!-- Hotel Images -->
+                <div class="container img-price">
+                    <div class="img-list">
+                        <div class="img-main">
+                            <img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg" alt="Main Image" class="img-fluid hotel-image">
+                        </div>
+
+                        <div class="list-queue">
+                            <!-- <div class="row row-cols-4"> -->
+                            <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
+                            <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
+                            <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
+                            <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+
+                    <div class="info-right" style="padding-left: 30px;">
+                        <div class="price-room" style="padding: 10px;">
+                            <p class="mb-1"><strong>Giá chỉ từ</strong></p>
+                            <p class="mb-1"><strong>VND 1,436,414</strong><br>Đã bao gồm thuế và phí</p>
+                            <a href="#" class="btn btn-primary">Chọn phòng</a>
+                        </div>
+
+                        <div class="embed-responsive embed-responsive-16by9" style="border-radius: 10px;">
+                            <iframe class="embed-responsive-item"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1234738251955!2d106.70098471477955!3d10.775659392321725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752929245b4dfd%3A0x2a8f071665d35676!2zMjIgSGFpIELDrSBUcsawbmcsIFTDom4gUGjDuiwgVGjhuqFuaCBwaOG7kSBtw6F5LCBUUC4gSMOyIEPFoCBDaMOtIE1pbmgsIFZpZXRuYW0!5e0!3m2!1svi!2sus!4v1628537610432!5m2!1svi!2sus"
+                                    style="border:0; border-radius: 10px;"
+                                    allowfullscreen=""
+                                    loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Room -->
+                <div class="room-title">
+                    <h5>Những phòng còn trống</h5>
+                </div>
+                <div class="container room">
+
+                    <div class="row mb-4 ">
+                        <div class="col-md-4">
+                            <div class="room-info">
+                                <h5>Deluxe Double</h5>
+                                <div class="room-image mb-3">
+                                    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/46843072.jpg?k=3470a6a57d8ccad210e3b1e25bf243875180d09cf678ed49cf2f2f7173f73fc3&o=&hp=1" alt="Deluxe Double">
+                                </div>
+                                <ul class="room-details">
+                                    <li><strong>39.0 m²</strong></li>
+                                    <li><span>Không hút thuốc</span></li>
+                                    <li><span>Vòi tắm đứng</span></li>
+                                    <li><span>Tủ lạnh</span></li>
+                                    <li><span>Máy lạnh</span></li>
+                                </ul>
+                                <a href="#" class="text-primary">Xem chi tiết phòng</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <table class="table table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Lựa chọn phòng</th>
+                                        <th>Khách</th>
+                                        <th>Giá/phòng/đêm</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Deluxe Double</strong><br>
+                                            Breakfast included for 1 pax<br>
+                                            Miễn phí hủy trước 12 Jun 2024, 13:59<br>
+                                            1 Giường Cỡ Queen
+                                        </td>
+                                        <td><i class="bi bi-people-fill"></i> 2 người lớn</td>
+                                        <td>
+                                            <span class="deal-label">DEAL CHỌN LỌC</span><br>
+                                            <span style="text-decoration: line-through;">2,749,110 VND</span><br>
+                                            <strong>1,436,414 VND</strong><br>
+                                            Chưa bao gồm thuế và phí
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary">Chọn</button><br>
+                                            <span class="text-danger">Chỉ còn 2 phòng</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Deluxe Double</strong><br>
+                                            Breakfast included for 1 pax<br>
+                                            Miễn phí hủy phòng trước 6 Jun 2024, 13:59<br>
+                                            Thanh Toán Tại Khách Sạn<br>
+                                            Thanh toán khi bạn nhận phòng tại nơi ở<br>
+                                            1 Giường Cỡ Queen
+                                        </td>
+                                        <td><i class="bi bi-people-fill"></i> 2 người lớn</td>
+                                        <td>
+                                            <span class="deal-label">DEAL CHỌN LỌC</span><br>
+                                            <span style="text-decoration: line-through;">2,749,110 VND</span><br>
+                                            <strong>1,512,015 VND</strong><br>
+                                            Chưa bao gồm thuế và phí
+                                        </td>
+                                        <td>
+                                            <a href="" class="btn btn-primary">Chọn</a><br>
+                                            <span class="text-danger">Chỉ còn 2 phòng</span>
+                                        </td>
+                                    </tr>
+                                    @* <tr>
+                                    <td>
+                                    <strong>Deluxe Double</strong><br>
+                                    Breakfast included for 1 pax<br>
+                                    Miễn phí hủy trước 6 Jun 2024, 13:59<br>
+                                    1 Giường Cỡ Queen
+                                    </td>
+                                    <td><i class="bi bi-people-fill"></i> 2 người lớn</td>
+                                    <td>
+                                    <span class="deal-label">DEAL CHỌN LỌC</span><br>
+                                    <span style="text-decoration: line-through;">2,749,110 VND</span><br>
+                                    <strong>1,514,764 VND</strong><br>
+                                    Chưa bao gồm thuế và phí
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-primary">Chọn</button><br>
+                                    <span class="text-danger">Chỉ còn 2 phòng</span>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td>
+                                    <strong>Deluxe Double</strong><br>
+                                    Breakfast included for 1 pax<br>
+                                    Miễn phí hủy trước 6 Jun 2024, 13:59<br>
+                                    1 Giường Cỡ Queen
+                                    </td>
+                                    <td><i class="bi bi-people-fill"></i> 2 người lớn</td>
+                                    <td>
+                                    <span class="deal-label">DEAL CHỌN LỌC</span><br>
+                                    <span style="text-decoration: line-through;">2,749,110 VND</span><br>
+                                    <strong>1,594,489 VND</strong><br>
+                                    Chưa bao gồm thuế và phí
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-primary">Chọn</button><br>
+                                    <span class="text-danger">Chỉ còn 2 phòng</span>
+                                    </td>
+                                    </tr> *@
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- tiện nghi -->
+            <div class="container my-5">
+                <h2 class="mb-4">Tất cả những tiện ích tại The Malibu Hotel</h2>
+                <div class="row mb-4">
+                    <div class="col-md-2 col-sm-4">
+                        <img src="path/to/bar.jpg" class="img-fluid" alt="Quầy bar, cafe và phòng lo...">
+                        <p class="mt-2">Quầy bar, cafe và phòng lo...</p>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <img src="path/to/pool.jpg" class="img-fluid" alt="Hồ bơi">
+                        <p class="mt-2">Hồ bơi</p>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <img src="path/to/entertainment.jpg" class="img-fluid" alt="Phương tiện giải trí">
+                        <p class="mt-2">Phương tiện giải trí</p>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <img src="path/to/gym.jpg" class="img-fluid" alt="Trung tâm thể thao">
+                        <p class="mt-2">Trung tâm thể thao</p>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <img src="path/to/meeting.jpg" class="img-fluid" alt="Sảnh chức năng">
+                        <p class="mt-2">Sảnh chức năng</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Tiện nghi công cộng</h5>
+                        <ul>
+                            <li>Bãi đậu xe</li>
+                            <li>Tiệm cà phê</li>
+                            <li>Thang máy</li>
+                            <li>Nhà hàng</li>
+                            <li>Dịch vụ dọn phòng</li>
+                            <li>WiFi tại khu vực chung</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Các hoạt động</h5>
+                        <ul>
+                            <li>Câu lạc bộ sức khỏe</li>
+                            <li>Hồ bơi ngoài trời</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Dịch vụ khách sạn</h5>
+                        <ul>
+                            <li>Lễ tân 24h</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- đánh giá -->
+            <div class="container my-5">
+                <h3 class="mb-3">Đánh giá của khách</h3>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="rating-label bg-primary text-white p-2 rounded me-3">8,5</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="category-label">Nhân viên phục vụ</span>
+                            <span>9,0</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="category-label">Tiện nghi</span>
+                            <span>8,5</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="category-label">Sạch sẽ</span>
+                            <span>9,0</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="category-label">Thoải mái</span>
+                            <span>9,0</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="category-label">Đáng giá tiền</span>
+                            <span>8,3</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 83%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="category-label">WiFi miễn phí</span>
+                            <span>8,8</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 88%;" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="category-label">Địa điểm <span class="text-success">↑</span></span>
+                            <span>9,4</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-location" role="progressbar" style="width: 94%;" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- bình luận -->
+
+            <div class="container-commet">
+                <div class="container mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start mb-3">
+                                <img src="https://via.placeholder.com/50" class="rounded-circle me-3" alt="User Avatar">
+                                <div>
+                                    <h5 class="card-title mb-0">T***o</h5>
+                                    <small class="text-muted">16 May 2024</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="badge bg-primary">10 / 10</span>
+                            </div>
+                            <p class="card-text">
+                                Đây là lần t2 mình có dịp quay lại Malibu, mình thấy chất lượng và dịch vụ vẫn rất ok nha, và lần này cà phê ở đây rất ngon luôn (ykr), sẽ quay lại nhiều lần nữa
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Trả lời của khách sạn</h6>
+                            <small class="text-muted">22 May 2024</small>
+                            <p class="card-text mt-3">
+                                Kính chào Chị Thảo,<br>
+                                Thay mặt Ban Giám Đốc khách sạn Malibu, xin cảm ơn Chị đã sử dụng dịch vụ tại Malibu đồng thời bớt chút thời gian quý báu của mình để đóng góp ý kiến cho những trải nghiệm của Chị tại khách sạn.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start mb-3">
+                                <img src="https://via.placeholder.com/50" class="rounded-circle me-3" alt="User Avatar">
+                                <div>
+                                    <h5 class="card-title mb-0">T***o</h5>
+                                    <small class="text-muted">16 May 2024</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="badge bg-primary">10 / 10</span>
+                            </div>
+                            <p class="card-text">
+                                Đây là lần t2 mình có dịp quay lại Malibu, mình thấy chất lượng và dịch vụ vẫn rất ok nha, và lần này cà phê ở đây rất ngon luôn (ykr), sẽ quay lại nhiều lần nữa
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Trả lời của khách sạn</h6>
+                            <small class="text-muted">22 May 2024</small>
+                            <p class="card-text mt-3">
+                                Kính chào Chị Thảo,<br>
+                                Thay mặt Ban Giám Đốc khách sạn Malibu, xin cảm ơn Chị đã sử dụng dịch vụ tại Malibu đồng thời bớt chút thời gian quý báu của mình để đóng góp ý kiến cho những trải nghiệm của Chị tại khách sạn.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start mb-3">
+                                <img src="https://via.placeholder.com/50" class="rounded-circle me-3" alt="User Avatar">
+                                <div>
+                                    <h5 class="card-title mb-0">T***o</h5>
+                                    <small class="text-muted">16 May 2024</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="badge bg-primary">10 / 10</span>
+                            </div>
+                            <p class="card-text">
+                                Đây là lần t2 mình có dịp quay lại Malibu, mình thấy chất lượng và dịch vụ vẫn rất ok nha, và lần này cà phê ở đây rất ngon luôn (ykr), sẽ quay lại nhiều lần nữa
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Trả lời của khách sạn</h6>
+                            <small class="text-muted">22 May 2024</small>
+                            <p class="card-text mt-3">
+                                Kính chào Chị Thảo,<br>
+                                Thay mặt Ban Giám Đốc khách sạn Malibu, xin cảm ơn Chị đã sử dụng dịch vụ tại Malibu đồng thời bớt chút thời gian quý báu của mình để đóng góp ý kiến cho những trải nghiệm của Chị tại khách sạn.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
