@@ -1,0 +1,454 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#header {
+    background-color: #003b95;
+    color: #fff;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    height: 150px;
+}
+
+#navbarScroll {
+    justify-content: end;
+}
+
+/* content - begin */
+.ctn {
+    padding-top: 50px;
+    padding-left: 150px !important;
+    color: white;
+}
+
+
+/* .booking-form-overlay {
+    position: relative;
+    z-index: 1;
+} */
+
+.booking-form-container {
+    border-radius: 10px;
+    padding: 20px;
+    font-weight: bold;
+    /* margin: 0 auto; */
+    max-width: 1010px;
+    width: 70%;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 2;
+    display: inline-flexbox;
+    text-align: center;
+}
+
+input:focus,
+button:focus {
+    outline: none;
+}
+
+.form-group .dropdown .btn {
+    box-shadow: none;
+}
+
+.dropdown-menu {
+    display: block;
+    position: static;
+    float: none;
+}
+
+
+
+.booking-form {
+    display: inline-block;
+}
+
+#infoContent {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    top: 50px; /* Adjust the distance from the top as needed */
+    left: 0;
+    z-index: 9999; /* Ensure popover appears above other content */
+}
+
+#datesContent {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    top: 50px; /* Adjust the distance from the top as needed */
+    left: 0;
+    z-index: 9999; /* Ensure popover appears above other content */
+}
+
+.search {
+    padding-bottom: 80px;
+}
+
+.main-content {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.card {
+    border-radius: 15px !important; /* Bo tròn các góc của thẻ card */
+    border: none !important; /* Loại bỏ border của thẻ card */
+    overflow: hidden !important; /* Đảm bảo nội dung bên trong cũng bị bo tròn góc */
+}
+
+.card-img-top {
+    border-radius: 15px !important;
+    /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
+    width: 100% !important; /* Đảm bảo ảnh chiếm toàn bộ chiều ngang của thẻ */
+    height: 200px !important; /* Đặt chiều cao cố định cho ảnh */
+    object-fit: cover !important; /* Đảm bảo ảnh được cắt và điều chỉnh để vừa với khung hình mà không bị biến dạng */
+}
+
+.card-img-top-2 {
+    border-radius: 15px !important;
+    /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
+    width: 90% !important; /* Đảm bảo ảnh chiếm toàn bộ chiều ngang của thẻ */
+    height: 150px !important; /* Đặt chiều cao cố định cho ảnh */
+    object-fit: cover !important; /* Đảm bảo ảnh được cắt và điều chỉnh để vừa với khung hình mà không bị biến dạng */
+}
+
+.carousel-control-prev {
+    padding-bottom: 100px !important;
+    padding-right: 130px !important;
+}
+
+.carousel-control-next {
+    padding-bottom: 100px !important;
+    padding-left: 130px !important;
+}
+
+
+.carousel-control-icon {
+    background-color: black;
+    border-radius: 50%;
+    color: black;
+    /* padding-bottom: ; */
+}
+
+.dealhot:hover {
+    cursor: pointer;
+}
+
+.dealhot ul li {
+    /* background-color:  rgb(234, 235, 235); */
+    border-radius: 20px;
+    /* padding-right: 10px; */
+    margin-right: 10px;
+}
+
+    .dealhot ul li a {
+        color: rgb(7, 112, 205);
+    }
+
+.nav-active {
+    background-color: rgb(234, 235, 235);
+}
+
+
+
+.ticker {
+    padding: 30px;
+    width: auto !important;
+    height: 200px;
+    border: 1px solid rgb(201, 198, 198);
+    /* opacity: 10px; */
+    border-radius: 10px;
+}
+
+/* content - end */
+
+
+/* research - begin */
+.research {
+    display: flex;
+    width: 100%;
+    /* justify-content: center; */
+}
+
+.filter {
+    width: 30%;
+}
+
+.filter-content {
+    padding: 10px;
+    border: 1px solid rgb(201, 198, 198);
+    border-bottom: none;
+}
+
+    .filter-content ul li {
+        padding-bottom: 5px;
+        padding-top: 5px;
+        display: block;
+    }
+
+        .filter-content ul li label {
+            padding-left: 10px;
+            font-size: 14px;
+        }
+
+        .filter-content ul li input {
+            height: 18px;
+            width: 18px;
+        }
+
+.budget {
+    padding: 10px;
+}
+
+.result {
+    width: 100%;
+    padding-left: 20px;
+}
+
+.hotel-card {
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+    .hotel-card img {
+        border-radius: 10px;
+        /* height: 240px;
+    width: 240px; */
+        border: 1px solid #e0e0e0;
+    }
+
+    .hotel-card .hotel-info {
+        flex-grow: 1;
+        padding-left: 15px;
+    }
+
+    .hotel-card .hotel-price {
+        text-align: right;
+    }
+
+    .hotel-card .badge-secondary {
+        background-color: #6c757d;
+    }
+
+    .hotel-card .badge-rating {
+        background-color: #007bff;
+    }
+
+/* research - end */
+
+/* detail - begin */
+
+.sticker-nav {
+    position: sticky;
+    top: 0px;
+    width: 98%;
+    margin-left: 18px;
+    background-color: rgb(247 249 250);
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
+    .sticker-nav ul li a {
+        color: black;
+    }
+
+.img-price {
+    display: flex;
+}
+
+.img-list {
+    width: 70%;
+}
+
+.img-main {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+    .img-main img {
+        height: 400px;
+        width: auto;
+        object-fit: cover;
+    }
+
+.list-queue {
+    display: flex;
+    height: 100px;
+    width: auto;
+    /* border: 1px solid black !important; */
+    margin-bottom: 10px;
+}
+
+    .list-queue .column {
+        padding-right: 10px;
+        height: 100px;
+        width: auto;
+    }
+
+        .list-queue .column img {
+            /* padding-right: 10px; */
+            object-fit: cover;
+            height: 100px;
+            width: auto;
+        }
+
+.price-room {
+    border: 1px solid black !important;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.room-title {
+    padding: 10px;
+}
+
+.room .room-info .room-image {
+    padding-right: 10px;
+    border-radius: 10px;
+}
+
+    .room .room-info .room-image img {
+        height: auto;
+        border-radius: 10px;
+        width: 100%;
+    }
+
+.room .table {
+    border-radius: 10px;
+}
+
+    .room .table .btn {
+        width: 100%;
+    }
+
+.progress-bar {
+    background-color: #003580;
+}
+
+.progress-bar-location {
+    background-color: #008000;
+}
+
+.category-label {
+    font-weight: 500;
+}
+
+.rating-label {
+    font-weight: 700;
+}
+
+.container-commet {
+    padding: 20px;
+}
+
+/* detail - end */
+
+/* setroom - begin */
+
+.content-setroom {
+    display: flex;
+}
+
+.title {
+    padding-left: 43px;
+}
+
+.content-left {
+    width: 80%;
+    padding: 0 20px;
+}
+
+    .content-left .mail-sdt {
+        display: flex;
+    }
+
+
+    .content-left .left-design {
+        padding: 20px;
+        background-color: rgb(247 249 250);
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+.request #request {
+    border-radius: 10px;
+    resize: none !important;
+}
+
+
+.pay-counter {
+    display: flex;
+    border: 1px solid rgb(247 249 250);
+}
+
+.total-price {
+    font-size: 22px;
+    font-weight: bold;
+    /* color: #ff6f00; */
+}
+
+.content-right {
+    width: 40%;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.alert-warning {
+    background-color: #007bff;
+    color: white;
+}
+
+.rating {
+    color: gold;
+}
+
+/* setroom - end */
+
+/*footer - begin*/
+#footer ul {
+    padding-top: 30px;
+}
+
+    #footer ul li {
+        font-size: 30px;
+    }
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+    .separator::before,
+    .separator::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #fff;
+    }
+
+    .separator:not(:empty)::before {
+        margin-right: .25em;
+    }
+
+    .separator:not(:empty)::after {
+        margin-left: .25em;
+    }
+
+/*footer - end*/
+
+

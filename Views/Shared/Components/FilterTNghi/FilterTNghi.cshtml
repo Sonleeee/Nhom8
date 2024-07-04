@@ -1,0 +1,23 @@
+﻿@model IAsyncEnumerable<Nhom8_DACS.ViewModels.FilterTNghiVM>
+
+<div class="filter-content">
+    <h5>Tiện nghi</h5>
+    <form method="post" asp-action="research" asp-controller="research" id="filter-form">
+        <ul class="list-unstyled">
+            <li><input type="checkbox" id="elevator" name="filters" value="elevator" onchange="submitForm()"><label for="elevator"> Thang máy</label></li>
+            <li><input type="checkbox" id="parking" name="filters" value="parking" onchange="submitForm()"><label for="parking"> Chỗ đỗ xe</label></li>
+            <li><input type="checkbox" id="family-room" name="filters" value="family-room" onchange="submitForm()"><label for="family-room"> Phòng gia đình</label></li>
+            <li><input type="checkbox" id="reception-24" name="filters" value="reception-24" onchange="submitForm()"><label for="reception-24"> Lễ tân 24h</label></li>
+            <li><input type="checkbox" id="pool" name="filters" value="pool" onchange="submitForm()"><label for="pool"> Hồ bơi</label></li>
+            <li><input type="checkbox" id="airport-shuttle" name="filters" value="airport-shuttle" onchange="submitForm()"><label for="airport-shuttle"> Xe đưa đón sân bay</label></li>
+            <li><input type="checkbox" id="restaurant" name="filters" value="restaurant" onchange="submitForm()"><label for="restaurant"> Nhà hàng</label></li>
+            <li><input type="checkbox" id="wheelchair" name="filters" value="wheelchair" onchange="submitForm()"><label for="wheelchair"> Lối vào dành cho xe lăn</label></li>
+        </ul>
+    </form>
+</div>
+
+<script>
+    function submitForm() {
+        document.getElementById('filter-form').submit();
+    }
+</script>

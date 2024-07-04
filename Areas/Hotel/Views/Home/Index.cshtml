@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
+}
+
+<div class="HotelBody">
+    <div class="BodyItem">
+        <div class="item">
+            <h2>Đặt phòng</h2>
+            <div role="tabpanel" data-test-id="tab-content" class="reservation-tab-content">
+                <div data-progressive-disclosure="arrivals">
+                    <div class="empty-state bui-empty-state">
+                        <svg data-test-id="default-icon"
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="bui-empty-state__icon">
+                            <path d="M13.629 22.5H2.25a.75.75 0 0 1-.75-.75V2.25a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 .75.75v11.379a.75.75 0 0 1-.22.53L14.16 22.28a.75.75 0 0 1-.53.219zm0 1.5a2.25 2.25 0 0 0 1.59-.659l8.122-8.122A2.25 2.25 0 0 0 24 13.63V2.25A2.25 2.25 0 0 0 21.75 0H2.25A2.25 2.25 0 0 0 0 2.25v19.5A2.25 2.25 0 0 0 2.25 24h11.379zM15 23.115V15.75a.75.75 0 0 1 .75-.75h7.365a.75.75 0 0 0 0-1.5H15.75a2.25 2.25 0 0 0-2.25 2.25v7.365a.75.75 0 0 0 1.5 0z">
+                            </path>
+                        </svg>
+                        <p class="bui-empty-state__text">
+                            <span>
+                                Quý vị không có khách đến trong khoảng thời gian gần
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <a href="" target="_blank"
+               class="bui-button bui-button--secondary homepage-activity-tab__view-all">
+                <!----> <span class="bui-button__text">
+                    Xem tất cả đặt phòng
+                </span>
+            </a>
+        </div>
+        <div class="item">
+            <h2>Các tin nhắn chưa trả lời</h2>
+            <div role="tabpanel" data-test-id="tab-content" class="reservation-tab-content">
+                <div data-progressive-disclosure="arrivals">
+                    <div class="empty-state bui-empty-state">
+                        <svg data-test-id="default-icon"
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="bui-empty-state__icon">
+                            <path d="M13.629 22.5H2.25a.75.75 0 0 1-.75-.75V2.25a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 .75.75v11.379a.75.75 0 0 1-.22.53L14.16 22.28a.75.75 0 0 1-.53.219zm0 1.5a2.25 2.25 0 0 0 1.59-.659l8.122-8.122A2.25 2.25 0 0 0 24 13.63V2.25A2.25 2.25 0 0 0 21.75 0H2.25A2.25 2.25 0 0 0 0 2.25v19.5A2.25 2.25 0 0 0 2.25 24h11.379zM15 23.115V15.75a.75.75 0 0 1 .75-.75h7.365a.75.75 0 0 0 0-1.5H15.75a2.25 2.25 0 0 0-2.25 2.25v7.365a.75.75 0 0 0 1.5 0z">
+                            </path>
+                        </svg>
+                        <p class="bui-empty-state__text"><span>Quý vị không có tin nhắn chưa trả lời</span></p>
+                    </div>
+                </div>
+            </div>
+            <a href="" target="_blank"
+               class="bui-button bui-button--secondary homepage-activity-tab__view-all">
+                <!----> <span class="bui-button__text">
+                    Xem tất cả tin nhắn
+                </span>
+            </a>
+        </div>
+        <div class="item">
+            <h2>Các đánh giá gần đây của khách hàng</h2>
+            <div role="tabpanel" data-test-id="tab-content" class="reservation-tab-content">
+                <div data-progressive-disclosure="arrivals">
+                    <div class="empty-state bui-empty-state">
+                        <svg data-test-id="default-icon"
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="bui-empty-state__icon">
+                            <path d="M13.629 22.5H2.25a.75.75 0 0 1-.75-.75V2.25a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 .75.75v11.379a.75.75 0 0 1-.22.53L14.16 22.28a.75.75 0 0 1-.53.219zm0 1.5a2.25 2.25 0 0 0 1.59-.659l8.122-8.122A2.25 2.25 0 0 0 24 13.63V2.25A2.25 2.25 0 0 0 21.75 0H2.25A2.25 2.25 0 0 0 0 2.25v19.5A2.25 2.25 0 0 0 2.25 24h11.379zM15 23.115V15.75a.75.75 0 0 1 .75-.75h7.365a.75.75 0 0 0 0-1.5H15.75a2.25 2.25 0 0 0-2.25 2.25v7.365a.75.75 0 0 0 1.5 0z">
+                            </path>
+                        </svg>
+                        <p class="bui-empty-state__text"><span>Quý vị không đánh giá nào gần đây</span></p>
+                    </div>
+                </div>
+            </div>
+            <a href="" target="_blank"
+               class="bui-button bui-button--secondary homepage-activity-tab__view-all">
+                <!----> <span class="bui-button__text">
+                    Xem tất cả dánh giá
+                </span>
+            </a>
+        </div>
+    </div>
+
+</div>

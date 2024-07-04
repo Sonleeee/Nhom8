@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "Service";
+    Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
+}
+
+<div class="HotelBody">
+    <div class="BodyItem">
+        <h2>Tiện nghi và dịch vụ</h2>
+        <div class="search-box__container">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" role="presentation"
+                 aria-hidden="true" focusable="false" class="bk-icon -streamline-magnifying_glass">
+                <path d="M17.464 6.56a8.313 8.313 0 1 1-15.302 6.504A8.313 8.313 0 0 1 17.464 6.56zm1.38-.586C16.724.986 10.963-1.339 5.974.781.988 2.9-1.337 8.662.783 13.65c2.12 4.987 7.881 7.312 12.87 5.192 4.987-2.12 7.312-7.881 5.192-12.87zM15.691 16.75l7.029 7.03a.75.75 0 0 0 1.06-1.06l-7.029-7.03a.75.75 0 0 0-1.06 1.06z">
+                </path>
+            </svg>
+            <div class="bui-form__group">
+                <input id="search-facilities" aria-describedby="describe-search-facilities" autocomplete="off"
+                       type="text" placeholder="Tìm tiện nghi hoặc dịch vụ" aria-label="accessible"
+                       class="bui-form__control">
+            </div>
+        </div>
+        <div class="bui-panel">
+            <h2>Tiện nghi phổ biến nhất</h2>
+            <div class="facility__row">
+                <h3 style="display: inline-block; width: 78%;">Hồ bơi</h3>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="facility__row">
+                <h3 style="display: inline-block; width: 78%;">Ban công</h3>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="facility__row">
+                <h3 style="display: inline-block; width: 78%;">Sân vườn</h3>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="facility__row">
+                <h3 style="display: inline-block; width: 78%;">Sân thượng</h3>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
