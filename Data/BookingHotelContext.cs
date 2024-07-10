@@ -206,10 +206,8 @@ public partial class BookingHotelContext : DbContext
             entity.Property(e => e.Mk)
                 .HasMaxLength(50)
                 .HasColumnName("MK");
-            entity.Property(e => e.Otp).HasColumnName("OTP");
-            entity.Property(e => e.RandomKey)
-                .HasMaxLength(500)
-                .IsUnicode(false);
+            entity.Property(e => e.Opt).HasColumnName("OPT");
+
             entity.Property(e => e.Role).HasMaxLength(50);
             entity.Property(e => e.Sdt)
                 .HasMaxLength(11)

@@ -11,11 +11,15 @@ public partial class Phong
 
     public string? TenPhong { get; set; }
 
+    public int SL_giuong {  get; set; }
+
     public string? LoaiPhong { get; set; }
 
     public string? TinhTrangPhong { get; set; }
 
     public double? GiaPhong { get; set; }
+
+    public bool? HD { get; set; }
 
     public virtual ICollection<ChiTietPhong> ChiTietPhongs { get; set; } = new List<ChiTietPhong>();
 
