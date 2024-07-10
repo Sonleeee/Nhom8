@@ -86,9 +86,13 @@ header {
     display: flex;
 }
 
+th {
+    text-align: left;
+}
+
 th, td {
     padding: 12px 15px;
-/*    text-align: center;*/
+    text-align: center;
     border-bottom: 1px solid;
 }
 

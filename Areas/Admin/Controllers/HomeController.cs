@@ -16,8 +16,14 @@ namespace Nhom8.Areas.Admin.Controllers
 			_context = context;
 		}
 
+        public IActionResult _LayoutAdmin()
+		{
+			var user = _context.Users.Select(dp => dp.TenKh);
 
-		public IActionResult Index()
+			return View(user);
+		}
+
+        public IActionResult Index()
 		{
 			var listUser = _context.Users.Select(d => d).ToList();
 
@@ -46,20 +52,42 @@ namespace Nhom8.Areas.Admin.Controllers
 			var listMR = _context.DatPhongs
 				.Include(dp => dp.User)
 				.Include(dp => dp.IdPhongNavigation)
+				.ThenInclude(dp => dp.IdKsNavigation)
 				.ToList();
+
 			return View(listMR);
 		}
 
 		public IActionResult room()
 		{
-			var listR = _context.Phongs.Select(p => p).ToList();
+			var listR = _context.Phongs.Include(dp => dp.IdKsNavigation).ToList();
 			return View(listR);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Search(string searchTerm)
+		{
+			ViewData["SearchTerm"] = searchTerm;
+
+			var results = new List<Phong>();
+
+			if (!string.IsNullOrEmpty(searchTerm))
+			{
+				results = await _context.Phongs
+										.Where(p => p.TenPhong.Contains(searchTerm) || p.LoaiPhong.Contains(searchTerm))
+										.ToListAsync();
+			}
+			else
+			{
+				results = await _context.Phongs.ToListAsync();
+			}
+
+			return View("room",results);
 		}
 
 		public IActionResult support()
 		{
-			var userid = 1;
-			var conversations =  _context.Conversations
+			var conversations = _context.Conversations
 										   .Include(c => c.Messages)
 										   .Include(c => c.User)
 										   .ToList();

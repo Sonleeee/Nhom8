@@ -14,17 +14,19 @@
 	<div class="content-bang">
 		<table>
 			<thead>
-			<th colspan="9">
+			<th colspan="2">
 				<div class="header-bang">
 					<input type="text" placeholder="name">
 					<button class="bt-search"><i class="fas fa-search"></i></button>
 				</div>
 			</th>
+			<th colspan="7"></th>
 			</thead>
 			<thead>
 			@* <th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th> *@
 			<th>ID</th>
 			<th>Khách hàng</th>
+			<th>Khách sạn</th>
 			<th>Kiểu phòng</th>
 			<th>Số điện thoại</th>
 			<th>ngày đến</th>
@@ -46,6 +48,7 @@
 							<p>@item.User?.Email</p>
 						</div>
 					</td>
+					<td>@item.IdPhongNavigation?.IdKsNavigation?.TenKs</td>
 					<td>@item.IdPhongNavigation?.TenPhong</td>
 					<td>@item.User?.Sdt</td>
 					<td>@item.NgayCheckin</td>
