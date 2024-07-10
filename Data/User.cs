@@ -19,11 +19,9 @@ public partial class User
 
     public string? Email { get; set; }
 
-    public int? Otp { get; set; }
+    public int? Opt { get; set; }
 
     public string? Img { get; set; }
-
-    public string? RandomKey { get; set; }
 
     public virtual ICollection<Conversation> Conversations { get; set; } = new List<Conversation>();
 
