@@ -88,7 +88,7 @@ header {
 
 th, td {
     padding: 12px 15px;
-    text-align: center;
+/*    text-align: center;*/
     border-bottom: 1px solid;
 }
 
@@ -107,8 +107,8 @@ table {
     box-shadow: 2px 1px 3px #00000041;
     border-radius: 5px;
     background-color: white;
-    text-align: center;
-    justify-content:center;
+/*    text-align: center;
+    justify-content:center;*/
 }
 
 
