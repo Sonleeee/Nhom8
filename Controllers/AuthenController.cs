@@ -39,12 +39,12 @@ namespace Nhom8.Controllers
             ViewBag.ReturnUrl = ReturnUrl;
             if (ModelState.IsValid)
             {
-                //var khachhang = db.Users.SingleOrDefault(kh => kh.Tk == model.Email && kh.Mk == model.Password);
-                //if (khachhang == null)
+                var khachhang = db.Users.SingleOrDefault(kh => kh.Tk == model.Email && kh.Mk == model.Password);
+                if (khachhang == null)
                 {
                     ModelState.AddModelError("Loi", "Sai thông tin đăng nhập!");
                 }
-                //else
+                else
                 {
                     var claims = new List<Claim>
                     {
