@@ -21,10 +21,14 @@
 			{
 				countRA++;
 			}
-			if (item.NgayCheckout.Equals(DateTime.Today))
+
+			var today = DateTime.Today;
+			
+			if (item.NgayCheckout == today)
 			{
 				countGO++;
 			}
+
 			if (item.TrangThai == false)
 			{
 				countC++;
