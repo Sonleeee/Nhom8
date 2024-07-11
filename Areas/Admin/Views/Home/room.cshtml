@@ -40,13 +40,13 @@
                     <td>@item.IdPhong</td>
                     <td>@item.IdKsNavigation?.TenKs</td>
                     <td>@item.TenPhong</td>
-                    <td>@item.SL_giuong</td>
+                    <td>@item.IdChiTietPhongNavigation?.SlGiuong</td>
                     <td>@item.GiaPhong vnd</td>
                     <td>@item.TinhTrangPhong</td>
                     <td>
                         <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" value="@item.HD" 
-                                @(item.HD==true ? "checked" : "") />
+                                <input class="form-check-input" type="checkbox" id="mySwitch" value="@item.Hd" 
+                                @(item.Hd==true ? "checked" : "") />
                                 </div>
                     </td>
                     @* <td>

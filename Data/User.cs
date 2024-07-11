@@ -19,15 +19,15 @@ public partial class User
 
     public string? Email { get; set; }
 
-    public int? Opt { get; set; }
+    public int? Otp { get; set; }
 
     public string? Img { get; set; }
+
+    public string? RandomKey { get; set; }
 
     public virtual ICollection<Conversation> Conversations { get; set; } = new List<Conversation>();
 
     public virtual ICollection<DatPhong> DatPhongs { get; set; } = new List<DatPhong>();
 
     public virtual ICollection<KhachSan> KhachSans { get; set; } = new List<KhachSan>();
-
-    public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
 }
