@@ -1,4 +1,4 @@
-﻿@* @using Nhom8_DACS.Data;
+﻿@using Nhom8.Data
 @{
     ViewData["Title"] = "room";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -12,30 +12,44 @@
     <div class="content-bang">
         <table>
             <thead>
-            <th colspan="7">
-                <div class="header-bang">
-                    <input type="text" placeholder="name">
-                    <button class="bt-search"><i class="fas fa-search"></i></button>
-                </div>
+            <th colspan="2">
+                 <form method="get" asp-action="Search">
+                    <div class="header-bang">
+                        <input type="text" name="searchTerm" placeholder="name" value="@ViewData["SearchTerm"]" />
+                        <button type="submit" class="bt-search"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
             </th>
-            </thead>
+            <th colspan="6"></th>
+            
             <thead>
-            <th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th>
+            @* <th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th> *@
             <th>mã phòng</th>
+            <th>Khách sạn</th>
             <th>kiểu phòng</th>
-            <th>bữa ăn</th>
-            <th>số lượng giường</th>
+            <th>Số lượng giường</th>
             <th>giá thuê</th>
             <th>tình trạng</th>
+            <th></th>
+            @* <th><input type="button" value="+"></th> *@
+            </thead>
             @foreach(var item in Model)
             {
                <tr>
-                    <td><input type="checkbox" class="checkbox1" name="checkbox-customer"></td>
+                    @* <td><input type="checkbox" class="checkbox1" name="checkbox-customer"></td> *@
                     <td>@item.IdPhong</td>
+                    <td>@item.IdKsNavigation?.TenKs</td>
                     <td>@item.TenPhong</td>
+                    <td>@item.SL_giuong</td>
                     <td>@item.GiaPhong vnd</td>
                     <td>@item.TinhTrangPhong</td>
                     <td>
+                        <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" value="@item.HD" 
+                                @(item.HD==true ? "checked" : "") />
+                                </div>
+                    </td>
+                    @* <td>
                         <div class="dropdown">
                             <button class="bt-more">...</button>
                             <div class="dropdown-content">
@@ -44,10 +58,9 @@
                                 <a href="#">Xóa</a>
                             </div>
                         </div>
-                    </td>
+                    </td> *@
                 </tr>
             }                 
-                            <a href="#">Xóa</a>
                         </div>
                     </div>
                 </td>
@@ -55,4 +68,3 @@
 
         </table>
     </div>
- *@

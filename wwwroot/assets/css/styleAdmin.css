@@ -86,9 +86,13 @@ header {
     display: flex;
 }
 
+th {
+    text-align: left;
+}
+
 th, td {
     padding: 12px 15px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid;
 }
 
@@ -107,7 +111,11 @@ table {
     box-shadow: 2px 1px 3px #00000041;
     border-radius: 5px;
     background-color: white;
+/*    text-align: center;
+    justify-content:center;*/
 }
+
+
 
 .dropdown {
     position: relative;
@@ -257,5 +265,8 @@ table {
     margin-left: 10px;
     margin-top: 7px;
     margin-right: 5px;
+    width: 40px;
 }
+
+
 

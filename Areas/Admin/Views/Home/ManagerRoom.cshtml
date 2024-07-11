@@ -1,4 +1,4 @@
-﻿@* @using Nhom8_DACS.Data
+﻿@using Nhom8.Data
 @{
 	ViewData["Title"] = "ManagerRoom";
 	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -14,38 +14,41 @@
 	<div class="content-bang">
 		<table>
 			<thead>
-			<th colspan="9">
+			<th colspan="2">
 				<div class="header-bang">
 					<input type="text" placeholder="name">
 					<button class="bt-search"><i class="fas fa-search"></i></button>
 				</div>
 			</th>
+			<th colspan="7"></th>
 			</thead>
 			<thead>
-			<th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th>
+			@* <th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th> *@
 			<th>ID</th>
 			<th>Khách hàng</th>
+			<th>Khách sạn</th>
 			<th>Kiểu phòng</th>
 			<th>Số điện thoại</th>
 			<th>ngày đến</th>
 			<th>ngày đi</th>
 			<th>Tình trạng</th>
-			<th><input type="button" value="+"></th>
+			@* <th><input type="button" value="+"></th> *@
 			</thead>
 			@foreach (var item in Model)
 			{
 					<tr>
-						<td><input type="checkbox" class="checkbox1" name="checkbox-customer"></td>
+					@* <td><input type="checkbox" class="checkbox1" name="checkbox-customer"></td> *@
 					<td>@item.IdDatPhong</td>
 					<td class="checkbox-container">
 						<div class="avatar">
-								<img class="img-MR" src="@item.User?.Img" alt="User">
+									<img class="avatar-cus" src="@item.User?.Img" alt="User">
 						</div>
 						<div>
 							<strong>@item.User?.TenKh</strong><br>
 							<p>@item.User?.Email</p>
 						</div>
 					</td>
+					<td>@item.IdPhongNavigation?.IdKsNavigation?.TenKs</td>
 					<td>@item.IdPhongNavigation?.TenPhong</td>
 					<td>@item.User?.Sdt</td>
 					<td>@item.NgayCheckin</td>
@@ -60,7 +63,7 @@
 							<span style="color:rgb(210, 1, 3);">Đã hủy</span>
 						}
 					</td>
-					<td>
+					@* <td>
 						<div class="dropdown">
 							<button class="bt-more">...</button>
 							<div class="dropdown-content">
@@ -69,11 +72,10 @@
 								<a href="#">Xóa</a>
 							</div>
 						</div>
-					</td>
+					</td> *@
 				</tr>
 			}
 
 		</table>
 
 	</div>
- *@
