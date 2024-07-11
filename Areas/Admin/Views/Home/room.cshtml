@@ -23,7 +23,6 @@
             <th colspan="6"></th>
             
             <thead>
-            @* <th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th> *@
             <th>mã phòng</th>
             <th>Khách sạn</th>
             <th>kiểu phòng</th>
@@ -31,12 +30,10 @@
             <th>giá thuê</th>
             <th>tình trạng</th>
             <th></th>
-            @* <th><input type="button" value="+"></th> *@
             </thead>
             @foreach(var item in Model)
             {
                <tr>
-                    @* <td><input type="checkbox" class="checkbox1" name="checkbox-customer"></td> *@
                     <td>@item.IdPhong</td>
                     <td>@item.IdKsNavigation?.TenKs</td>
                     <td>@item.TenPhong</td>
@@ -49,16 +46,7 @@
                                 @(item.Hd==true ? "checked" : "") />
                                 </div>
                     </td>
-                    @* <td>
-                        <div class="dropdown">
-                            <button class="bt-more">...</button>
-                            <div class="dropdown-content">
-                                <a href="#">Chi tiết</a>
-                                <a href="#">Sửa</a>
-                                <a href="#">Xóa</a>
-                            </div>
-                        </div>
-                    </td> *@
+                    
                 </tr>
             }                 
                         </div>

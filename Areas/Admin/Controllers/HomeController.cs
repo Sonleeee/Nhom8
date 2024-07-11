@@ -16,14 +16,14 @@ namespace Nhom8.Areas.Admin.Controllers
 			_context = context;
 		}
 
-        public IActionResult _LayoutAdmin()
+		public IActionResult _LayoutAdmin()
 		{
 			var user = _context.Users.Select(dp => dp.TenKh);
 
 			return View(user);
 		}
 
-        public IActionResult Index()
+		public IActionResult Index()
 		{
 			var listUser = _context.Users.Select(d => d).ToList();
 
@@ -85,7 +85,7 @@ namespace Nhom8.Areas.Admin.Controllers
 				results = await _context.Phongs.ToListAsync();
 			}
 
-			return View("room",results);
+			return View("room", results);
 		}
 
 		public IActionResult support()
@@ -97,38 +97,38 @@ namespace Nhom8.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-        public IActionResult Update(int IdPhong, bool HD)
-        {
-            try
-            {
-                // Tìm phòng cần cập nhật trong database
-                var phongToUpdate = _context.Phongs.FirstOrDefault(p => p.IdPhong == IdPhong);
+		public IActionResult Update(int IdPhong, bool HD)
+		{
+			try
+			{
+				// Tìm phòng cần cập nhật trong database
+				var phongToUpdate = _context.Phongs.FirstOrDefault(p => p.IdPhong == IdPhong);
 
-                if (phongToUpdate != null)
-                {
-                    // Cập nhật trạng thái HD của phòng
-                    phongToUpdate.Hd = HD;
+				if (phongToUpdate != null)
+				{
+					// Cập nhật trạng thái HD của phòng
+					phongToUpdate.Hd = HD;
 
-                    // Lưu thay đổi vào database
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    return NotFound(); // Không tìm thấy phòng cần cập nhật
-                }
-            }
-            catch (Exception ex)
-            {
-                // Xử lý ngoại lệ nếu có lỗi khi cập nhật
-                ModelState.AddModelError("", "Đã xảy ra lỗi khi cập nhật dữ liệu.");
-            }
+					// Lưu thay đổi vào database
+					_context.SaveChanges();
+				}
+				else
+				{
+					return NotFound(); // Không tìm thấy phòng cần cập nhật
+				}
+			}
+			catch (Exception ex)
+			{
+				// Xử lý ngoại lệ nếu có lỗi khi cập nhật
+				ModelState.AddModelError("", "Đã xảy ra lỗi khi cập nhật dữ liệu.");
+			}
 
-            // Chuyển hướng về danh sách phòng sau khi cập nhật thành công
-            return RedirectToAction("room");
-        }
+			// Chuyển hướng về danh sách phòng sau khi cập nhật thành công
+			return RedirectToAction("room");
+		}
 
 
-        
+
 
 
 	}

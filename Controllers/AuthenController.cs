@@ -5,13 +5,15 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Nhom8.Data;
+
 using Nhom8.Services.Email;
 using Nhom8.ViewModels;
+using Nhom8.Helpers;
+using Microsoft.AspNetCore.Http;
+using Nhom8.Data;
 
 namespace Nhom8.Controllers
 {
-    //[Route("Authen")]
     public class AuthenController : Controller
     {
         private readonly BookingHotelContext db;
@@ -34,21 +36,31 @@ namespace Nhom8.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM model, string? ReturnUrl) 
+        public async Task<IActionResult> Login(LoginVM model, string? ReturnUrl)
         {
             ViewBag.ReturnUrl = ReturnUrl;
             if (ModelState.IsValid)
             {
-                var khachhang = db.Users.SingleOrDefault(kh => kh.Tk == model.Email && kh.Mk == model.Password);
+                var khachhang = db.Users.SingleOrDefault(kh => kh.Tk == model.Email);
                 if (khachhang == null)
                 {
                     ModelState.AddModelError("Loi", "Sai thông tin đăng nhập!");
                 }
                 else
                 {
+                    if (khachhang.Mk != model.Password.ToMd5Hash(khachhang.RandomKey))
+                    {
+                        ModelState.AddModelError("loi", "Sai thông tin đăng nhập");
+                    }
+                    else
+                    {
+
+                    }
+
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Email, model.Email),
+                        new Claim(ClaimTypes.Email, khachhang.Email),
+                        new Claim(ClaimTypes.Name, khachhang.TenKh),
                         new Claim(ClaimTypes.Role, "KH"),
                     };
 
@@ -105,9 +117,6 @@ namespace Nhom8.Controllers
         }
         #endregion
 
-
-
-
         #region đăng ký
 
         [HttpGet]
@@ -117,26 +126,43 @@ namespace Nhom8.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model, IFormFile hinh)
+        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile hinh)
         {
 
-            //if (model.ConfirmPassword == model.Mk)
-            //{
-            //    var khachhang = _mapper.Map<User>(model);
-            //    khachhang.RandomKey = MyUtil.GenerateRandomKey();
-            //    khachhang.Mk = model.Mk.ToMd5Hash(khachhang.RandomKey);
-            //    khachhang.Role = "";
-            //    khachhang.Tk = model.Email;
-            //    khachhang.Otp = MyUtil.RandomOTP();
+            if (model.ConfirmPassword == model.Mk)
+            {
+                var khachhang = _mapper.Map<User>(model);
+                //khachhang.RandomKey = MyUtil.GenerateRandomKey();
+                //khachhang.Mk = model.Mk.ToMd5Hash(khachhang.RandomKey);
+                khachhang.Role = "";
+                khachhang.Tk = model.Email;
+                string OTP = MyUtil.RandomOTP().ToString();
+                HttpContext.Session.SetString("OTP", OTP);
+                var subject = OTP.ToString() + "là mã OTP của bạn";
+                var content = "Vui lòng không chia sẽ mã này với bất kì ai!!";
+                try
+                {
+                    await _emailSender.SendEmailAsync(model.Email, subject, content);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
 
-            //    if (hinh != null)
-            //    {
-            //        khachhang.Img = MyUtil.UploadHinh(hinh, "profile");
-            //    }
-            //    db.Add(khachhang);
-            //    db.SaveChanges();
-            //    return RedirectToAction("login", "authen");
-            //}
+                if (hinh != null)
+                {
+                    khachhang.Img = MyUtil.UploadHinh(hinh, "profile");
+                }
+                db.Add(khachhang);
+                db.SaveChanges();
+                return RedirectToAction("login", "authen");
+            }
+
+            return View();
+        }
+
+        public IActionResult ConFirm()
+        {
 
             return View();
         }
@@ -151,13 +177,12 @@ namespace Nhom8.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
-            return Redirect("/");
+            // Đăng xuất khỏi ứng dụng của bạn
+            var callbackUrl = Url.Action("Index", "Home", values: null, protocol: Request.Scheme);
+            return SignOut(new AuthenticationProperties { RedirectUri = callbackUrl },
+                          CookieAuthenticationDefaults.AuthenticationScheme,
+                          GoogleDefaults.AuthenticationScheme);
         }
-
-
-        
-
 
     }
 }

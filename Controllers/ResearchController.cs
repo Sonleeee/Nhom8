@@ -31,7 +31,7 @@ namespace Nhom8_DACS.Controllers
 
             if (phong == 1)
             {
-                
+
             }
 
             if (nguoi_lon == 1)
@@ -46,25 +46,10 @@ namespace Nhom8_DACS.Controllers
             {
                 loaiphong = "Gia đình";
             }
-            
 
-            //var query = db.KhachSans
-            //            .Join(db.Phongs,
-            //            ks => ks.IdKs,
-            //            p => p.IdKs,
-            //            (ks, p) => new { ks, p })
-            //            .Where(ks => ks.ks.Tinh.Equals(location) && ks.ks.)
-            //            .Select(rs => new HotelViewModel
-            //            {
-            //                  ID_KS = ,
-            //                  TenKS = rs.TenKs,
-            //                  DanhGia = rs.DanhGia,
-            //                  DiaChi = rs.DiaChi,
-            //                  TenPhong = rs.TenPhong,
-            //                  GiaPhong = rs.GiaPhong
-            //            });
-            
-            
+
+
+
 
             return View(loaiphong);
         }
