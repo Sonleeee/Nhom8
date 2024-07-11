@@ -126,10 +126,5 @@ namespace Nhom8.Areas.Admin.Controllers
             // Chuyển hướng về danh sách phòng sau khi cập nhật thành công
             return RedirectToAction("room");
         }
-
-
-        
-
-
 	}
 }
