@@ -60,7 +60,10 @@ namespace Nhom8.Areas.Admin.Controllers
 
 		public IActionResult room()
 		{
-			var listR = _context.Phongs.Include(dp => dp.IdKsNavigation).ToList();
+			var listR = _context.Phongs
+				.Include(dp => dp.IdKsNavigation)
+				.Include(dp => dp.IdChiTietPhongNavigation)
+				.ToList();
 			return View(listR);
 		}
 
@@ -88,7 +91,6 @@ namespace Nhom8.Areas.Admin.Controllers
 		public IActionResult support()
 		{
 			var conversations = _context.Conversations
-										   .Include(c => c.Messages)
 										   .Include(c => c.User)
 										   .ToList();
 			return View(conversations);
@@ -105,7 +107,7 @@ namespace Nhom8.Areas.Admin.Controllers
                 if (phongToUpdate != null)
                 {
                     // Cập nhật trạng thái HD của phòng
-                    phongToUpdate.HD = HD;
+                    phongToUpdate.Hd = HD;
 
                     // Lưu thay đổi vào database
                     _context.SaveChanges();

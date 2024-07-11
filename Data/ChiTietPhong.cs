@@ -11,9 +11,11 @@ public partial class ChiTietPhong
 
     public double? DienTich { get; set; }
 
-    public int? SlPhong { get; set; }
+    public int? SlGiuong { get; set; }
 
     public virtual Phong? IdPhongNavigation { get; set; }
+
+    public virtual ICollection<Phong> Phongs { get; set; } = new List<Phong>();
 
     public virtual ICollection<TienNghi> TienNghis { get; set; } = new List<TienNghi>();
 }
