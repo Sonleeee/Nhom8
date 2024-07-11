@@ -11,7 +11,5 @@ public partial class Conversation
 
     public DateTime StartTime { get; set; }
 
-    public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
-
     public virtual User? User { get; set; }
 }
