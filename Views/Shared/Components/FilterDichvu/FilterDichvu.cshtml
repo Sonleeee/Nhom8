@@ -1,15 +1,15 @@
-﻿@model IEnumerable<Nhom8.ViewModels.FilterTNghiVM>
+﻿@model IEnumerable<Nhom8.ViewModels.FilterDichvuVM>
 
 <div class="filter-content">
-    <h5>Tiện nghi</h5>
+    <h5>Dịch vụ</h5>
     <form method="post" asp-action="research" asp-controller="Research" id="filter-form">
         <ul class="list-unstyled">
             @foreach (var item in Model)
             {
                 <li>
                     <div>
-                        @Html.CheckBox("filters", new { id = item.MaTN, value = item.MaTN })
-                        <label for="@item.MaTN">@item.TenTN</label>
+                        @Html.CheckBox("filters", new { id = item.MaDV, value = item.MaDV })
+                        <label for="@item.MaDV">@item.TenDV</label>
                     </div>
                 </li>
             }

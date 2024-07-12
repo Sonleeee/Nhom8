@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Nhom8.Data;
 using Nhom8.Helpers;
 using Nhom8.Services.Email;
@@ -16,6 +17,14 @@ builder.Services.AddDbContext<BookingHotelContext>(op =>
     op.UseSqlServer(builder.Configuration.GetConnectionString("Booking_Hotel"));
 });
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(op =>
+{
+    op.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian timeout
+    op.Cookie.HttpOnly = true; // Cookie chỉ sử dụng cho HTTP
+    op.Cookie.IsEssential = true; // Cookie này cần thiết để sử dụng session
+});
+
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
@@ -27,10 +36,11 @@ builder.Services.AddAuthentication(op =>
     op.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
     op.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 })
-    .AddCookie(IdentityConstants.TwoFactorUserIdScheme, op =>
+    .AddCookie(op =>
     {
-        op.Cookie.Name = IdentityConstants.TwoFactorUserIdScheme;
+        //op.Cookie.Name = IdentityConstants.TwoFactorUserIdScheme;
         op.LoginPath = "/Authen/Login";
+        op.LogoutPath = "/Authen/Logout";
         op.AccessDeniedPath = "/AccessDenied";
     })
     .AddGoogle(op =>
@@ -49,6 +59,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

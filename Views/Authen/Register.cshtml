@@ -16,23 +16,23 @@
                                 <h2 class="text-uppercase text-center mb-2">Đăng ký tài khoản</h2>
                                 <form asp-action="Register" enctype="multipart/form-data" method="post">
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" asp-for="@Model.TenKh" ></label>
-                                        <input type="text" asp-for="@Model.TenKh" class="form-control form-control-lg" asp/>
+                                        <label class="form-label" asp-for="TenKh"></label>
+                                        <input type="text" asp-for="TenKh" class="form-control form-control-lg" />
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" asp-for="@Model.Email"></label>
-                                        <input type="email" asp-route-id="asdas" asp-for="@Model.Email" class="form-control form-control-lg" />
+                                        <label class="form-label" asp-for="Email"></label>
+                                        <input type="email" asp-for="Email" class="form-control form-control-lg" />
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" asp-for="@Model.Mk"></label>
-                                        <input type="password" asp-for="@Model.Mk" class="form-control form-control-lg" />
+                                        <label class="form-label" asp-for="Mk"></label>
+                                        <input type="password" asp-for="Mk" class="form-control form-control-lg" />
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" asp-for="@Model.ConfirmPassword"></label>
-                                        <input type="password" asp-for="@Model.ConfirmPassword" class="form-control form-control-lg" />
+                                        <label class="form-label" asp-for="ConfirmPassword"></label>
+                                        <input type="password" asp-for="ConfirmPassword" class="form-control form-control-lg" />
                                     </div>
 
                                     <!-- OTP Modal -->
@@ -46,44 +46,41 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form id="otpForm">
-                                                        <div class="form-group">
-                                                            <label for="otp">OTP Code</label>
-                                                            <input type="text" class="form-control" id="otp" placeholder="Enter OTP">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary btn-block">Verify</button>
-                                                    </form>
+                                                    <div class="form-group">
+                                                        <label for="otp">OTP Code</label>
+                                                        <input type="text" class="form-control" id="otp" placeholder="Enter OTP">
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary btn-block" onclick="submitOtpForm()">Verify</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#otpModal">
-                                            Đăng kýđ
-                                        </button>
-
                                         <button type="submit" data-mdb-button-init
                                                 data-mdb-ripple-init class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body">
                                             Đăng ký
-                                        </button>                                       
+                                        </button>
                                     </div>
 
                                     <div style="">
                                         <p class="text-center text-muted mt-2 mb-0">
-                                            Bạn đã có tại khoản? <a asp-controller="Authen" asp-action="Login"
+                                            Bạn đã có tài khoản? <a asp-controller="Authen" asp-action="Login"
                                                                     class="fw-bold text-body"><u>Đăng nhập</u></a>
                                         </p>
 
-                                        <p class="text-center text-muted mt-2 mb-0" style="padding-left:">
+                                        <p class="text-center text-muted mt-2 mb-0">
                                             <a asp-controller="Authen" asp-action="Register" class="fw-bold text-body">Hợp tác với chúng tôi</a>
                                         </p>
                                     </div>
-                                    
-                                    
-
                                 </form>
+
+                                <script>
+                                    function submitOtpForm() {
+                                        // Thêm logic xử lý OTP tại đây nếu cần
+                                        document.querySelector('form').submit();
+                                    }
+                                </script>
 
                             </div>
                         </div>

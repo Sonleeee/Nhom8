@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Nhom8.ViewModels.HotelViewModel>
 @{
     ViewData["Title"] = "Trang chủ";
-
 }
 
 <div id="content">
@@ -136,7 +135,7 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="row">
-                                @* @foreach (var hotel in Model) *@
+                                @foreach (var hotel in Model)
                                 {
                                     <div class="col-md-4 col-lg-3 mb-4">
                                         <div class="card">
@@ -144,9 +143,12 @@
                                                 <img src="https://cdn1.ivivu.com/iVivu/2019/08/22/18/landscape-4096-1-800x450.webp?o=jpg" class="card-img-top-2" alt="The Malibu Hotel">
                                             </div>
                                             <div class="card-body">
-                                                @* <h5 class="card-title">@hotel.TenKS</h5>
-                                                <p class="hotel-price">@hotel.DanhGia</p>
-                                                <p class="card-text">@hotel.Tinh</p> *@
+                                                <a asp-action="research" asp-controller="research" asp-route-idTinh="@hotel.ID_KS" style="text-decoration: none; color: black">
+                                                    <h5 class="card-title">@hotel.TenKS</h5>
+                                                    <p class="hotel-price">@hotel.DanhGia</p>
+                                                    <p class="card-text">@hotel.Tinh</p>
+                                                </a>
+                                                                                            
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +158,24 @@
                         
                         <div class="carousel-item">
                             <div class="row">
-                                
+                                @foreach (var hotel in Model)
+                                {
+                                    <div class="col-md-4 col-lg-3 mb-4">
+                                        <div class="card">
+                                            <div class="position-relative">
+                                                <img src="https://cdn1.ivivu.com/iVivu/2019/08/22/18/landscape-4096-1-800x450.webp?o=jpg" class="card-img-top-2" alt="The Malibu Hotel">
+                                            </div>
+                                            <div class="card-body">
+                                                <a asp-action="research" asp-controller="research" asp-route-idTinh="@hotel.ID_KS" style="text-decoration: none; color: black">
+                                                    <h5 class="card-title">@hotel.TenKS</h5>
+                                                    <p class="hotel-price">@hotel.DanhGia</p>
+                                                    <p class="card-text">@hotel.Tinh</p>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
