@@ -5,18 +5,19 @@ using Microsoft.EntityFrameworkCore;
 using Nhom8.ViewModels;
 using System;
 using NuGet.Protocol.Plugins;
+using Nhom8.Data;
 
 
 namespace Nhom8_DACS.Controllers
 {
     public class ResearchController : Controller
     {
-        //private BookingHotelContext db;
+        private BookingHotelContext db;
 
-        //public ResearchController(BookingHotelContext context)
-        //{
-        //    db = context;
-        //}
+        public ResearchController(BookingHotelContext context)
+        {
+            db = context;
+        }
 
         public IActionResult research()
         {

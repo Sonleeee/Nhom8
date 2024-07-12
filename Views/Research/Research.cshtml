@@ -28,28 +28,10 @@
                 
                 @await Component.InvokeAsync("FilterTNghi")
 
-                <div class="filter-content">
-                    <h5>Xếp hạng chỗ nghỉ</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <input type="checkbox" id="star-one">
-                            <label for="star"> 1 sao</label>
-                        </li>
-                        <li><input type="checkbox" id="star-two-"><label for="star"> 2 sao</label></li>
-                        <li><input type="checkbox" id="star-three"><label for="star"> 3 sao</label></li>
-                        <li><input type="checkbox" id="star-four"><label for="star"> 4 sao</label></li>
-                        <li><input type="checkbox" id="star-five"><label for="star"> 5 sao</label></li>
-                        <li><input type="checkbox" id="star-no"><label for="star"> Không xếp hạng</label></li>
-                    </ul>
-                </div>
+                @await Component.InvokeAsync("FilterDichvu")
 
-                <div class="filter-content" style="border-bottom: 1px solid rgb(201, 198, 198); border-bottom-left-radius:5px; border-bottom-right-radius: 5px;">
-                    <h5>Chính sách đặt phòng</h5>
-                    <ul class="list-unstyled">
-                        <li><input type="checkbox" id="star-one"><label for="star"> Miễn phí hủy</label></li>
-                        <li><input type="checkbox" id="star-two-"><label for="star">Không cần thanh toán trước</label></li>
-                    </ul>
-                </div>
+                @await Component.InvokeAsync("FilterChinhsach")
+                                
 
             </div>
 

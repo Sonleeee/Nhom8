@@ -61,7 +61,7 @@ namespace Nhom8.Controllers
                     {
                         new Claim(ClaimTypes.Email, khachhang.Email),
                         new Claim(ClaimTypes.Name, khachhang.TenKh),
-                        new Claim(ClaimTypes.Role, "KH"),
+                        new Claim(ClaimTypes.Role, khachhang.Role),
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -132,13 +132,13 @@ namespace Nhom8.Controllers
             if (model.ConfirmPassword == model.Mk)
             {
                 var khachhang = _mapper.Map<User>(model);
-                //khachhang.RandomKey = MyUtil.GenerateRandomKey();
-                //khachhang.Mk = model.Mk.ToMd5Hash(khachhang.RandomKey);
+                khachhang.RandomKey = MyUtil.GenerateRandomKey();
+                khachhang.Mk = model.Mk.ToMd5Hash(khachhang.RandomKey);
                 khachhang.Role = "";
                 khachhang.Tk = model.Email;
                 string OTP = MyUtil.RandomOTP().ToString();
                 HttpContext.Session.SetString("OTP", OTP);
-                var subject = OTP.ToString() + "là mã OTP của bạn";
+                var subject = OTP.ToString() + " là mã OTP của bạn";
                 var content = "Vui lòng không chia sẽ mã này với bất kì ai!!";
                 try
                 {
@@ -178,10 +178,8 @@ namespace Nhom8.Controllers
         public async Task<IActionResult> Logout()
         {
             // Đăng xuất khỏi ứng dụng của bạn
-            var callbackUrl = Url.Action("Index", "Home", values: null, protocol: Request.Scheme);
-            return SignOut(new AuthenticationProperties { RedirectUri = callbackUrl },
-                          CookieAuthenticationDefaults.AuthenticationScheme,
-                          GoogleDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
         }
 
     }
