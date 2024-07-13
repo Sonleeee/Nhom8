@@ -56,6 +56,22 @@ namespace Nhom8.Areas.Admin.Controllers
 			return View(customers.ToList());
 		}
 
+		[HttpPost]
+		public IActionResult Delete(int id)
+		{
+			var user = _context.Users.Find(id);
+			if (user == null)
+			{
+				return RedirectToAction("Customer", "Users");
+			}
+
+			_context.Users.Remove(user);
+			_context.SaveChanges();
+
+			return RedirectToAction(nameof(Customer)); // Chuyển hướng về action hiển thị danh sách người dùng
+		}
+
+
 		public IActionResult ManagerRoom(string searchString)
 		{
 			var rooms = _context.DatPhongs
@@ -101,7 +117,7 @@ namespace Nhom8.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Updates(int id, bool hd)
         {
-            var room = await _context.Phongs.FindAsync(id);
+            var room = _context.Phongs.Find(id);
 
             if (room == null)
             {
@@ -120,8 +136,6 @@ namespace Nhom8.Areas.Admin.Controllers
 
         public IActionResult support()
         {
-           
-
             return View();
         }
 

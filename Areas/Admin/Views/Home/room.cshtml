@@ -48,7 +48,8 @@
                             <div class="form-check form-switch">
                                 <input type="hidden" name="id" value="@item.IdPhong" />
                                 <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" @(item.Hd.HasValue && item.Hd.Value ? "checked" : "") />
-                                <button type="submit">Lưu</button>
+                                <label class="form-check-label" for="hd_@item.IdPhong">Cập nhật</label>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                         
@@ -71,4 +72,5 @@
             </tr>
 
         </table>
+
     </div>
