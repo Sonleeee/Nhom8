@@ -44,14 +44,14 @@ namespace Nhom8_DACS.Areas.Admin.Controllers
 			return View();
 		}
 
-		public IActionResult room()
+		public IActionResult Room()
 		{
 			//var listR = _context.Phongs.Select(p => p).ToList();
 			//return View(listR);
 			return View();
 		}
 
-		public IActionResult support()
+		public IActionResult Support()
 		{
 			return View();
 		}

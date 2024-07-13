@@ -1,12 +1,18 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
-using Nhom8_DACS.Helpers;
-using Nhom8_DACS.Services.Email;
+using Microsoft.EntityFrameworkCore;
+using Nhom8.Data;
+using Nhom8.Helpers;
+using Nhom8.Services.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// ??ng ký DBContext v?i dependency Injection
+builder.Services.AddDbContext<BookingHotelContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Booking_Hotel")));
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 

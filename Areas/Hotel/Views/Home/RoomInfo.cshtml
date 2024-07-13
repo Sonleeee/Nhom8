@@ -8,39 +8,40 @@
     <header>
         <h1>Quản lý Phòng</h1>
     </header>
-
+    
     <main>
-        <section class="form-section">
-            <h2>Thêm Phòng Mới</h2>
-            <form id="add-room-form">
-                <div class="form-group">
-                    <label for="room-name">Tên Phòng:</label>
-                    <input type="text" id="room-name" name="room-name" required>
-                </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Thêm phòng
+        </button>
 
-                <div class="form-group">
-                    <label for="room-type">Loại Phòng:</label>
-                    <input type="text" id="room-type" name="room-type" required>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thêm phòng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="room-name">Tên Phòng:</label>
+                        <input class="form-control" type="text" id="room-name" name="room-name" placeholder="Tên phòng" required>
+                        <label for="room-type">Loại Phòng:</label>
+                        <input class="form-control" type="text" id="room-type" name="room-type" placeholder="Loại phòng" required>
+                        <label for="room-price">Giá Phòng (VND):</label>
+                        <input class="form-control" type="number" id="room-price" name="room-price" placeholder="Giá VND" required>
+                        <label for="room-description">Mô Tả:</label>
+                        <textarea class="form-control" id="room-description" name="room-description" rows="4" placeholder="Mô Tả"></textarea>
+                        <label for="room-image">Hình Ảnh:</label>
+                        <input class="form-control" type="file" id="room-image" name="room-image" multiple>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary">Thêm</button>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="room-price">Giá Phòng (VND):</label>
-                    <input type="number" id="room-price" name="room-price" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="room-description">Mô Tả:</label>
-                    <textarea id="room-description" name="room-description" rows="4"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="room-image">Hình Ảnh:</label>
-                    <input type="file" id="room-image" name="room-image" multiple>
-                </div>
-
-                <button type="submit">Thêm Phòng</button>
-            </form>
-        </section>
+            </div>
+        </div>
 
         <section class="room-list">
             <h2>Danh Sách Phòng</h2>
