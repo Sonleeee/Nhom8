@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Nhom8.Data;
 using Nhom8.ViewModels;
 
@@ -47,7 +49,30 @@ namespace Nhom8.Areas.Admin.Controllers
 			return View(listCus);
 		}
 
-		public IActionResult ManagerRoom()
+		[HttpPost]
+		public string Customer(string searchString, bool notUsed)
+		{
+			return "From [HttpPost]Index: filter on " + searchString;
+		}
+		public async Task<IActionResult> SearchCus(string searchString)
+        {
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+            }
+
+            var user = from m in _context.Users
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                user = user.Where(s => s.TenKh!.Contains(searchString));
+            }
+
+            return View(await user.ToListAsync());
+        }
+
+        public IActionResult ManagerRoom()
 		{
 			var listMR = _context.DatPhongs
 				.Include(dp => dp.User)
@@ -67,64 +92,6 @@ namespace Nhom8.Areas.Admin.Controllers
 			return View(listR);
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> Search(string searchTerm)
-		{
-			ViewData["SearchTerm"] = searchTerm;
-
-			var results = new List<Phong>();
-
-			if (!string.IsNullOrEmpty(searchTerm))
-			{
-				results = await _context.Phongs
-										.Where(p => p.TenPhong.Contains(searchTerm) || p.LoaiPhong.Contains(searchTerm))
-										.ToListAsync();
-			}
-			else
-			{
-				results = await _context.Phongs.ToListAsync();
-			}
-
-			return View("room",results);
-		}
-
-		public IActionResult support()
-		{
-			var conversations = _context.Conversations
-										   .Include(c => c.User)
-										   .ToList();
-			return View(conversations);
-		}
-
-		[HttpPost]
-        public IActionResult Update(int IdPhong, bool HD)
-        {
-            try
-            {
-                // Tìm phòng cần cập nhật trong database
-                var phongToUpdate = _context.Phongs.FirstOrDefault(p => p.IdPhong == IdPhong);
-
-                if (phongToUpdate != null)
-                {
-                    // Cập nhật trạng thái HD của phòng
-                    phongToUpdate.Hd = HD;
-
-                    // Lưu thay đổi vào database
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    return NotFound(); // Không tìm thấy phòng cần cập nhật
-                }
-            }
-            catch (Exception ex)
-            {
-                // Xử lý ngoại lệ nếu có lỗi khi cập nhật
-                ModelState.AddModelError("", "Đã xảy ra lỗi khi cập nhật dữ liệu.");
-            }
-
-            // Chuyển hướng về danh sách phòng sau khi cập nhật thành công
-            return RedirectToAction("room");
-        }
-	}
+		
+    }
 }
