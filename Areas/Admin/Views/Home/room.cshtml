@@ -44,14 +44,15 @@
                     <td>@item.GiaPhong vnd</td>
                     <td>@item.TinhTrangPhong</td>
                     <td>
-                        <form asp-action="Updates" method="post">
+                        <form asp-action="Updates" method="post" id="updateForm_@item.IdPhong">
                             <div class="form-check form-switch">
                                 <input type="hidden" name="id" value="@item.IdPhong" />
-                                <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" @(item.Hd.HasValue && item.Hd.Value ? "checked" : "") />
-                                <label class="form-check-label" for="hd_@item.IdPhong">Cập nhật</label>
-                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                <input type="hidden" name="hd"/>
+                                <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" value="@item.Hd"  @(item.Hd ? "checked" : "") onchange="this.form.submit()" />
                             </div>
                         </form>
+
+
                         
                     </td>
                     @* <td>

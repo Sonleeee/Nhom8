@@ -6,5 +6,6 @@ namespace Nhom8.ViewModels
 	{
 		public List<User> Users { get; set; }
 		public List<DatPhong> DatPhongs { get; set; }
+		public List<Phong> Phongs { get; set; }
 	}
 }
