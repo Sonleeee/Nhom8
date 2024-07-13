@@ -15,10 +15,12 @@
 		<table>
 			<thead>
 			<th colspan="2">
-				<div class="header-bang">
-					<input type="text" placeholder="name">
-					<button class="bt-search"><i class="fas fa-search"></i></button>
-				</div>
+				<form method="get" asp-controller="Home" asp-action="ManagerRoom">
+					<div class="header-bang">
+						<input type="text" placeholder="name" name="searchString">
+						<button type="submit" class="bt-search"><i class="fas fa-search"></i></button>
+					</div>
+				</form>
 			</th>
 			<th colspan="7"></th>
 			</thead>

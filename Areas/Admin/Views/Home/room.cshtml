@@ -1,5 +1,5 @@
 ﻿@using Nhom8.Data
-@{
+@{ 
     ViewData["Title"] = "room";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -13,9 +13,9 @@
         <table>
             <thead>
             <th colspan="2">
-                 <form method="get" asp-action="Search">
+                <form method="get" asp-controller="Home" asp-action="Room">
                     <div class="header-bang">
-                        <input type="text" name="searchTerm" placeholder="name" value="@ViewData["SearchTerm"]" />
+                        <input type="text" placeholder="name" name="searchString">
                         <button type="submit" class="bt-search"><i class="fas fa-search"></i></button>
                     </div>
                 </form>
@@ -41,10 +41,16 @@
                     <td>@item.GiaPhong vnd</td>
                     <td>@item.TinhTrangPhong</td>
                     <td>
-                        <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" value="@item.Hd" 
-                                @(item.Hd==true ? "checked" : "") />
-                                </div>
+                        <form asp-action="Updates" method="post" id="updateForm_@item.IdPhong">
+                            <div class="form-check form-switch">
+                                <input type="hidden" name="id" value="@item.IdPhong" />
+                                <input type="hidden" name="hd"/>
+                                <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" value="@item.Hd"  @(item.Hd ? "checked" : "") onchange="this.form.submit()" />
+                            </div>
+                        </form>
+
+
+                        
                     </td>
                     
                 </tr>
@@ -55,4 +61,5 @@
             </tr>
 
         </table>
+
     </div>
