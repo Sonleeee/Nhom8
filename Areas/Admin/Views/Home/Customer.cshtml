@@ -49,10 +49,10 @@
 						<i class="fa-solid fa-check"></i>
 					</td>
 					<td>
-						<form asp-action="Delete" method="post">
-							<a class="btn btn-danger btn-sm" asp-controller="Home" asp-action="Delete"
-							asp-route-id="@item.UserId">Xóa</a>	
-						</form>
+							<form asp-action="Delete" method="post" asp-controller="Home">
+								<input type="hidden" name="id" value="@item.UserId" />
+								<button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+							</form>
 					</td>	
 					
 

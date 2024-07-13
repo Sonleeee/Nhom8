@@ -24,15 +24,15 @@ namespace Nhom8.Areas.Admin.Controllers
 		{
 			var listUser = _context.Users.Select(d => d).ToList();
 
-			var listAD = _context.DatPhongs
-			.Include(dp => dp.User) // Include user related to DatPhongs
-			.Include(dp => dp.IdPhongNavigation) // Include room related to DatPhongs
-			.ToList();
+			var listAD = _context.DatPhongs.Select(d => d).ToList();
+
+            var listRoom = _context.Phongs.Select(d => d).ToList();
 
 			var indexAD = new IndexAD()
 			{
 				Users = listUser,
-				DatPhongs = listAD
+				DatPhongs = listAD,
+                Phongs =  listRoom
 			};
 			return View(indexAD);
 
@@ -56,23 +56,23 @@ namespace Nhom8.Areas.Admin.Controllers
 			return View(customers.ToList());
 		}
 
-		[HttpPost]
-		public IActionResult Delete(int id)
-		{
-			var user = _context.Users.Find(id);
-			if (user == null)
-			{
-				return RedirectToAction("Customer", "Users");
-			}
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound(); // Xử lý khi không tìm thấy người dùng
+            }
 
-			_context.Users.Remove(user);
-			_context.SaveChanges();
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
 
-			return RedirectToAction(nameof(Customer)); // Chuyển hướng về action hiển thị danh sách người dùng
-		}
+            return RedirectToAction(nameof(Customer));
+        }
 
 
-		public IActionResult ManagerRoom(string searchString)
+        public IActionResult ManagerRoom(string searchString)
 		{
 			var rooms = _context.DatPhongs
 				.Include(dp => dp.User)
@@ -117,20 +117,29 @@ namespace Nhom8.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Updates(int id, bool hd)
         {
-            var room = _context.Phongs.Find(id);
+            var room = await _context.Phongs.FindAsync(id);
 
             if (room == null)
             {
                 return NotFound(); // Xử lý khi không tìm thấy phòng
             }
 
-            room.Hd = hd; // Cập nhật trạng thái của phòng
+			if(room.Hd == true)
+                room.Hd = hd;
+
+            else
+                room.Hd = !hd;
+
+
+
+            // Cập nhật trạng thái của phòng
 
             _context.Update(room);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(room)); // Chuyển hướng về action hiển thị danh sách phòng
+            return RedirectToAction("room"); // Chuyển hướng về action hiển thị danh sách phòng, hãy đảm bảo rằng "Index" là tên chính xác của action
         }
+
 
 
 
