@@ -1,5 +1,6 @@
 ﻿@using Nhom8.Data
 @{
+	ViewData["Title"] = "Custmer";
 	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 @model List<User>
@@ -11,10 +12,12 @@
 		<table>
 			<thead>
 			<th colspan="2">
-				<div class="header-bang">
-					<input type="text" placeholder="name">
-					<button class="bt-search"><i class="fas fa-search"></i></button>
-				</div>
+				<form asp-controller="Customer" asp-action="Customer">
+					<div class="header-bang">
+						<input type="text" placeholder="name" name="SearchCus">
+						<input type="submit" value="Filter" class="bt-search"><i class="fas fa-search"></i></input>
+					</div>
+				</form>			
 			</th>
 			<th colspan="5"></th>
 			</thead>
