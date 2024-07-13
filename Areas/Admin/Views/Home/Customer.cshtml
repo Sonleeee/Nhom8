@@ -22,59 +22,51 @@
 			<th colspan="5"></th>
 			</thead>
 			<thead>
-			
+				@* <th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th> *@
 			<th>ID</th>
 			<th>Hình đại diện</th>
 			<th>Tên</th>
 			<th>Email</th>
 			<th>SĐT</th>
 			<th>Xác minh</th>
-<<<<<<< HEAD
-			
-=======
 			<th></th>
-			@* <th><input type="button" value="+"></th> *@
->>>>>>> dat
+				@* <th><input type="button" value="+"></th> *@
 			</thead>
 			@foreach (var item in Model)
 			{
 				if (item.Role == "CUS")
 				{
 					<tr>
-						
-					<td>@item.UserId</td>
-					<td class="checkbox-container">
-						<img style="margin-left: 40%" class="avatar-cus" src="@item.Img" alt="" />						
-					</td>
-					<td>@item.TenKh</td>
-					<td>@item.Email</td>
-					<td>@item.Sdt</td>
-					<td>
-						<i class="fa-solid fa-check"></i>
-					</td>
-<<<<<<< HEAD
-					
-=======
-					<td>
+						@* <td><input type="checkbox" class="checkbox1" name="checkbox-customer"></td> *@
+						<td>@item.UserId</td>
+						<td class="checkbox-container">
+							<img style="margin-left: 40%" class="avatar-cus" src="@item.Img" alt="" />
+						</td>
+						<td>@item.TenKh</td>
+						<td>@item.Email</td>
+						<td>@item.Sdt</td>
+						<td>
+							<i class="fa-solid fa-check"></i>
+						</td>
+						<td>
 							<form asp-action="Delete" method="post" asp-controller="Home">
 								<input type="hidden" name="id" value="@item.UserId" />
 								<button type="submit" class="btn btn-danger btn-sm">Xóa</button>
 							</form>
-					</td>	
-					
+						</td>
 
-					@* <td>
-						<div class="dropdown">
-							<button class="bt-more">...</button>
-							<div class="dropdown-content">
-								<a href="#">Chi tiết</a>
-								<a href="#">Sửa</a>
-								<a href="#">Xóa</a>
-							</div>
-						</div>
-					</td> *@
->>>>>>> dat
-				</tr>
+
+						@* <td>
+				<div class="dropdown">
+				<button class="bt-more">...</button>
+				<div class="dropdown-content">
+				<a href="#">Chi tiết</a>
+				<a href="#">Sửa</a>
+				<a href="#">Xóa</a>
+				</div>
+				</div>
+				</td> *@
+					</tr>
 				}
 			}
 		</table>
