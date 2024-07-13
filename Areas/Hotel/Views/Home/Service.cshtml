@@ -43,7 +43,7 @@
             </div>
 
             <!-- Form trong modal để thêm dịch vụ mới -->
-            <form method="post" asp-controller="Home" asp-action="AddService">
+            <form id="addServiceForm" method="post" asp-controller="Home" asp-action="AddService">
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -52,7 +52,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <input type="text" class="form-control-plaintext" id="tenDichVu" placeholder="Tên dịch vụ" name="tenDichVu" required>
+                                <input type="text" class="form-control" id="tenDichVu" placeholder="Tên dịch vụ" name="tenDichVu" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -62,6 +62,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

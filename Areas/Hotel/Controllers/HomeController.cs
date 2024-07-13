@@ -41,7 +41,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         {
             return View();
         }
-
+        
         public IActionResult Service(string searchString)
         {
             int? ksID = context.KhachSans
@@ -66,7 +66,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         [HttpPost]
         public IActionResult AddService(string tenDichVu)
         {
-            logger.LogInformation("AddService POST method called with tenDichVu: {TenDichVu}", tenDichVu);
+            
             int? ksID = context.KhachSans
                   .Where(q => q.UserId.Equals(userID))
                   .Select(p => p.IdKs)
@@ -81,8 +81,6 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             context.DichVus.Add(dichVuMoi);
             context.SaveChanges();
             
-            logger.LogInformation("New service added: {DichVu}", dichVuMoi);
-
             return RedirectToAction("Service");
         }
 
