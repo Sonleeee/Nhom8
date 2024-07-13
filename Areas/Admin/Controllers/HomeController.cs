@@ -18,12 +18,7 @@ namespace Nhom8.Areas.Admin.Controllers
 			_context = context;
 		}
 
-        public IActionResult _LayoutAdmin()
-		{
-			var user = _context.Users.Select(dp => dp.TenKh);
-
-			return View(user);
-		}
+        
 
         public IActionResult Index()
 		{
@@ -43,55 +38,93 @@ namespace Nhom8.Areas.Admin.Controllers
 
 		}
 
-		public IActionResult Customer()
+		/*public IActionResult Customer()
 		{
 			var listCus = _context.Users.Where(p => p.Role == "CUS").ToList();
 			return View(listCus);
+		}*/
+
+		public IActionResult Customer(string searchString)
+		{
+			var customers = _context.Users.Where(p => p.Role == "CUS");
+
+			if (!string.IsNullOrEmpty(searchString))
+			{
+				customers = customers.Where(s => s.TenKh.Contains(searchString));
+			}
+
+			return View(customers.ToList());
 		}
 
-		[HttpPost]
-		public string Customer(string searchString, bool notUsed)
+		public IActionResult ManagerRoom(string searchString)
 		{
-			return "From [HttpPost]Index: filter on " + searchString;
-		}
-		public async Task<IActionResult> SearchCus(string searchString)
-        {
-            if (_context.Users == null)
-            {
-                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
-            }
-
-            var user = from m in _context.Users
-                         select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                user = user.Where(s => s.TenKh!.Contains(searchString));
-            }
-
-            return View(await user.ToListAsync());
-        }
-
-        public IActionResult ManagerRoom()
-		{
-			var listMR = _context.DatPhongs
+			var rooms = _context.DatPhongs
 				.Include(dp => dp.User)
 				.Include(dp => dp.IdPhongNavigation)
 				.ThenInclude(dp => dp.IdKsNavigation)
-				.ToList();
+				.AsQueryable();
 
-			return View(listMR);
+			if (!string.IsNullOrEmpty(searchString))
+			{
+				rooms = rooms.Where(r =>
+					(r.IdPhongNavigation != null && r.IdPhongNavigation.TenPhong != null && r.IdPhongNavigation.TenPhong.Contains(searchString)) ||
+					(r.User != null && r.User.TenKh != null && r.User.TenKh.Contains(searchString)) ||
+					(r.IdPhongNavigation != null && r.IdPhongNavigation.IdKsNavigation != null && r.IdPhongNavigation.IdKsNavigation.TenKs.Contains(searchString))
+				);
+			}
+
+			return View(rooms.ToList());
 		}
 
-		public IActionResult room()
-		{
-			var listR = _context.Phongs
-				.Include(dp => dp.IdKsNavigation)
-				.Include(dp => dp.IdChiTietPhongNavigation)
-				.ToList();
-			return View(listR);
-		}
 
-		
+
+        public IActionResult room(string searchString)
+        {
+            var rooms = _context.Phongs
+                .Include(p => p.IdKsNavigation)
+                .Include(p => p.IdChiTietPhongNavigation)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                rooms = rooms.Where(r =>
+                    r.TenPhong.Contains(searchString) ||
+                    r.IdKsNavigation.TenKs.Contains(searchString) ||
+                    r.IdChiTietPhongNavigation.SlGiuong == int.Parse(searchString)
+                     // Ví dụ cho trường hợp tìm kiếm theo IdPhong
+                );
+            }
+
+            return View(rooms.ToList());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Updates(int id, bool hd)
+        {
+            var room = await _context.Phongs.FindAsync(id);
+
+            if (room == null)
+            {
+                return NotFound(); // Xử lý khi không tìm thấy phòng
+            }
+
+            room.Hd = hd; // Cập nhật trạng thái của phòng
+
+            _context.Update(room);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(room)); // Chuyển hướng về action hiển thị danh sách phòng
+        }
+
+
+
+        public IActionResult support()
+        {
+           
+
+            return View();
+        }
+
+
     }
 }

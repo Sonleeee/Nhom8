@@ -12,12 +12,12 @@
 		<table>
 			<thead>
 			<th colspan="2">
-				<form asp-controller="Customer" asp-action="Customer">
+				<form method="get" asp-controller="Home" asp-action="Customer">
 					<div class="header-bang">
-						<input type="text" placeholder="name" name="SearchCus">
-						<input type="submit" value="Filter" class="bt-search"><i class="fas fa-search"></i></input>
+						<input type="text" placeholder="name" name="searchString">
+						<button type="submit" class="bt-search"><i class="fas fa-search"></i></button>
 					</div>
-				</form>			
+				</form>
 			</th>
 			<th colspan="5"></th>
 			</thead>
