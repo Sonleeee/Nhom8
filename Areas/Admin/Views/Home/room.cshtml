@@ -13,10 +13,9 @@
         <table>
             <thead>
             <th colspan="2">
-                 <form method="get" asp-action="Search">
+                <form method="get" asp-controller="Home" asp-action="Room">
                     <div class="header-bang">
-
-                        <input type="text" name="searchTerm" placeholder="name" value="@ViewData["SearchTerm"]" />
+                        <input type="text" placeholder="name" name="searchString">
                         <button type="submit" class="bt-search"><i class="fas fa-search"></i></button>
                     </div>
                 </form>
@@ -48,9 +47,8 @@
                         <form asp-action="Updates" method="post">
                             <div class="form-check form-switch">
                                 <input type="hidden" name="id" value="@item.IdPhong" />
-                                <input class="form-check-input" type="checkbox" id="mySwitch" name="hd" @(item.Hd.Value ? "checked" : "") />
-
-                                <button type="submit" onclick="Update">Cập nhật</button>
+                                <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" @(item.Hd.HasValue && item.Hd.Value ? "checked" : "") />
+                                <button type="submit">Lưu</button>
                             </div>
                         </form>
                         
