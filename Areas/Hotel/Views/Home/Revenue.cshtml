@@ -1,66 +1,131 @@
-﻿
+﻿@using Nhom8.Data
 @{
     ViewData["Title"] = "Revenue";
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
+    // Kiểm tra và cast ViewBag.Years và ViewBag.Months sang List<int>
+    var revenueData = ViewBag.RevenueData as List<RevenuePerDay>;
+    var years = ViewBag.Years as List<int>;
+    var months = ViewBag.Months as List<int>;
+    bool checkFirst = true;
 }
+@model IEnumerable<Nhom8.Data.DatPhong>
 
 <div class="HotelBody">
     <div class="BodyItem">
         <h2>Tổng quan doanh thu</h2>
-        <h3>Báo cáo tổng doanh thu hàng tháng</h3>
+        <div class="year-selection">
+            <label for="yearSelect">Chọn năm:</label>
+            <select id="yearSelect" onchange="updateYear()">
+                @if (years != null && years.Any())
+                {
+                        @foreach (var year in years)
+                        {
+                        <option value="@year">@year</option>
+                        }
+                }
+                
+                <!-- Add more years as needed -->
+            </select>
+        </div>
+        <h3>Báo cáo tổng doanh thu hàng tháng
+        </h3>
         <div class="divFinanceInform">
             <ul role="tablist" class="bui-tab__nav">
-                <div>
-                <li role="tab" class="fin-overview-statistics-tabs__item bui-tab__item">
-                    <button class="bui-tab__link bui-tab__link--selected">
-                        <span>Tháng 1</span><br>
-                        <span>VND 0</span>
-                    </button>
-                </li>
-                </div>
-                <div>
+                @for (int i = 1; i <= 12; i++)
+                {
                     <li role="tab" class="fin-overview-statistics-tabs__item bui-tab__item">
-                        <button class="bui-tab__link ">
-                            <span>Tháng 2</span><br>
-                            <span>VND 0</span>
+                        <button id="month-@i" class="bui-tab__link @(checkFirst == true ? "bui-tab__link--selected" : "")  " onclick="updateChart(@i)">
+                            <span>Tháng @i</span><br>
+                            <span id="revenue-@i">VND 0</span>
                         </button>
                     </li>
-                </div>
+                    checkFirst = false;
+                }
+                
+                <!-- Add more months as needed -->
             </ul>
             <div class="clearfix"></div>
             <canvas id="myChart" style="width:100%;max-width: 100%"></canvas>
         </div>
-        <div>
-
-        </div>
     </div>
 </div>
 
-
-
 <script>
-    const xValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
-    const yValues = [55, 49, 44, 24, 15];
+
+    const xValues = [
+    @for (int i = 1; i <= 31; i++)
+    {
+        @($"{i}, ")
+    }
+        ];
+    const revenueData = {
+    @foreach (var year in years)
+    {
+        @: @year: {
+        @for (int month = 1; month <= 12; month++)
+        {
+            @: @month: [
+            @for (int day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+            {
+                var dailyRevenue = revenueData.FirstOrDefault(p => p.Year == year && p.Month == month && p.Day == day)?.Revenue ?? 0;
+                @: @dailyRevenue,
+                @if (day < DateTime.DaysInMonth(year, month))
+                {
+                    @:,
+                }
+            }
+            @: ],
+        }
+        @: },
+    }
+    }
 
 
-    new Chart("myChart", {
+    let selectedYear = 2024;
+
+    const chart = new Chart("myChart", {
         type: "bar",
         data: {
             labels: xValues,
             datasets: [{
                 backgroundColor: "blue",
-                data: yValues
+                data: revenueData[selectedYear][1]
             }]
         },
         options: {
             legend: { display: false },
             title: {
                 display: true,
-                text: "Doanh thu các ngày trong tháng 1",
-
+                text: "Doanh thu các ngày trong tháng 1"
             }
-
-
         }
     });
+
+    function updateYear() {
+        selectedYear = document.getElementById('yearSelect').value;
+        updateChart(1); // Reset to month 1 or handle as needed
+    }
+
+    function updateChart(month) {
+        // Update chart data
+        chart.data.datasets[0].data = revenueData[selectedYear][month];
+        chart.options.title.text = "Doanh thu các ngày trong tháng " + month + " năm " + selectedYear;
+        chart.update();
+
+        // Update revenue display
+        const totalRevenue = calculateTotalRevenue(revenueData[selectedYear][month]);
+        document.getElementById('revenue-' + month).textContent = "VND " + totalRevenue.toLocaleString();
+
+        // Update button classes
+        document.querySelectorAll('.bui-tab__link').forEach(button => {
+            button.classList.remove('bui-tab__link--selected');
+        });
+        document.getElementById('month-' + month).classList.add('bui-tab__link--selected');
+    }
+    function daysInMonth(year, month) {
+        return new Date(year, month, 0).getDate();
+    }
+    function calculateTotalRevenue(dataArray) {
+        return dataArray.reduce((total, amount) => total + amount, 0);
+    }
 </script>
