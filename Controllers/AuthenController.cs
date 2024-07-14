@@ -136,6 +136,7 @@ namespace Nhom8.Controllers
                 khachhang.Mk = model.Mk.ToMd5Hash(khachhang.RandomKey);
                 khachhang.Role = "";
                 khachhang.Tk = model.Email;
+                khachhang.Role = "CUS";
                 string OTP = MyUtil.RandomOTP().ToString();
                 HttpContext.Session.SetString("OTP", OTP);
                 var subject = OTP.ToString() + " là mã OTP của bạn";
