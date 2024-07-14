@@ -1,9 +1,9 @@
-﻿
+﻿@using Nhom8
 @{
     ViewData["Title"] = "RoomInfo";
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
 }
-
+@model IEnumerable<Nhom8.Data.Phong>
 <div class="HotelBody">
     <header>
         <h1>Quản lý Phòng</h1>
@@ -50,13 +50,22 @@
                     <tr>
                         <th>Tên Phòng</th>
                         <th>Loại Phòng</th>
+                        <th>Tình trạng</th>
                         <th>Giá (VND)</th>
-                        <th>Mô Tả</th>
                         <th>Hình Ảnh</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Các phòng sẽ được thêm vào đây -->
+                    @foreach (var phong in Model)
+                    {
+                        <tr>
+                            <td>@phong.TenPhong</td>
+                            <td>@phong.LoaiPhong</td>
+                            <td>@phong.TinhTrangPhong</td>
+                            <td>@phong.GiaPhong</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </section>
