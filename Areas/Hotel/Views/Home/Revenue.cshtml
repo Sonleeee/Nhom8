@@ -4,63 +4,90 @@
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
 }
 @model IEnumerable<Nhom8.Data.DatPhong>
+
 <div class="HotelBody">
     <div class="BodyItem">
         <h2>Tổng quan doanh thu</h2>
+        <div class="year-selection">
+            <label for="yearSelect">Chọn năm:</label>
+            <select id="yearSelect" onchange="updateYear()">
+                <option value="2023">2023</option>
+                <option value="2024" selected>2024</option>
+                <!-- Add more years as needed -->
+            </select>
+        </div>
         <h3>Báo cáo tổng doanh thu hàng tháng</h3>
         <div class="divFinanceInform">
             <ul role="tablist" class="bui-tab__nav">
-                <div>
                 <li role="tab" class="fin-overview-statistics-tabs__item bui-tab__item">
-                    <button class="bui-tab__link bui-tab__link--selected">
+                    <button id="month-1" class="bui-tab__link bui-tab__link--selected" onclick="updateChart(1)">
                         <span>Tháng 1</span><br>
                         <span>VND 0</span>
                     </button>
                 </li>
-                </div>
-                <div>
-                    <li role="tab" class="fin-overview-statistics-tabs__item bui-tab__item">
-                        <button class="bui-tab__link ">
-                            <span>Tháng 2</span><br>
-                            <span>VND 0</span>
-                        </button>
-                    </li>
-                </div>
+                <li role="tab" class="fin-overview-statistics-tabs__item bui-tab__item">
+                    <button id="month-2" class="bui-tab__link" onclick="updateChart(2)">
+                        <span>Tháng 2</span><br>
+                        <span>VND 0</span>
+                    </button>
+                </li>
+                <!-- Add more months as needed -->
             </ul>
             <div class="clearfix"></div>
             <canvas id="myChart" style="width:100%;max-width: 100%"></canvas>
         </div>
-        <div>
-
-        </div>
     </div>
 </div>
 
-
-
 <script>
     const xValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
-    const yValues = [55, 49, 44, 24, 15];
+    const revenueData = {
+        2023: {
+            1: [50, 45, 40, 30, 20], // Data for January 2023
+            2: [35, 40, 50, 25, 30]  // Data for February 2023
+        },
+        2024: {
+            1: [55, 49, 44, 24, 15], // Data for January 2024
+            2: [30, 50, 40, 30, 20]  // Data for February 2024
+        }
+        // Add data for more years and months as needed
+    };
 
+    let selectedYear = 2024;
 
-    new Chart("myChart", {
+    const chart = new Chart("myChart", {
         type: "bar",
         data: {
             labels: xValues,
             datasets: [{
                 backgroundColor: "blue",
-                data: yValues
+                data: revenueData[selectedYear][1]
             }]
         },
         options: {
             legend: { display: false },
             title: {
                 display: true,
-                text: "Doanh thu các ngày trong tháng 1",
-
+                text: "Doanh thu các ngày trong tháng 1"
             }
-
-
         }
     });
+
+    function updateYear() {
+        selectedYear = document.getElementById('yearSelect').value;
+        updateChart(1); // Reset to month 1 or handle as needed
+    }
+
+    function updateChart(month) {
+        // Update chart data
+        chart.data.datasets[0].data = revenueData[selectedYear][month];
+        chart.options.title.text = "Doanh thu các ngày trong tháng " + month + " năm " + selectedYear;
+        chart.update();
+
+        // Update button classes
+        document.querySelectorAll('.bui-tab__link').forEach(button => {
+            button.classList.remove('bui-tab__link--selected');
+        });
+        document.getElementById('month-' + month).classList.add('bui-tab__link--selected');
+    }
 </script>

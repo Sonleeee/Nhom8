@@ -31,7 +31,7 @@
         </div>
         <div class="HotelHeader">
             <ul class="HeaderUl">
-                <li class="HeaderUl_li--selected">
+                <li class="@(ViewBag.ActivePage == "Index" ? "HeaderUl_li--selected" : "")">
                     <a href="/Hotel/Home/index">
                         <svg height="24" aria-hidden="true" role="presentation" fill="currentColor" viewBox="0 0 24 24"
                              focusable="false" width="24">
@@ -41,7 +41,7 @@
                         <br>
                         Trang chủ
                     </a>
-                <li>
+                <li class="@(ViewBag.ActivePage == "RoomInfo" ? "HeaderUl_li--selected" : "")">
                     <a href="/Hotel/Home/RoomInfo">
                         <svg role="presentation" fill="currentColor" height="24" aria-hidden="true" viewBox="0 0 24 24"
                              focusable="false" width="24" class="bk-icon -streamline-calendar">
@@ -51,7 +51,7 @@
                         <br>
                         Tình trạng phòng
                     </a>
-                <li>
+                <li class="@(ViewBag.ActivePage == "RoomBooking" ? "HeaderUl_li--selected" : "")">
                     <a href="/Hotel/Home/RoomBooking">
                         <svg width="24" viewBox="0 0 24 24" focusable="false" height="24" aria-hidden="true"
                              role="presentation" fill="currentColor" class="bk-icon -streamline-list">
@@ -61,7 +61,7 @@
                         <br>
                         Đặt phòng
                     </a>
-                <li>
+                <li class="@(ViewBag.ActivePage == "TextTing" ? "HeaderUl_li--selected" : "")">
                     <a href="/Hotel/Home/TextTing">
                         <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" role="presentation"
                              aria-hidden="true" focusable="false" class="bk-icon -streamline-email">
@@ -71,7 +71,7 @@
                         <br>
                         Hộp thư
                     </a>
-                <li>
+                <li class="@(ViewBag.ActivePage == "Revenue" ? "HeaderUl_li--selected" : "")">
                     <a href="/Hotel/Home/Revenue">
                         <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" role="presentation"
                              aria-hidden="true" focusable="false" class="bk-icon -streamline-page">
@@ -81,7 +81,7 @@
                         <br>
                         Tài chính
                     </a>
-                <li>
+                <li class="@(ViewBag.ActivePage == "Service" ? "HeaderUl_li--selected" : "")">
                     <a href="/Hotel/Home/Service">
                         <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" role="presentation"
                              aria-hidden="true" focusable="false" class="bk-icon -streamline-page">
@@ -90,7 +90,7 @@
                         <br>
                         Tiện nghi và dịch vụ
                     </a>
-                <li>
+                <li class="@(ViewBag.ActivePage == "CustomerRating" ? "HeaderUl_li--selected" : "")">
                     <a href="/Hotel/Home/CustomerRating">
                         <svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24" role="presentation" focusable="false"
                              aria-hidden="true" class="bk-icon -streamline-heart_outline">
@@ -110,28 +110,6 @@
     </div>
     
 </body>
-<script>
-    // Chờ tài liệu HTML được tải hoàn toàn
-    document.addEventListener("DOMContentLoaded", function () {
-        // Lấy tất cả các phần tử <li> bên trong <ul> có class "HeaderUl"
-        var menuItems = document.querySelectorAll(".HeaderUl li");
-
-        // Duyệt qua từng phần tử <li>
-        menuItems.forEach(function (item) {
-            // Thêm sự kiện click cho mỗi phần tử <li>
-            item.addEventListener("click", function () {
-                // Loại bỏ class "HeaderUl_li--selected" từ tất cả các phần tử <li>
-                menuItems.forEach(function (li) {
-                    li.classList.remove("HeaderUl_li--selected");
-                });
-
-                // Thêm class "HeaderUl_li--selected" cho phần tử <li> được nhấn
-                item.classList.add("HeaderUl_li--selected");
-            });
-        });
-    });
-</script>
-
 
 </html>
 

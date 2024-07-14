@@ -8,42 +8,54 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
     public class HomeController : Controller
     {
         private readonly BookingHotelContext context;
-        private readonly ILogger<HomeController> logger;
-        public HomeController(BookingHotelContext context , ILogger<HomeController> logger)
+        
+        public HomeController(BookingHotelContext context)
         {
             this.context = context;
-            this.logger = logger;   
+            
         }
         int userID = 1;
 
         public IActionResult Index()
         {
+            ViewBag.ActivePage = "Index";
             var hotelInfo = context.KhachSans.Where(s => s.UserId == userID).ToList();
             return View(hotelInfo);
         }
 
         public IActionResult CustomerRating()
         {
+            ViewBag.ActivePage = "CustomerRating";
             return View();
         }
 
         public IActionResult Revenue()
         {
+            ViewBag.ActivePage = "Revenue";
             return View();
         }
 
         public IActionResult RoomBooking()
         {
+            ViewBag.ActivePage = "RoomBooking";
             return View();
         }
 
         public IActionResult RoomInfo()
         {
-            return View();
+            ViewBag.ActivePage = "RoomInfo";
+            int? ksID = context.KhachSans
+                 .Where(q => q.UserId.Equals(userID))
+                 .Select(p => p.IdKs)
+                 .FirstOrDefault();
+            int id = ksID.Value;
+            var Phong = context.Phongs.Where(p => p.IdKs == id);
+            return View(Phong.ToList());
         }
         
         public IActionResult Service(string searchString)
         {
+            ViewBag.ActivePage = "Service";
             int? ksID = context.KhachSans
                   .Where(q => q.UserId.Equals(userID))
                   .Select(p => p.IdKs)
@@ -86,6 +98,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
 
         public IActionResult TextTing()
         {
+            ViewBag.ActivePage = "TextTing";
             return View();
         }
     }
