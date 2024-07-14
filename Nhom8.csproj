@@ -26,7 +26,6 @@
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Hotel\Controllers\" />
     <Folder Include="Areas\Hotel\Data\" />
-    <Folder Include="Areas\Hotel\Models\" />
     <Folder Include="Data\" />
   </ItemGroup>
 
