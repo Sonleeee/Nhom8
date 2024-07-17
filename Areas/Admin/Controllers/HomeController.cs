@@ -96,23 +96,30 @@ namespace Nhom8.Areas.Admin.Controllers
 
 		public IActionResult room(string searchString)
 		{
-			var rooms = _context.Phongs
-				.Include(p => p.IdKsNavigation)
-				.Include(p => p.IdChiTietPhongNavigation)
-				.AsQueryable();
+            var rooms = _context.Phongs
+			.Include(p => p.IdKsNavigation)
+			.ToList();
 
-			if (!string.IsNullOrEmpty(searchString))
-			{
-				rooms = rooms.Where(r =>
-					r.TenPhong.Contains(searchString) ||
-					r.IdKsNavigation.TenKs.Contains(searchString) ||
-					r.IdChiTietPhongNavigation.SlGiuong == int.Parse(searchString)
-				// Ví dụ cho trường hợp tìm kiếm theo IdPhong
-				);
-			}
+            var CTP = _context.ChiTietPhongs.ToList();
 
-			return View(rooms.ToList());
-		}
+            var roomAD = new RoomAD()
+            {
+                Phongs = rooms,
+                CTP = CTP
+            };
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                int bedCount;
+                bool isNumber = int.TryParse(searchString, out bedCount);
+
+                roomAD.Phongs = roomAD.Phongs.Where(r =>
+                    r.TenPhong.Contains(searchString) ||
+                    r.IdKsNavigation.TenKs.Contains(searchString)).ToList();
+            }
+
+            return View(roomAD);
+        }
 
 		[HttpPost]
 		public async Task<IActionResult> Updates(int id, bool hd)
