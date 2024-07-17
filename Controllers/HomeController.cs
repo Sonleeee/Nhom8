@@ -21,7 +21,7 @@ namespace Nhom8.Controllers
 
         public IActionResult Index(string? destination)
         {
-            var tinh = db.KhachSans.AsQueryable();
+            /*var tinh = db.KhachSans.AsQueryable();
 
             if (destination != null)
             {
@@ -35,8 +35,8 @@ namespace Nhom8.Controllers
                 Tinh = t.Tinh,
                 DanhGia = t.DanhGia,
                 Image_KS = t.ImageKs,
-            }).Take(4);
-            return View(ks_tinh);            
+            }).Take(4);*/
+            return View(/*ks_tinh*/);            
         }
 
 
