@@ -247,6 +247,7 @@ public partial class BookingHotelContext : DbContext
             entity.ToTable("Tinh");
 
             entity.Property(e => e.IdTinh).HasColumnName("ID_Tinh");
+            entity.Property(e => e.ImgTinh).HasMaxLength(500);
             entity.Property(e => e.Tinh1)
                 .HasMaxLength(100)
                 .HasColumnName("Tinh");

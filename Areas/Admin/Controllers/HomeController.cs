@@ -106,7 +106,7 @@ namespace Nhom8.Areas.Admin.Controllers
 				rooms = rooms.Where(r =>
 					r.TenPhong.Contains(searchString) ||
 					r.IdKsNavigation.TenKs.Contains(searchString)
-					//||r.IdChiTietPhongNavigation.SlGiuong == int.Parse(searchString)
+				//||r.IdChiTietPhongNavigation.SlGiuong == int.Parse(searchString)
 				// Ví dụ cho trường hợp tìm kiếm theo IdPhong
 				);
 			}
