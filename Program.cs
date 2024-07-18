@@ -5,12 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Nhom8.Data;
 using Nhom8.Helpers;
+using Nhom8.Services;
 using Nhom8.Services.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Thêm dịch vụ vào container
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
 
 builder.Services.AddDbContext<BookingHotelContext>(op =>
 {

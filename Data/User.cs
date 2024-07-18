@@ -25,6 +25,8 @@ public partial class User
 
     public string? RandomKey { get; set; }
 
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
     public virtual ICollection<Conversation> Conversations { get; set; } = new List<Conversation>();
 
     public virtual ICollection<DatPhong> DatPhongs { get; set; } = new List<DatPhong>();
