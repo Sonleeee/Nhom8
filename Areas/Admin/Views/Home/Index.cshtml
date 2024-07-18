@@ -17,14 +17,14 @@
 	<div class="ThongTinCoBan">
 		@foreach (var item in Model.DatPhongs)
 		{
-			if (item.IdPhongNavigation?.TinhTrangPhong == "Trống")
-			{
-				countRA++;
-			}
-			if (item.NgayCheckout.Equals(DateTime.Today))
+
+			var today = DateTime.Today;
+			
+			if (item.NgayCheckout == today)
 			{
 				countGO++;
 			}
+
 			if (item.TrangThai == false)
 			{
 				countC++;
@@ -38,6 +38,14 @@
 				countCus++;
 			}
 		}
+		@foreach(var item in Model.Phongs)
+		{
+			if (item.TinhTrangPhong == "Trống" && item.Hd == true)
+			{
+				countRA++;
+			}
+		}
+
 		
 
 		<div class="card">

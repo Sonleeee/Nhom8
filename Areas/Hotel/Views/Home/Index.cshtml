@@ -1,11 +1,19 @@
-﻿
+﻿@using Nhom8.Data
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
 }
+@model IEnumerable<Nhom8.Data.KhachSan>
 
 <div class="HotelBody">
     <div class="BodyItem">
+        <div class="item">
+            @foreach (var khachSan in Model)
+            {
+                <h1>@khachSan.TenKs</h1>
+                <h3>@khachSan.DiaChi</h3>
+            }
+        </div>
         <div class="item">
             <h2>Đặt phòng</h2>
             <div role="tabpanel" data-test-id="tab-content" class="reservation-tab-content">
@@ -24,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <a href="" target="_blank"
+            <a href="/Hotel/Home/RoomBooking" target="_blank"
                class="bui-button bui-button--secondary homepage-activity-tab__view-all">
                 <!----> <span class="bui-button__text">
                     Xem tất cả đặt phòng
@@ -45,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <a href="" target="_blank"
+            <a href="/Hotel/Home/TextTing" target="_blank"
                class="bui-button bui-button--secondary homepage-activity-tab__view-all">
                 <!----> <span class="bui-button__text">
                     Xem tất cả tin nhắn
@@ -66,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <a href="" target="_blank"
+            <a href="/Hotel/Home/CustomerRating" target="_blank"
                class="bui-button bui-button--secondary homepage-activity-tab__view-all">
                 <!----> <span class="bui-button__text">
                     Xem tất cả dánh giá
