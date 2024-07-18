@@ -62,7 +62,7 @@ namespace Nhom8.Areas.Admin.Controllers
 		{
 			var listR = _context.Phongs
 				.Include(dp => dp.IdKsNavigation)
-				.Include(dp => dp.IdChiTietPhongNavigation)
+				//.Include(dp => dp.IdChiTietPhongNavigation)
 				.ToList();
 			return View(listR);
 		}

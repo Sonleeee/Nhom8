@@ -9,11 +9,13 @@ public partial class Message
 
     public int? SenderId { get; set; }
 
-    public int? ConVid { get; set; }
+    public int ConVid { get; set; }
 
     public string MessageContent { get; set; } = null!;
 
     public int? UserId { get; set; }
 
     public DateTime Timestamp { get; set; }
+
+    public virtual Conversation ConV { get; set; } = null!;
 }
