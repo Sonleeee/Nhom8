@@ -140,6 +140,27 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
 
             return RedirectToAction("Service");
         }
+        public async Task<IActionResult> UpdateService(int id, bool trangThai)
+        {
+            var service = await context.DichVus.FirstOrDefaultAsync(p => p.IdDichVu == id);
+
+            if (service == null)
+            {
+                return NotFound(); // Handle when service is not found
+            }
+
+            if(service.TrangThai == true)
+                service.TrangThai = trangThai;
+            else
+                service.TrangThai = !trangThai;
+
+            // Update the service in the database
+            context.DichVus.Update(service);
+            await context.SaveChangesAsync();
+
+            // Redirect to the "Service" action method
+            return RedirectToAction("Service");
+        }
 
         public IActionResult TextTing()
         {
