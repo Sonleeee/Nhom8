@@ -59,8 +59,6 @@ namespace Nhom8_DACS.Controllers
 
             result = result.Where(r => r.ctp.SlGiuong >= sl_giuong);
 
-
-            // Điều kiện kiểm tra số lượng giường
             result = result.Where(r => r.ctp.SlGiuong >= sl_giuong);
 
             // Tạo danh sách kết quả phù hợp

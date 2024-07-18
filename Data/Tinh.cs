@@ -9,5 +9,7 @@ public partial class Tinh
 
     public string? Tinh1 { get; set; }
 
+    public string? ImgTinh { get; set; }
+
     public virtual ICollection<KhachSan> KhachSans { get; set; } = new List<KhachSan>();
 }

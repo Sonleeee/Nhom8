@@ -17,7 +17,7 @@ public partial class Phong
 
     public double? GiaPhong { get; set; }
 
-    public bool Hd { get; set; }
+    public bool? Hd { get; set; }
 
     public virtual ICollection<ChiTietPhong> ChiTietPhongs { get; set; } = new List<ChiTietPhong>();
 
