@@ -19,8 +19,8 @@
                                 {
                                     <div class="col-md-3 col-sm-6 mb-4 px-3">
                                         <div class="card">
-                                            <a asp-controller="research" asp-action="research" asp-route-TP="@tinh.Id" style="text-decoration: none; color: black;">
-                                                <img src="https://cdn.tgdd.vn/Files/2021/06/15/1360385/top-10-bai-bien-vung-tau-dep-noi-tieng-ban-nhat-dinh-phai-di-202106160011402743.jpg" class="card-img-top-2" alt="Vũng Tàu">
+                                            <a asp-controller="research" asp-action="research" asp-route-idTinh="@tinh.Id" style="text-decoration: none; color: black;">
+                                                <img src="@tinh.Img" class="card-img-top-2" alt="Vũng Tàu">
                                                 <div class="card-body">
                                                     <h6 class="card-title text-center">@tinh.Name</h6>
                                                 </div>
@@ -41,7 +41,7 @@
                                         <div class="col-md-3 col-sm-6 mb-4 px-3">
                                             <div class="card">
                                                 <a asp-controller="research" asp-action="research" asp-route-TP="@tinh.Id" style="text-decoration: none; color: black;">
-                                                    <img src="~/assets/img/img_customer/phanthiet.jpg" class="card-img-top-2" alt="Hà Nội">
+                                                    <img src="@tinh.Img" class="card-img-top-2" alt="Hà Nội">
                                                     <div class="card-body">
                                                         <h6 class="card-title text-center">@tinh.Name</h6>
                                                         
@@ -82,7 +82,7 @@
                                     <div class="col-md-4 col-lg-3 mb-4">
                                         <div class="card">
                                             <div class="position-relative">
-                                                <img src="https://cdn1.ivivu.com/iVivu/2019/08/22/18/landscape-4096-1-800x450.webp?o=jpg" class="card-img-top-2" alt="The Malibu Hotel">
+                                                <img src="@hotel.Img" class="card-img-top-2" alt="The Malibu Hotel">
                                             </div>
                                             <div class="card-body" style="padding-left:0">
                                                 <a asp-action="Detail" asp-controller="Detail" asp-route-IdKs="@hotel.Id" style="text-decoration: none; color: black">

@@ -27,20 +27,21 @@ namespace Nhom8.Controllers
                 Img = k.ImageKs ?? "",
                 Star = k.Star.GetValueOrDefault(),
                 Tinh = k.Tinh.Tinh1 ?? "",
-                // Map other properties here
+
             }).AsQueryable();
 
             var tinh = db.Tinhs.Select(t => new TinhS
             {
                 Id = t.IdTinh,
-                Name = t.Tinh1 ?? ""
-                // Map other properties here
+                Name = t.Tinh1 ?? "",
+                Img = t.ImgTinh ?? "",   
+                
             }).ToList();
 
             var viewModel = new KhachSanTinhViewModel
             {
                 KhachSans = ks,
-                Tinhs = tinh
+                Tinhs = tinh,
             };
 
             return View(viewModel);
