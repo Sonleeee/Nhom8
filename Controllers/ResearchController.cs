@@ -54,10 +54,8 @@ namespace Nhom8_DACS.Controllers
             }
 
 
-            int sl_nguoi = nguoi_lon ?? 0 + tre_em ?? 0;
+            int sl_nguoi = (nguoi_lon ?? 0) + (tre_em ?? 0);
             double sl_giuong = Math.Ceiling(sl_nguoi / 2.0);
-
-            result = result.Where(r => r.ctp.SlGiuong >= sl_giuong);
 
             result = result.Where(r => r.ctp.SlGiuong >= sl_giuong);
 
@@ -75,10 +73,13 @@ namespace Nhom8_DACS.Controllers
             var finalResult = new List<ResearchVM>();
             foreach (var item in groupedResult)
             {
-                int availableRooms = (int)Math.Ceiling((double)sl_nguoi / (double)item.ChiTietPhong.SlGiuong * 2);
-                if (availableRooms <= phong)
+                if (item.ChiTietPhong != null && item.ChiTietPhong.SlGiuong > 0)
                 {
-                    finalResult.Add(item);
+                    int availableRooms = (int)Math.Ceiling((double)sl_nguoi / (double)(item.ChiTietPhong.SlGiuong * 2)); // Giả định mỗi giường chứa 2 người
+                    if (!phong.HasValue || (phong.HasValue && availableRooms <= phong.Value))
+                    {
+                        finalResult.Add(item);
+                    }
                 }
             }
 

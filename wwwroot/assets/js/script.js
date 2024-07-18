@@ -50,6 +50,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }           
     });
 
+    const today = new Date();
+
+    // Định dạng ngày theo định dạng yyyy-mm-dd
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 nên cần +1
+    const dd = String(today.getDate()).padStart(2, '0');
+    const formattedToday = `${yyyy}-${mm}-${dd}`;
+
+    // Set giá trị cho các trường input
+    document.getElementById('checkInDate').value = formattedToday;
+    document.getElementById('checkOutDate').value = formattedToday;
+
     // - số lượng người lớn
     document.getElementById('increase-adults').addEventListener('click', function (event) {
         event.preventDefault();
