@@ -15,7 +15,7 @@ public partial class DatPhong
 
     public DateOnly? NgayCheckin { get; set; }
 
-    public DateTime? NgayCheckout { get; set; }
+    public DateOnly? NgayCheckout { get; set; }
 
     public bool? TrangThai { get; set; }
 

@@ -54,28 +54,26 @@ namespace Nhom8.Controllers
                     }
                     else
                     {
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Email, khachhang.Email),
+                            new Claim(ClaimTypes.Name, khachhang.TenKh),
+                            new Claim(ClaimTypes.Role, khachhang.Role),
+                        };
 
-                    }
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Email, khachhang.Email),
-                        new Claim(ClaimTypes.Name, khachhang.TenKh),
-                        new Claim(ClaimTypes.Role, khachhang.Role),
-                    };
+                        await HttpContext.SignInAsync(new ClaimsPrincipal(claimsPrincipal));
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                    await HttpContext.SignInAsync(new ClaimsPrincipal(claimsPrincipal));
-
-                    if (Url.IsLocalUrl(ReturnUrl))
-                    {
-                        return Redirect(ReturnUrl);
-                    }
-                    else
-                    {
-                        return Redirect("/");
+                        if (Url.IsLocalUrl(ReturnUrl))
+                        {
+                            return Redirect(ReturnUrl);
+                        }
+                        else
+                        {
+                            return Redirect("/");
+                        }
                     }
                 }
             }
@@ -134,7 +132,7 @@ namespace Nhom8.Controllers
                 var khachhang = _mapper.Map<User>(model);
                 khachhang.RandomKey = MyUtil.GenerateRandomKey();
                 khachhang.Mk = model.Mk.ToMd5Hash(khachhang.RandomKey);
-                khachhang.Role = "";
+                khachhang.Role = "CUS";
                 khachhang.Tk = model.Email;
                 khachhang.Role = "CUS";
                 string OTP = MyUtil.RandomOTP().ToString();

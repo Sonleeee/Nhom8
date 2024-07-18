@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Setroom";
-    Layout = "~/views/shared/_LayoutCustomer2.cshtml";
+    Layout = "~/views/shared/_LayoutCustomer.cshtml";
 }
 
 <div class="container" style="padding-left: 100px; padding-right: 100px; padding-top: 100px;">
@@ -11,9 +11,9 @@
 
     <div class="content-setroom">
         <div class="content-left">
-            <div class="info left-design">
-                <h4>Thông tin liên hệ</h4>
-                <form>
+            <form asp-action="Reservation1" asp-controller="Reservation1">
+                <div class="info left-design">
+                    <h4>Thông tin liên hệ</h4>
                     <div class="mb-3">
                         <label for="name" class="form-label">Họ và tên</label>
                         <input type="text" class="form-control" id="name">
@@ -31,7 +31,6 @@
                             <input type="text" class="form-control" id="sdt">
                         </div>
                     </div>
-
                     <div class="checked">
                         <div class="">
                             <div class="col-12">
@@ -54,50 +53,49 @@
                             </div>
                         </div>
                     </div>
-
-                </form>
-            </div>
-
-            <div class="request left-design">
-                <h4>Bạn có yêu cầu nào không?</h4>
-                <textarea name="request" id="request" rows="4" style="width: 100%; height: auto;"></textarea>
-            </div>
-
-            <div class="payment left-design">
-                <h4>Lựa chọn thanh toán linh hoạt</h4>
-                <div class="pay-counter form-check">
-                    <input type="radio" id="pay-counter" name="pay-counter" value="" class="form-check-input">
-                    <label class="form-check-label" for="pay-counter">Thanh toán tại khách sạn</label>
-                </div>
-                <div class="pay-now form-check">
-                    <input type="radio" id="pay-now" name="pay-now" value="" class="form-check-input">
-                    <label class="form-check-label" for="pay-now">Thanh toán ngay</label>
-                </div>
-            </div>
-
-            <div class="price-detail left-design">
-                <div class="price-detail-box">
-                    <h4>Chi tiết giá</h4>
-                    <div class="d-flex justify-content-between">
-                        <span>Giá phòng</span>
-                        <span>4.306.242 VND</span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span>Thuế và phí</span>
-                        <span>186.923 VND</span>
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-between" style="padding-bottom: 20px;">
-                        <span class="total-price">Tổng giá</span>
-                        <span class="total-price">4.493.165 VND</span>
-                    </div>
-                    <button class="btn btn-primary w-100">Tiếp tục thanh toán</button>
-                    <p class="text-muted mt-3">
-                        Bằng việc tiếp tục thanh toán, bạn đã đồng ý với <a href="#">Điều khoản & Điều kiện</a> cũng như <a href="#">Chính sách quyền riêng tư</a> của Traveloka.
-                    </p>
                 </div>
 
-            </div>
+                <div class="request left-design">
+                    <h4>Bạn có yêu cầu nào không?</h4>
+                    <textarea name="request" id="request" rows="4" style="width: 100%; height: auto;"></textarea>
+                </div>
+
+                <div class="payment left-design">
+                    <h4>Lựa chọn thanh toán linh hoạt</h4>
+                    <div class="pay-counter form-check">
+                        <input type="radio" id="pay-counter" name="pay-counter" value="" class="form-check-input">
+                        <label class="form-check-label" for="pay-counter">Thanh toán tại khách sạn</label>
+                    </div>
+                    <div class="pay-now form-check">
+                        <input type="radio" id="pay-now" name="pay-now" value="" class="form-check-input">
+                        <label class="form-check-label" for="pay-now">Thanh toán ngay</label>
+                    </div>
+                </div>
+
+                <div class="price-detail left-design">
+                    <div class="price-detail-box">
+                        <h4>Chi tiết giá</h4>
+                        <div class="d-flex justify-content-between">
+                            <span>Giá phòng</span>
+                            <span>4.306.242 VND</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Thuế và phí</span>
+                            <span>186.923 VND</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between" style="padding-bottom: 20px;">
+                            <span class="total-price">Tổng giá</span>
+                            <span class="total-price">4.493.165 VND</span>
+                        </div>
+                        <input class="btn btn-primary w-100" name="payment" type="submit" value="Thanh toán VnPay" />
+                        <p class="text-muted mt-3">
+                            Bằng việc tiếp tục thanh toán, bạn đã đồng ý với <a href="#">Điều khoản & Điều kiện</a> cũng như <a href="#">Chính sách quyền riêng tư</a> của LambiengTravel.
+                        </p>
+                    </div>
+                </div>
+            </form>
+
         </div>
 
         <div class="content-right">
