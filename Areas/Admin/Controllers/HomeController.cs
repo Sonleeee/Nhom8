@@ -98,15 +98,15 @@ namespace Nhom8.Areas.Admin.Controllers
 		{
 			var rooms = _context.Phongs
 				.Include(p => p.IdKsNavigation)
-				.Include(p => p.IdChiTietPhongNavigation)
+				//.Include(p => p.IdChiTietPhongNavigation)
 				.AsQueryable();
 
 			if (!string.IsNullOrEmpty(searchString))
 			{
 				rooms = rooms.Where(r =>
 					r.TenPhong.Contains(searchString) ||
-					r.IdKsNavigation.TenKs.Contains(searchString) ||
-					r.IdChiTietPhongNavigation.SlGiuong == int.Parse(searchString)
+					r.IdKsNavigation.TenKs.Contains(searchString)
+					//||r.IdChiTietPhongNavigation.SlGiuong == int.Parse(searchString)
 				// Ví dụ cho trường hợp tìm kiếm theo IdPhong
 				);
 			}
