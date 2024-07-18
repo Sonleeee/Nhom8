@@ -36,8 +36,7 @@
                <tr>
                     <td>@item.IdPhong</td>
                     <td>@item.IdKsNavigation?.TenKs</td>
-                    <td>@item.TenPhong</td>
-                    <td>@item.IdChiTietPhongNavigation?.SlGiuong</td>
+                    <td>@item.TenPhong</td>                    
                     <td>@item.GiaPhong vnd</td>
                     <td>@item.TinhTrangPhong</td>
                     <td>
@@ -45,15 +44,13 @@
                             <div class="form-check form-switch">
                                 <input type="hidden" name="id" value="@item.IdPhong" />
                                 <input type="hidden" name="hd"/>
-                                <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" value="@item.Hd"  @(item.Hd ? "checked" : "") onchange="this.form.submit()" />
+                                <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" value="@item.Hd"  @(item.Hd.Value ? "checked" : "") onchange="this.form.submit()" />
                             </div>
                         </form>
 
-
-                        
                     </td>
                     
-                </tr>
+               </tr>
             }                 
                         </div>
                     </div>

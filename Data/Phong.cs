@@ -9,8 +9,6 @@ public partial class Phong
 
     public int? IdKs { get; set; }
 
-    public int? IdChiTietPhong { get; set; }
-
     public string? TenPhong { get; set; }
 
     public string? LoaiPhong { get; set; }
@@ -19,13 +17,13 @@ public partial class Phong
 
     public double? GiaPhong { get; set; }
 
-    public bool Hd { get; set; }
+    public bool? Hd { get; set; }
 
     public virtual ICollection<ChiTietPhong> ChiTietPhongs { get; set; } = new List<ChiTietPhong>();
 
     public virtual ICollection<DatPhong> DatPhongs { get; set; } = new List<DatPhong>();
 
-    public virtual ChiTietPhong? IdChiTietPhongNavigation { get; set; }
-
     public virtual KhachSan? IdKsNavigation { get; set; }
+
+    public virtual ICollection<ImgRoom> ImgRooms { get; set; } = new List<ImgRoom>();
 }

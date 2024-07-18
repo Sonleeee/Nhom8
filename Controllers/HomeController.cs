@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Nhom8.Data;
 using Nhom8.Models;
 using Nhom8.ViewModels;
 using System.Diagnostics;
+using static Nhom8.ViewModels.KhachSanTinhViewModel;
 
 namespace Nhom8.Controllers
 {
@@ -21,22 +20,31 @@ namespace Nhom8.Controllers
 
         public IActionResult Index(string? destination)
         {
-            var tinh = db.KhachSans.AsQueryable();
-
-            if (destination != null)
+            var ks = db.KhachSans.Select(k => new Nhom8.ViewModels.KhachSanS
             {
-                tinh = tinh.Where(t => t.Tinh == destination);
-            }
+                Id = k.IdKs,
+                Name = k.TenKs ?? "no name",
+                Img = k.ImageKs ?? "",
+                Star = k.Star.GetValueOrDefault(),
+                Tinh = k.Tinh.Tinh1 ?? "",
 
-            var ks_tinh = tinh.Select(t => new HotelViewModel
+            }).AsQueryable();
+
+            var tinh = db.Tinhs.Select(t => new TinhS
             {
-                ID_KS = t.IdKs,
-                TenKS = t.TenKs,
-                Tinh = t.Tinh,
-                DanhGia = t.DanhGia,
-                Image_KS = t.ImageKs,
-            }).Take(4);
-            return View(ks_tinh);            
+                Id = t.IdTinh,
+                Name = t.Tinh1 ?? "",
+                Img = t.ImgTinh ?? "",   
+                
+            }).ToList();
+
+            var viewModel = new KhachSanTinhViewModel
+            {
+                KhachSans = ks,
+                Tinhs = tinh,
+            };
+
+            return View(viewModel);
         }
 
 

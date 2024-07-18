@@ -7,6 +7,7 @@
     <title>Document</title>
     <link href="~/assets/css/style.css" rel="stylesheet" />
     <link href="~/assets/fonts/themify-icons/themify-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -53,9 +54,11 @@
                                             <a class="dropdown-item" asp-controller="Authen" asp-action="Profile">Quản lí tài khoản</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="@Url.Action("Logout", "Authen")">Đăng xuất</a>
+                                            <a class="dropdown-item" href="#">Giỏ hàng</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="#">Hộp thoại</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Logout", "Authen")">Đăng xuất</a>                                            
+                                        </li>
                                     </ul>
                                    
                                     
@@ -93,7 +96,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <p>Ngày nhận phòng</p>
-                                                    <input type="date" name="ngay_nhan_phong" class="form-control mb-2" id="checkInDate">
+                                                    <input type="date" name="ngay_nhan_phong" class="form-control mb-2" id="checkInDate" value="">
                                                 </div>
                                                 <p></p>
                                                 <div class="col">
@@ -123,7 +126,7 @@
                                                 <button type="button" class="btn btn-outline-secondary" id="decrease-adults">-</button>
                                             </div>
 
-                                            <input type="text" name="nguoi_lon" class="form-control text-center" id="adults" value="0">
+                                            <input type="text" name="nguoi_lon" class="form-control text-center" id="adults" value="2">
 
                                             <div class="input-group-append">
                                                 <button type="button" class="btn btn-outline-secondary" id="increase-adults">+</button>
@@ -150,7 +153,7 @@
                                             <div class="input-group-prepend">
                                                 <button type="button" class="btn btn-outline-secondary" id="decrease-room">-</button>
                                             </div>
-                                            <input type="text" name="phong" class="form-control text-center" id="rooms" value="0">
+                                            <input type="text" name="phong" class="form-control text-center" id="rooms" value="1">
                                             <div class="input-group-prepend">
                                                 <button type="button" class="btn btn-outline-secondary" id="decrease-room">-</button>
                                             </div>

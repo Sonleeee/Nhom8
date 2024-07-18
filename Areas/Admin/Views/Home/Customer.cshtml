@@ -22,7 +22,7 @@
 			<th colspan="5"></th>
 			</thead>
 			<thead>
-				@* <th><input type="checkbox" class="checkbox1" name="checkbox-customer"></th> *@
+				
 			<th>ID</th>
 			<th>Hình đại diện</th>
 			<th>Tên</th>
@@ -30,14 +30,14 @@
 			<th>SĐT</th>
 			<th>Xác minh</th>
 			<th></th>
-				@* <th><input type="button" value="+"></th> *@
+				
 			</thead>
 			@foreach (var item in Model)
 			{
 				if (item.Role == "CUS")
 				{
 					<tr>
-						@* <td><input type="checkbox" class="checkbox1" name="checkbox-customer"></td> *@
+						
 						<td>@item.UserId</td>
 						<td class="checkbox-container">
 							<img style="margin-left: 40%" class="avatar-cus" src="@item.Img" alt="" />
@@ -56,16 +56,7 @@
 						</td>
 
 
-						@* <td>
-				<div class="dropdown">
-				<button class="bt-more">...</button>
-				<div class="dropdown-content">
-				<a href="#">Chi tiết</a>
-				<a href="#">Sửa</a>
-				<a href="#">Xóa</a>
-				</div>
-				</div>
-				</td> *@
+						
 					</tr>
 				}
 			}
