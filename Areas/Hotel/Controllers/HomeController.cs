@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Nhom8.Data;
 using Nhom8.Areas.Hotel.Models;
+using System.Runtime.Intrinsics.Arm;
 namespace Nhom8_DACS.Areas.Hotel.Controllers
 {
     
@@ -27,7 +28,14 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         public IActionResult CustomerRating()
         {
             ViewBag.ActivePage = "CustomerRating";
-            return View();
+            int? ksID = context.KhachSans
+                               .Where(q => q.UserId.Equals(userID))
+                               .Select(p => p.IdKs)
+                               .FirstOrDefault();
+            var comments = context.Comments
+                                   .Where(dp => dp.KsId == ksID).Include(c => c.User)
+                                   .ToList();
+            return View(comments);
         }
 
         public IActionResult Revenue()
@@ -80,11 +88,57 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
 
 
 
-        public IActionResult RoomBooking()
+        public IActionResult RoomBooking(string date_type, DateOnly? fromDate, DateOnly? toDate)
         {
             ViewBag.ActivePage = "RoomBooking";
-            return View();
+
+            int? ksID = context.KhachSans
+                .Where(q => q.UserId.Equals(userID))
+                .Select(p => p.IdKs)
+                .FirstOrDefault();
+
+            int id = ksID.Value;
+            IQueryable<DatPhong> query = context.DatPhongs
+                .Where(dp => dp.IdPhongNavigation.IdKs == id);
+
+            // Apply filters based on date_type and date range
+            if (!string.IsNullOrEmpty(date_type) && fromDate != null && toDate != null)
+            {
+                switch (date_type)
+                {
+                    case "booking":
+                        query = query.Where(dp => dp.NgayCheckin >= fromDate && dp.NgayCheckin <= toDate);
+                        break;
+                    case "arrival":
+                        query = query.Where(dp => dp.NgayCheckout >= fromDate && dp.NgayCheckout <= toDate);
+                        break;
+                    case "departure":
+                        query = query.Where(dp => dp.TrangThai == false); 
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if(date_type == "departure")
+                query = query.Where(dp => dp.TrangThai == false); 
+
+            // Include related entities
+            query = query.Include(dp => dp.User)
+                         .Include(dp => dp.IdPhongNavigation);
+
+            var datPhongs = query.ToList();
+            return View(datPhongs);
         }
+        public async Task<IActionResult> ThanhToan(int datPhongId)
+        {
+            var datPhong = await context.DatPhongs.FirstOrDefaultAsync(p => p.IdDatPhong == datPhongId);
+            datPhong.TrangThai = true;
+            context.DatPhongs.Update(datPhong);
+            await context.SaveChangesAsync();
+            return RedirectToAction("RoomBooking");
+        }
+
+
 
         public IActionResult RoomInfo()
         {
@@ -159,6 +213,14 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             await context.SaveChangesAsync();
 
             // Redirect to the "Service" action method
+            return RedirectToAction("Service");
+        }
+        public  IActionResult DeleteService(int id)
+        {
+            var dichVu =  context.DichVus.Find(id);
+            
+            context.DichVus.Remove(dichVu);
+            context.SaveChanges();
             return RedirectToAction("Service");
         }
 

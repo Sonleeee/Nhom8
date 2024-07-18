@@ -25,8 +25,11 @@ namespace Nhom8.Controllers
 
             if (destination != null)
             {
-                tinh = tinh.Where(t => t.Tinh == destination);
-            }
+                Id = t.IdTinh,
+                Name = t.Tinh1 ?? "",
+                //Img = t.ImgTinh ?? "",
+
+            }).ToList();
 
             var ks_tinh = tinh.Select(t => new HotelViewModel
             {

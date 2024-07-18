@@ -26,16 +26,23 @@
             <h2>Tiện nghi phổ biến nhất</h2>
             @foreach (var dichVu in Model)
             {
-                <form asp-action="UpdateService" method="post" id="updateForm_@dichVu.IdDichVu">
+                
                 <div class="facility__row">
                     <h3 style="display: inline-block; width: 78%;">@dichVu.TenDichVu</h3>
-                        <input type="hidden" name="id" value="@dichVu.IdDichVu" />
+                    
+                    <form asp-action="UpdateService" method="post" id="updateForm_@dichVu.IdDichVu" style="display: inline-block">
+                    <input type="hidden" name="id" value="@dichVu.IdDichVu" /> 
                     <label class="switch">
                             <input type="checkbox" @(dichVu.TrangThai.GetValueOrDefault() ? "checked" : "") name="trangThai" onchange="this.form.submit()">
                             <span class="slider"></span>
                     </label>
+                    </form>
+                    <form asp-action="DeleteService" method="post" style="display: inline-block;">
+                        <input type="hidden" name="id" value="@dichVu.IdDichVu" />
+                        <button type="submit" class="btn btn-danger" style="margin-top:5px;">Xóa</button>
+                    </form>
                 </div>
-                </form>
+                
             }
 
             <!-- Nút kích hoạt modal thêm dịch vụ -->
