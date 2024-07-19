@@ -124,7 +124,19 @@ namespace Nhom8.Areas.Admin.Controllers
         }
 
         
+		public async Task<IActionResult> DeleteR(int id)
+		{
+			var room = await _context.Phongs.FindAsync(id);
+			if (room == null)
+			{
+				return NotFound(); // Xử lý khi không tìm thấy người dùng
+			}
 
+			_context.Phongs.Remove(room);
+			await _context.SaveChangesAsync();
+
+			return RedirectToAction(nameof(room));
+		}
 
         [HttpPost]
 		public async Task<IActionResult> Updates(int id, bool hd)
