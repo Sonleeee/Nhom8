@@ -30,6 +30,7 @@
             <th>giá thuê</th>
             <th>tình trạng</th>
             <th></th>
+            <th></th>
             </thead>
             @foreach(var item in Model.Phongs)
             {
@@ -48,12 +49,14 @@
                                 <input type="hidden" name="hd"/>
                                 <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" value="@item.Hd"  @(item.Hd.Value ? "checked" : "") onchange="this.form.submit()" />
                             </div>
-                        </form>
-
-
-                        
+                        </form>  
                     </td>
-                    
+                    <td>
+                        <form asp-action="DeleteR" method="post" asp-controller="Home">
+                            <input type="hidden" name="id" value="@item.IdPhong" />
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        </form>
+                    </td>
                 </tr>
             }                 
                         </div>

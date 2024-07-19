@@ -18,7 +18,8 @@
 		@foreach (var item in Model.DatPhongs)
 		{
 
-			var today = DateOnly.FromDateTime(DateTime.Today);
+			var today = DateOnly.FromDateTime(DateTime.Now);
+
 
 			@* if (item.NgayCheckout == today)
 			{

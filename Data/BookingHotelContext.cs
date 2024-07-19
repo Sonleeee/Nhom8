@@ -112,7 +112,7 @@ public partial class BookingHotelContext : DbContext
             entity.Property(e => e.IdPhong).HasColumnName("ID_Phong");
             entity.Property(e => e.NgayCheckin).HasColumnName("Ngay_checkin");
             entity.Property(e => e.NgayCheckout)
-                .HasColumnType("datetime")
+                .HasColumnType("date")
                 .HasColumnName("Ngay_checkout");
             entity.Property(e => e.UserId).HasColumnName("UserID");
 
