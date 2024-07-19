@@ -23,6 +23,29 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         {
             ViewBag.ActivePage = "Index";
             var hotelInfo = context.KhachSans.Where(s => s.UserId == userID).ToList();
+            int? ksID = context.KhachSans
+                 .Where(q => q.UserId.Equals(userID))
+                 .Select(p => p.IdKs)
+                 .FirstOrDefault();
+            int id = ksID.Value;
+
+            var comments = context.Comments
+             .Where(s => s.KsId == id)
+             .Include(c=>c.User)
+             .OrderByDescending(c => c.TimeCm)  // Sắp xếp theo ngày tạo giảm dần
+             .Take(5)  // Lấy 5 phần tử đầu tiên
+             .ToList();
+
+            var datPhongs = context.DatPhongs
+            .Where(s => s.IdPhongNavigation.IdKs == id && s.TrangThai == false)
+            .Include(s => s.User)
+            .Include(s => s.IdPhongNavigation)
+            .OrderByDescending(dp => dp.NgayCheckin)  // Sắp xếp theo ngày check-in giảm dần
+            .Take(5)  // Lấy 5 phần tử đầu tiên
+            .ToList();
+
+            ViewBag.Comments = comments.ToList();
+            ViewBag.DatPhongs = datPhongs.ToList();
             return View(hotelInfo);
         }
 
@@ -87,8 +110,6 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             return View(datPhongs);
         }
 
-
-
         public IActionResult RoomBooking(string date_type, DateOnly? fromDate, DateOnly? toDate)
         {
             ViewBag.ActivePage = "RoomBooking";
@@ -138,8 +159,6 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction("RoomBooking");
         }
-
-
 
         public IActionResult RoomInfo()
         {
@@ -224,11 +243,97 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
 
             return RedirectToAction("RoomInfo");
         }
+        [HttpPost]
+        public async Task<IActionResult> EditRoom(int roomId, string roomName, string roomType, float roomPrice, IFormFile[] roomImage, int roomBedNumber, float roomArea)
+        {
+            // Tìm phòng cần chỉnh sửa
+            var phong = await context.Phongs
+                .Include(p => p.ImgRooms)
+                .Include(p => p.ChiTietPhongs)
+                .FirstOrDefaultAsync(p => p.IdPhong == roomId);
+
+            if (phong == null)
+            {
+                return NotFound();
+            }
+
+            // Cập nhật thông tin phòng
+            phong.TenPhong = roomName;
+            phong.LoaiPhong = roomType;
+            phong.GiaPhong = roomPrice;
+
+            // Xoá các hình ảnh cũ (tùy chọn, nếu bạn muốn thay thế toàn bộ hình ảnh)
+            foreach (var imgRoom in phong.ImgRooms.ToList())
+            {
+                var filePath = Path.Combine(environment.WebRootPath, imgRoom.Img.TrimStart('/'));
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                context.ImgRooms.Remove(imgRoom);
+            }
+
+            // Lưu hình ảnh mới vào thư mục wwwroot/assets/img/img_Phong
+            foreach (var image in roomImage)
+            {
+                if (image != null && image.Length > 0)
+                {
+                    // Tạo tên tệp duy nhất để tránh xung đột
+                    var fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(image.FileName);
+                    var filePath = Path.Combine(environment.WebRootPath, "assets", "img", "img_Phong", fileName);
+
+                    // Tạo thư mục nếu chưa tồn tại
+                    var directory = Path.GetDirectoryName(filePath);
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    // Lưu hình ảnh vào thư mục tĩnh
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await image.CopyToAsync(stream);
+                    }
+
+                    // Tạo đối tượng ImgRoom và thêm vào cơ sở dữ liệu
+                    var imgRoom = new ImgRoom
+                    {
+                        RoomId = phong.IdPhong,
+                        Img = "/assets/img/img_Phong/" + fileName
+                    };
+
+                    context.ImgRooms.Add(imgRoom);
+                }
+            }
+
+            // Cập nhật chi tiết phòng
+            var chiTietPhong = phong.ChiTietPhongs.FirstOrDefault();
+            if (chiTietPhong != null)
+            {
+                chiTietPhong.SlGiuong = roomBedNumber;
+                chiTietPhong.DienTich = roomArea;
+            }
+            else
+            {
+                // Nếu không có chi tiết phòng, tạo mới
+                chiTietPhong = new ChiTietPhong()
+                {
+                    IdPhong = phong.IdPhong,
+                    SlGiuong = roomBedNumber,
+                    DienTich = roomArea,
+                };
+                context.ChiTietPhongs.Add(chiTietPhong);
+            }
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("RoomInfo");
+        }
 
 
+        // dịch vụ
 
-
-        public IActionResult Service(string searchString)
+        public IActionResult Service(string searchString, string tenQuyDinh)
         {
             ViewBag.ActivePage = "Service";
             int? ksID = context.KhachSans
@@ -237,11 +342,19 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
                   .FirstOrDefault();
             int id = ksID.Value;
             var DichVu = context.DichVus.Where(p => p.IdKs == id);
+            var QuyDinh = context.QuyDinhChungs.Where(p => p.IdKs == id);
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 DichVu = DichVu.Where(d => d.TenDichVu.Contains(searchString));
             }
+            
+            if (!string.IsNullOrEmpty(tenQuyDinh))
+            {
+                QuyDinh = QuyDinh.Where(d => d.TenQuyDinh.Contains(tenQuyDinh));
+            }
+            ViewBag.QuyDinh = QuyDinh.ToList();
+
             return View(DichVu.ToList());
         }
 
@@ -296,6 +409,63 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             var dichVu =  context.DichVus.Find(id);
             
             context.DichVus.Remove(dichVu);
+            context.SaveChanges();
+            return RedirectToAction("Service");
+        }
+
+        //quy định
+
+        public IActionResult AddQuyDinh()
+        {
+            return RedirectToAction("Service");
+        }
+
+        [HttpPost]
+        public IActionResult AddQuyDinh(string tenQuyDinh)
+        {
+
+            int? ksID = context.KhachSans
+                  .Where(q => q.UserId.Equals(userID))
+                  .Select(p => p.IdKs)
+                  .FirstOrDefault();
+
+            QuyDinhChung quyDinhMoi = new QuyDinhChung()
+            {
+                IdKs = ksID.Value,
+                TenQuyDinh = tenQuyDinh,
+                TrangThai = true,
+            };
+            context.QuyDinhChungs.Add(quyDinhMoi);
+            context.SaveChanges();
+
+            return RedirectToAction ("Service");
+        }
+        public async Task<IActionResult> UpdateQuyDinh(int id, bool trangThai)
+        {
+            var quyDinh = await context.QuyDinhChungs.FirstOrDefaultAsync(p => p.IdQuyDinh == id);
+
+            if (quyDinh == null)
+            {
+                return NotFound(); // Handle when service is not found
+            }
+
+            if (quyDinh.TrangThai == true)
+                quyDinh.TrangThai = trangThai;
+            else
+                quyDinh.TrangThai = !trangThai;
+
+            // Update the service in the database
+            context.QuyDinhChungs.Update(quyDinh);
+            await context.SaveChangesAsync();
+
+            // Redirect to the "Service" action method
+            return RedirectToAction("Service");
+        }
+        public IActionResult DeleteQuyDinh(int id)
+        {
+            var quyDinh = context.QuyDinhChungs.Find(id);
+
+            context.QuyDinhChungs.Remove(quyDinh);
             context.SaveChanges();
             return RedirectToAction("Service");
         }

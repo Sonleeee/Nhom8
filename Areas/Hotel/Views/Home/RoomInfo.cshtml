@@ -34,10 +34,10 @@
                             <input class="form-control" type="number" id="roomPrice" name="roomPrice" placeholder="Giá VND" required>
                             <label for="roomImage">Hình Ảnh:</label>
                             <input class="form-control" type="file" id="roomImage" name="roomImage" multiple required>
-                            <label for="editRoomBeds">Số lượng giường:</label>
-                            <input class="form-control" type="number" id="editRoomBeds" name="roomBedNumber" placeholder="số lượng giường" required>
-                            <label for="editRoomArea">Diện tích:</label>
-                            <input class="form-control" type="number" id="editRoomArea" name="roomArea" placeholder="Diện tích" required>
+                            <label for="RoomBeds">Số lượng giường:</label>
+                            <input class="form-control" type="number" id="RoomBeds" name="roomBedNumber" placeholder="số lượng giường" required>
+                            <label for="RoomArea">Diện tích:</label>
+                            <input class="form-control" type="number" id="RoomArea" name="roomArea" placeholder="Diện tích" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -114,7 +114,7 @@
                                                     <label for="editRoomArea">Diện tích:</label>
                                                     <input class="form-control" type="number" id="editRoomArea" name="roomArea" placeholder="Diện tích" required>
                                                 </div>
-                                                <div class="modal-footer">  
+                                                <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                                 </div>
@@ -122,6 +122,7 @@
                                         </div>
                                     </div>
                                 </form>
+
                             </td>
                         </tr>
                     }
@@ -139,28 +140,33 @@
 </div>
 
     <script>
-        //thêm dữ liệu vào các trường khi nhấn nút chỉnh sửa
+        //thêm dữ liệu vào bảng sửa
         document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.btn-edit').forEach(button => {
-                button.addEventListener('click', function () {
-                    // Lấy thông tin phòng từ thuộc tính data của nút chỉnh sửa
-                    const roomId = this.getAttribute('data-id');
+            const editButtons = document.querySelectorAll('.btn-edit');
 
-                    // Tạo một yêu cầu Ajax để lấy thông tin phòng từ server
-                    fetch(`/Home/GetRoomById/${roomId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Điền thông tin vào modal
-                            document.getElementById('editRoomId').value = data.id;
-                            document.getElementById('editRoomName').value = data.tenPhong;
-                            document.getElementById('editRoomType').value = data.loaiPhong;
-                            document.getElementById('editRoomPrice').value = data.giaPhong;
-                            // Bạn có thể xử lý hình ảnh ở đây nếu cần
-                        })
-                        .catch(error => console.error('Error:', error));
+            editButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const row = this.closest('tr');
+
+                    // Lấy dữ liệu từ dòng hiện tại
+                    const roomName = row.querySelector('td:nth-child(1)').textContent.trim();
+                    const roomType = row.querySelector('td:nth-child(2)').textContent.trim();
+                    const roomPrice = row.querySelector('td:nth-child(4)').textContent.trim();
+                    const roomBeds = row.querySelector('td:nth-child(6)').textContent.trim();
+                    const roomArea = row.querySelector('td:nth-child(7)').textContent.trim();
+
+                    // Cập nhật các trường trong modal
+                    document.getElementById('editRoomId').value = id;
+                    document.getElementById('editRoomName').value = roomName;
+                    document.getElementById('editRoomType').value = roomType;
+                    document.getElementById('editRoomPrice').value = roomPrice;
+                    document.getElementById('editRoomBeds').value = 2;
+                    document.getElementById('editRoomArea').value = 2;
                 });
             });
         });
+
 
         // Hiển thị tất cả hình ảnh của phòng khi nhấn vào hình ảnh
         document.getElementById('room-table').addEventListener('click', function (event) {

@@ -1,7 +1,8 @@
-﻿@* @model Nhom8_DACS.ViewModels.RegisterViewModel *@
+﻿@using Nhom8.Data
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_LayoutCustomer2.cshtml";
+    var Tinhs = ViewBag.DatPhongs as List<Tinh> ?? new List<Tinh>();
 }
 
 
@@ -13,26 +14,28 @@
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-2">Đăng ký tài khoản khách sạn</h2>
+                                <h2 class="text-uppercase text-center mb-2">Đăng ký khách sạn</h2>
                                 <form asp-action="Register" enctype="multipart/form-data" method="post">
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" ></label>
-                                        <input type="text" class="form-control form-control-lg" asp />
+                                        <label class="form-label"></label>
+                                        <input type="text" class="form-control form-control-lg" placeholder="Tên khách sạn" asp />
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" ></label>
-                                        <input type="email" asp-route-id="asdas"  class="form-control form-control-lg" />
+                                        <label class="form-label"></label>
+                                        <input type="text" class="form-control form-control-lg" placeholder="Địa chỉ khách sạn" asp />
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" ></label>
-                                        <input type="password" class="form-control form-control-lg" />
-                                    </div>
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" ></label>
-                                        <input type="password"  class="form-control form-control-lg" />
+                                        <label class="form-label">Tỉnh</label>
+                                        
+                                        <select id="tinh" name="tinh">
+                                            <option >Tỉnh thành</option>
+                                            @foreach (var tinh in Tinhs)
+                                            {
+                                                <h2>@tinh.Tinh1</h2>
+                                            }
+                                        </select>
                                     </div>
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label" ></label>

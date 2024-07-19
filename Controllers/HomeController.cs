@@ -33,7 +33,7 @@ namespace Nhom8.Controllers
             var tinh = db.Tinhs.Select(t => new TinhS
             {
                 Id = t.IdTinh,
-                Name = t.Tinh1 ?? "",
+                //Name = t.Tinh1 ?? "",
                 //Img = t.ImgTinh ?? "",
 
             }).ToList();
