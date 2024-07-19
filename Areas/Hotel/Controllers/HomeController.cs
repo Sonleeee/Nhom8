@@ -10,11 +10,12 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
     public class HomeController : Controller
     {
         private readonly BookingHotelContext context;
+        private readonly IWebHostEnvironment environment;
 
-        public HomeController(BookingHotelContext context)
+        public HomeController(BookingHotelContext context, IWebHostEnvironment environment)
         {
             this.context = context;
-
+            this.environment = environment;
         }
         int userID = 1;
 
@@ -148,9 +149,84 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
                  .Select(p => p.IdKs)
                  .FirstOrDefault();
             int id = ksID.Value;
-            var Phong = context.Phongs.Where(p => p.IdKs == id);
+            var Phong = context.Phongs.Where(p => p.IdKs == id).Include(h=>h.ImgRooms).Include(ct=>ct.ChiTietPhongs);
             return View(Phong.ToList());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRoom(string roomName, string roomType, float roomPrice, IFormFile[] roomImage, int roomBedNumber, float roomArea)
+        {
+            int? ksID = context.KhachSans
+                  .Where(q => q.UserId.Equals(userID))
+                  .Select(p => p.IdKs)
+                  .FirstOrDefault();
+
+            if (ksID == null)
+            {
+                return NotFound();
+            }
+
+            // Tạo một đối tượng phòng mới
+            Phong phongMoi = new Phong()
+            {
+                TenPhong = roomName,
+                LoaiPhong = roomType,
+                GiaPhong = roomPrice,
+                TinhTrangPhong = "trống",
+                IdKs = ksID.Value,
+                Hd = true,
+            };
+
+            context.Phongs.Add(phongMoi);
+            await context.SaveChangesAsync();
+
+            // Lưu hình ảnh vào thư mục wwwroot/assets/img/img_Phong
+            foreach (var image in roomImage)
+            {
+                if (image != null && image.Length > 0)
+                {
+                    // Tạo tên tệp duy nhất để tránh xung đột
+                    var fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(image.FileName);
+                    var filePath = Path.Combine(environment.WebRootPath, "assets", "img", "img_Phong", fileName);
+
+                    // Tạo thư mục nếu chưa tồn tại
+                    var directory = Path.GetDirectoryName(filePath);
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    // Lưu hình ảnh vào thư mục tĩnh
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await image.CopyToAsync(stream);
+                    }
+
+                    // Tạo đối tượng ImgRoom và thêm vào cơ sở dữ liệu
+                    var imgRoom = new ImgRoom
+                    {
+                        RoomId = phongMoi.IdPhong,
+                        Img = "/assets/img/img_Phong/" + fileName
+                    };
+
+                    context.ImgRooms.Add(imgRoom);
+                }
+            }
+            // chi tiết phòng mới
+            ChiTietPhong chitietPhongMoi = new ChiTietPhong()
+            {
+                IdPhong = phongMoi.IdPhong,
+                SlGiuong = roomBedNumber,
+                DienTich = roomArea,
+            };
+            context.ChiTietPhongs.Add(chitietPhongMoi);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("RoomInfo");
+        }
+
+
+
 
         public IActionResult Service(string searchString)
         {
