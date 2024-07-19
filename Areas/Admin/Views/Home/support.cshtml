@@ -52,7 +52,20 @@
                                 </div>
                                 <div class="col-md-6 col-lg-7 col-xl-8">
                                     <div class="pt-3 pe-3 chatplace" data-mdb-perfect-scrollbar-init
-                                         style="position: relative; height: 400px">                                        
+                                         style="position: relative; height: 400px">
+                                        @* @foreach (var conversation in Model)
+                                        {
+                                            {
+                                                <div class="d-flex flex-row justify-content-@(conversation.Mes?.SenderId == conversation.UserId ? "start" : "end")">
+                                                    <img src="@conversation.User?.Img" alt="avatar 1" style="width: 45px; height: 100%;">
+                                                    <div>
+                                                        <p class="small p-2 ms-3 mb-1 rounded-3"
+                                                           style="background-color: @(conversation.Mes?.SenderId == conversation.UserId ? "#f5f6f7" : "#0d6efd");">@conversation.Mes?.MessageContent</p>
+                                                        <p class="small ms-3 mb-3 rounded-3 text-muted float-end">@conversation.Mes?.Timestamp</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        } *@
                                     </div>
                                     <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp" alt="avatar 3" style="width: 40px; height: 100%;">
