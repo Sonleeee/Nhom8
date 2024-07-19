@@ -1,0 +1,90 @@
+﻿@using Nhom8.Areas.Admin.Models
+@using Nhom8.Data
+
+@{
+    ViewData["Title"] = "Revenue";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var revenueData = ViewBag.RevenueData as List<RevenuePerDay>;
+    var years = ViewBag.Years as List<int>;
+    var months = ViewBag.Months as List<int>;
+}
+
+@model List<DatPhong>
+
+<div class="content">
+    <select name="check" id="ksSelect">
+        <option value="">chọn Khách sạn muốn xem doanh thu</option>
+        @foreach (var item in Model)
+        {
+            int i = 1;
+            <option value="@i">@item.IdPhongNavigation?.IdKsNavigation?.TenKs</option>
+            i++;
+        }
+    </select>
+    <select id="yearSelect" onchange="updateYear()">
+        @if (years != null && years.Any())
+        {
+            @foreach (var year in years)
+            {
+                <option value="@year">@year</option>
+            }
+        }
+
+        <!-- Add more years as needed -->
+    </select>
+    <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
+
+
+
+    <script>
+        const xValues = [
+            @for (int i = 1; i <= 12; i++)
+            {
+                @($"{i}, ")
+            }
+        ];
+
+
+        const yValues = {
+            @foreach (var year in years)
+            {
+                @: @year: [
+                @for (int month = 1; month <= 12; month++)
+                {
+                    var monthlyRevenue = revenueData.FirstOrDefault(p => p.Year == year && p.Month == month)?.Revenue ?? 0;
+                    @: @monthlyRevenue
+                    @if (month < 12)
+                    {
+                        @:,
+                    }
+                }
+                @: ],
+            }
+        };
+
+        let selectedYear = @years.FirstOrDefault();
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues[selectedYear]
+
+                }]
+            },
+
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: "Doanh thu theo từng tháng"
+                }
+            }
+        });
+    </script>
+</div>

@@ -57,27 +57,27 @@
     {
         @($"{i}, ")
     }
-        ];
+    ];
     const revenueData = {
-    @foreach (var year in years)
-    {
-        @: @year: {
-        @for (int month = 1; month <= 12; month++)
+        @foreach (var year in years)
         {
-            @: @month: [
-            @for (int day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+            @: @year: {
+            @for (int month = 1; month <= 12; month++)
             {
-                var dailyRevenue = revenueData.FirstOrDefault(p => p.Year == year && p.Month == month && p.Day == day)?.Revenue ?? 0;
-                @: @dailyRevenue,
-                @if (day < DateTime.DaysInMonth(year, month))
+                @: @month: [
+                @for (int day = 1; day <= DateTime.DaysInMonth(year, month); day++)
                 {
-                    @:,
+                    var dailyRevenue = revenueData.Where(p => p.Year == year && p.Month == month && p.Day == day).Sum(p => p.Revenue);
+                    @: @dailyRevenue
+                    @if (day < DateTime.DaysInMonth(year, month))
+                    {
+                        @:,
+                    }
                 }
+                @: ],
             }
-            @: ],
+            @: },
         }
-        @: },
-    }
     }
 
 

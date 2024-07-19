@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Nhom8.Areas.Admin.Models;
 using Nhom8.Data;
 using Nhom8.ViewModels;
+using System.Globalization;
 
 namespace Nhom8.Areas.Admin.Controllers
 {
@@ -121,7 +123,10 @@ namespace Nhom8.Areas.Admin.Controllers
             return View(roomAD);
         }
 
-		[HttpPost]
+        
+
+
+        [HttpPost]
 		public async Task<IActionResult> Updates(int id, bool hd)
 		{
 			var room = await _context.Phongs.FindAsync(id);
@@ -147,10 +152,36 @@ namespace Nhom8.Areas.Admin.Controllers
 			return RedirectToAction("room"); // Chuyển hướng về action hiển thị danh sách phòng, hãy đảm bảo rằng "Index" là tên chính xác của action
 		}
 
+        public IActionResult Revenue()
+        {
+            var Revenue = _context.DatPhongs
+                .Include(dp => dp.IdPhongNavigation)
+                .ThenInclude(dp => dp.IdKsNavigation)
+                .ToList();
+
+            var revenuePerDay = _context.DatPhongs
+               .Where(dp => dp.NgayCheckout.HasValue)
+               .GroupBy(dp => new { dp.NgayCheckout.Value.Year, dp.NgayCheckout.Value.Month })
+               .Select(g => new RevenuePerDay
+               {
+                   Year = g.Key.Year,
+                   Month = g.Key.Month,
+                   Revenue = (float)((g.Sum(dp => (double?)dp.TongTien) * 5 / 100) ?? 0)
+               })
+               .OrderBy(r => r.Year)
+               .ThenBy(r => r.Month)
+               .ToList();
+
+            List<int> years = revenuePerDay.Select(r => r.Year).Distinct().ToList();
+
+            ViewBag.Years = years;
+            ViewBag.RevenueData = revenuePerDay;
+            return View(Revenue);
+        }
 
 
 
-		public IActionResult support()
+        public IActionResult support()
 		{
 			return View();
 		}

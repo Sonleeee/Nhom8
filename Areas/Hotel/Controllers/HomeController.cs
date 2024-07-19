@@ -37,7 +37,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             int? ksID = context.KhachSans
                                .Where(q => q.UserId.Equals(userID))
                                .Select(p => p.IdKs)
-                               .FirstOrDefault();
+                               .Sum();
 
             if (ksID == null)
             {
