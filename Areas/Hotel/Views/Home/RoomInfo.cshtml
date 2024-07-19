@@ -4,11 +4,12 @@
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
 }
 @model IEnumerable<Nhom8.Data.Phong>
+
 <div class="HotelBody">
     <header>
         <h1>Quản lý Phòng</h1>
     </header>
-    
+
     <main>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -16,32 +17,38 @@
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thêm phòng</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <label for="room-name">Tên Phòng:</label>
-                        <input class="form-control" type="text" id="room-name" name="room-name" placeholder="Tên phòng" required>
-                        <label for="room-type">Loại Phòng:</label>
-                        <input class="form-control" type="text" id="room-type" name="room-type" placeholder="Loại phòng" required>
-                        <label for="room-price">Giá Phòng (VND):</label>
-                        <input class="form-control" type="number" id="room-price" name="room-price" placeholder="Giá VND" required>
-                        <label for="room-description">Mô Tả:</label>
-                        <textarea class="form-control" id="room-description" name="room-description" rows="4" placeholder="Mô Tả"></textarea>
-                        <label for="room-image">Hình Ảnh:</label>
-                        <input class="form-control" type="file" id="room-image" name="room-image" multiple>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary">Thêm</button>
+        <form id="addRoomForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="AddRoom">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Thêm phòng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="roomName">Tên Phòng:</label>
+                            <input class="form-control" type="text" id="roomName" name="roomName" placeholder="Tên phòng" required>
+                            <label for="roomType">Loại Phòng:</label>
+                            <input class="form-control" type="text" id="roomType" name="roomType" placeholder="Loại phòng" required>
+                            <label for="roomPrice">Giá Phòng (VND):</label>
+                            <input class="form-control" type="number" id="roomPrice" name="roomPrice" placeholder="Giá VND" required>
+                            <label for="roomImage">Hình Ảnh:</label>
+                            <input class="form-control" type="file" id="roomImage" name="roomImage" multiple required>
+                            <label for="editRoomBeds">Số lượng giường:</label>
+                            <input class="form-control" type="number" id="editRoomBeds" name="roomBedNumber" placeholder="số lượng giường" required>
+                            <label for="editRoomArea">Diện tích:</label>
+                            <input class="form-control" type="number" id="editRoomArea" name="roomArea" placeholder="Diện tích" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Thêm</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
+
+
 
         <section class="room-list">
             <h2>Danh Sách Phòng</h2>
@@ -53,10 +60,12 @@
                         <th>Tình trạng</th>
                         <th>Giá (VND)</th>
                         <th>Hình Ảnh</th>
+                        <th>số giường</th>
+                        <th>Diện tích</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Các phòng sẽ được thêm vào đây -->
                     @foreach (var phong in Model)
                     {
                         <tr>
@@ -64,8 +73,59 @@
                             <td>@phong.LoaiPhong</td>
                             <td>@phong.TinhTrangPhong</td>
                             <td>@phong.GiaPhong</td>
+                            <td>
+                                @if (phong.ImgRooms != null && phong.ImgRooms.Any())
+                                {
+                                    foreach (var img in phong.ImgRooms)
+                                    {
+                                        <img class="room-image" src="@img.Img" alt="Hình ảnh phòng" style="max-width: 100px; max-height: 100px;" />
+                                    }
+                                }
+                                else
+                                {
+                                    <p>Không có hình ảnh</p>
+                                }
+                            </td>
+                            <td>@(phong.ChiTietPhongs.Select(ct => ct.SlGiuong).FirstOrDefault())</td>
+                            <td>@(phong.ChiTietPhongs.Select(ct => ct.DienTich).FirstOrDefault())</td>
+                            <td>
+                                <button type="button" class="btn btn-warning btn-edit" data-id="@phong.IdPhong" data-bs-toggle="modal" data-bs-target="#editModal">Chỉnh Sửa</button>
+                                <!-- Modal Chỉnh Sửa -->
+                                <form id="editRoomForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="EditRoom">
+                                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Phòng</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" id="editRoomId" name="roomId" />
+                                                    <label for="editRoomName">Tên Phòng:</label>
+                                                    <input class="form-control" type="text" id="editRoomName" name="roomName" placeholder="Tên phòng" required>
+                                                    <label for="editRoomType">Loại Phòng:</label>
+                                                    <input class="form-control" type="text" id="editRoomType" name="roomType" placeholder="Loại phòng" required>
+                                                    <label for="editRoomPrice">Giá Phòng (VND):</label>
+                                                    <input class="form-control" type="number" id="editRoomPrice" name="roomPrice" placeholder="Giá VND" required>
+                                                    <label for="editRoomImage">Hình Ảnh:</label>
+                                                    <input class="form-control" type="file" id="editRoomImage" name="roomImage" multiple>
+                                                    <label for="editRoomBeds">Số lượng giường:</label>
+                                                    <input class="form-control" type="number" id="editRoomBeds" name="roomBedNumber" placeholder="số lượng giường" required>
+                                                    <label for="editRoomArea">Diện tích:</label>
+                                                    <input class="form-control" type="number" id="editRoomArea" name="roomArea" placeholder="Diện tích" required>
+                                                </div>
+                                                <div class="modal-footer">  
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
                         </tr>
                     }
+
                 </tbody>
             </table>
         </section>
@@ -78,81 +138,49 @@
     </div>
 </div>
 
-<script>
-    document.getElementById('add-room-form').addEventListener('submit', function (event) {
-        event.preventDefault();
+    <script>
+        //thêm dữ liệu vào các trường khi nhấn nút chỉnh sửa
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', function () {
+                    // Lấy thông tin phòng từ thuộc tính data của nút chỉnh sửa
+                    const roomId = this.getAttribute('data-id');
 
-        const roomName = document.getElementById('room-name').value;
-        const roomType = document.getElementById('room-type').value;
-        const roomPrice = document.getElementById('room-price').value;
-        const roomDescription = document.getElementById('room-description').value;
-        const roomImages = document.getElementById('room-image').files;
-
-        console.log('Tên Phòng:', roomName);
-        console.log('Loại Phòng:', roomType);
-        console.log('Giá Phòng:', roomPrice);
-        console.log('Mô Tả:', roomDescription);
-        console.log('Hình Ảnh:', roomImages);
-
-        // Kiểm tra xem các giá trị có hợp lệ không
-        if (!roomName || !roomType || !roomPrice || roomImages.length === 0) {
-            alert('Vui lòng điền đầy đủ thông tin và chọn ít nhất một hình ảnh.');
-            return;
-        }
-
-        // Lấy phần tbody của bảng
-        const table = document.getElementById('room-table').getElementsByTagName('tbody')[0];
-
-        // Tạo một hàng mới trong bảng
-        const newRow = table.insertRow();
-
-        // Tạo các ô trong hàng mới
-        const nameCell = newRow.insertCell(0);
-        const typeCell = newRow.insertCell(1);
-        const priceCell = newRow.insertCell(2);
-        const descriptionCell = newRow.insertCell(3);
-        const imageCell = newRow.insertCell(4);
-
-        // Điền thông tin vào các ô
-        nameCell.textContent = roomName;
-        typeCell.textContent = roomType;
-        priceCell.textContent = roomPrice;
-        descriptionCell.textContent = roomDescription;
-
-        // Hiển thị hình ảnh nhỏ
-        for (let i = 0; i < roomImages.length; i++) {
-            const image = document.createElement('img');
-            image.src = URL.createObjectURL(roomImages[i]);
-            image.alt = roomName + " Image";
-            image.classList.add('room-image');
-            imageCell.appendChild(image);
-        }
-
-        console.log('Đã thêm hàng mới vào bảng.');
-
-        // Reset lại biểu mẫu
-        document.getElementById('add-room-form').reset();
-    });
-
-    // Hiển thị tất cả hình ảnh của phòng khi nhấn vào nút "Chi Tiết"
-    document.getElementById('room-table').addEventListener('click', function (event) {
-        if (event.target.tagName === 'IMG') {
-            const roomImages = event.target.closest('tr').querySelectorAll('.room-image');
-            const overlayContent = document.getElementById('overlay-content');
-            overlayContent.innerHTML = '';
-            roomImages.forEach(function (image) {
-                const overlayImage = document.createElement('img');
-                overlayImage.src = image.src;
-                overlayImage.alt = image.alt;
-                overlayImage.classList.add('overlay-image');
-                overlayContent.appendChild(overlayImage);
+                    // Tạo một yêu cầu Ajax để lấy thông tin phòng từ server
+                    fetch(`/Home/GetRoomById/${roomId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Điền thông tin vào modal
+                            document.getElementById('editRoomId').value = data.id;
+                            document.getElementById('editRoomName').value = data.tenPhong;
+                            document.getElementById('editRoomType').value = data.loaiPhong;
+                            document.getElementById('editRoomPrice').value = data.giaPhong;
+                            // Bạn có thể xử lý hình ảnh ở đây nếu cần
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
             });
-            document.getElementById('image-overlay').style.display = 'flex';
-        }
-    });
+        });
 
-    // Đóng overlay khi nhấn vào nó
-    document.getElementById('image-overlay').addEventListener('click', function () {
-        document.getElementById('image-overlay').style.display = 'none';
-    });
-</script>
+        // Hiển thị tất cả hình ảnh của phòng khi nhấn vào hình ảnh
+        document.getElementById('room-table').addEventListener('click', function (event) {
+            if (event.target.tagName === 'IMG') {
+                const roomImages = event.target.closest('tr').querySelectorAll('.room-image');
+                const overlayContent = document.getElementById('overlay-content');
+                overlayContent.innerHTML = '';
+                roomImages.forEach(function (image) {
+                    const overlayImage = document.createElement('img');
+                    overlayImage.src = image.src;
+                    overlayImage.alt = image.alt;
+                    overlayImage.classList.add('overlay-image');
+                    overlayContent.appendChild(overlayImage);
+                });
+                document.getElementById('image-overlay').style.display = 'flex';
+            }
+        });
+
+        // Đóng overlay khi nhấn vào nó
+        document.getElementById('image-overlay').addEventListener('click', function () {
+            document.getElementById('image-overlay').style.display = 'none';
+        });
+    </script>

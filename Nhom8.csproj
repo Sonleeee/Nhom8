@@ -35,6 +35,7 @@
     <Folder Include="Areas\Hotel\Controllers\" />
     <Folder Include="Areas\Hotel\Data\" />
     <Folder Include="Data\" />
+    <Folder Include="wwwroot\assets\img\img_Phong\" />
   </ItemGroup>
 
 </Project>
