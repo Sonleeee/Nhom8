@@ -2,20 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Nhom8.Data;
 using Nhom8.Areas.Hotel.Models;
-using System.Runtime.Intrinsics.Arm;
 namespace Nhom8_DACS.Areas.Hotel.Controllers
 {
-
+    
     [Area("Hotel")]
     public class HomeController : Controller
     {
         private readonly BookingHotelContext context;
-        private readonly IWebHostEnvironment environment;
-
-        public HomeController(BookingHotelContext context, IWebHostEnvironment environment)
+        
+        public HomeController(BookingHotelContext context)
         {
             this.context = context;
-            this.environment = environment;
+            
         }
         int userID = 1;
 
@@ -29,14 +27,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         public IActionResult CustomerRating()
         {
             ViewBag.ActivePage = "CustomerRating";
-            int? ksID = context.KhachSans
-                               .Where(q => q.UserId.Equals(userID))
-                               .Select(p => p.IdKs)
-                               .FirstOrDefault();
-            var comments = context.Comments
-                                   .Where(dp => dp.KsId == ksID).Include(c => c.User)
-                                   .ToList();
-            return View(comments);
+            return View();
         }
 
         public IActionResult Revenue()
@@ -89,57 +80,11 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
 
 
 
-        public IActionResult RoomBooking(string date_type, DateOnly? fromDate, DateOnly? toDate)
+        public IActionResult RoomBooking()
         {
             ViewBag.ActivePage = "RoomBooking";
-
-            int? ksID = context.KhachSans
-                .Where(q => q.UserId.Equals(userID))
-                .Select(p => p.IdKs)
-                .FirstOrDefault();
-
-            int id = ksID.Value;
-            IQueryable<DatPhong> query = context.DatPhongs
-                .Where(dp => dp.IdPhongNavigation.IdKs == id);
-
-            // Apply filters based on date_type and date range
-            if (!string.IsNullOrEmpty(date_type) && fromDate != null && toDate != null)
-            {
-                switch (date_type)
-                {
-                    case "booking":
-                        query = query.Where(dp => dp.NgayCheckin >= fromDate && dp.NgayCheckin <= toDate);
-                        break;
-                    case "arrival":
-                        query = query.Where(dp => dp.NgayCheckout >= fromDate && dp.NgayCheckout <= toDate);
-                        break;
-                    case "departure":
-                        query = query.Where(dp => dp.TrangThai == false); 
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else if(date_type == "departure")
-                query = query.Where(dp => dp.TrangThai == false); 
-
-            // Include related entities
-            query = query.Include(dp => dp.User)
-                         .Include(dp => dp.IdPhongNavigation);
-
-            var datPhongs = query.ToList();
-            return View(datPhongs);
+            return View();
         }
-        public async Task<IActionResult> ThanhToan(int datPhongId)
-        {
-            var datPhong = await context.DatPhongs.FirstOrDefaultAsync(p => p.IdDatPhong == datPhongId);
-            datPhong.TrangThai = true;
-            context.DatPhongs.Update(datPhong);
-            await context.SaveChangesAsync();
-            return RedirectToAction("RoomBooking");
-        }
-
-
 
         public IActionResult RoomInfo()
         {
@@ -149,85 +94,10 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
                  .Select(p => p.IdKs)
                  .FirstOrDefault();
             int id = ksID.Value;
-            var Phong = context.Phongs.Where(p => p.IdKs == id).Include(h=>h.ImgRooms).Include(ct=>ct.ChiTietPhongs);
+            var Phong = context.Phongs.Where(p => p.IdKs == id);
             return View(Phong.ToList());
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AddRoom(string roomName, string roomType, float roomPrice, IFormFile[] roomImage, int roomBedNumber, float roomArea)
-        {
-            int? ksID = context.KhachSans
-                  .Where(q => q.UserId.Equals(userID))
-                  .Select(p => p.IdKs)
-                  .FirstOrDefault();
-
-            if (ksID == null)
-            {
-                return NotFound();
-            }
-
-            // Tạo một đối tượng phòng mới
-            Phong phongMoi = new Phong()
-            {
-                TenPhong = roomName,
-                LoaiPhong = roomType,
-                GiaPhong = roomPrice,
-                TinhTrangPhong = "trống",
-                IdKs = ksID.Value,
-                Hd = true,
-            };
-
-            context.Phongs.Add(phongMoi);
-            await context.SaveChangesAsync();
-
-            // Lưu hình ảnh vào thư mục wwwroot/assets/img/img_Phong
-            foreach (var image in roomImage)
-            {
-                if (image != null && image.Length > 0)
-                {
-                    // Tạo tên tệp duy nhất để tránh xung đột
-                    var fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(image.FileName);
-                    var filePath = Path.Combine(environment.WebRootPath, "assets", "img", "img_Phong", fileName);
-
-                    // Tạo thư mục nếu chưa tồn tại
-                    var directory = Path.GetDirectoryName(filePath);
-                    if (!Directory.Exists(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-
-                    // Lưu hình ảnh vào thư mục tĩnh
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await image.CopyToAsync(stream);
-                    }
-
-                    // Tạo đối tượng ImgRoom và thêm vào cơ sở dữ liệu
-                    var imgRoom = new ImgRoom
-                    {
-                        RoomId = phongMoi.IdPhong,
-                        Img = "/assets/img/img_Phong/" + fileName
-                    };
-
-                    context.ImgRooms.Add(imgRoom);
-                }
-            }
-            // chi tiết phòng mới
-            ChiTietPhong chitietPhongMoi = new ChiTietPhong()
-            {
-                IdPhong = phongMoi.IdPhong,
-                SlGiuong = roomBedNumber,
-                DienTich = roomArea,
-            };
-            context.ChiTietPhongs.Add(chitietPhongMoi);
-            await context.SaveChangesAsync();
-
-            return RedirectToAction("RoomInfo");
-        }
-
-
-
-
+        
         public IActionResult Service(string searchString)
         {
             ViewBag.ActivePage = "Service";
@@ -253,7 +123,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         [HttpPost]
         public IActionResult AddService(string tenDichVu)
         {
-
+            
             int? ksID = context.KhachSans
                   .Where(q => q.UserId.Equals(userID))
                   .Select(p => p.IdKs)
@@ -267,36 +137,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             };
             context.DichVus.Add(dichVuMoi);
             context.SaveChanges();
-
-            return RedirectToAction("Service");
-        }
-        public async Task<IActionResult> UpdateService(int id, bool trangThai)
-        {
-            var service = await context.DichVus.FirstOrDefaultAsync(p => p.IdDichVu == id);
-
-            if (service == null)
-            {
-                return NotFound(); // Handle when service is not found
-            }
-
-            if(service.TrangThai == true)
-                service.TrangThai = trangThai;
-            else
-                service.TrangThai = !trangThai;
-
-            // Update the service in the database
-            context.DichVus.Update(service);
-            await context.SaveChangesAsync();
-
-            // Redirect to the "Service" action method
-            return RedirectToAction("Service");
-        }
-        public  IActionResult DeleteService(int id)
-        {
-            var dichVu =  context.DichVus.Find(id);
             
-            context.DichVus.Remove(dichVu);
-            context.SaveChanges();
             return RedirectToAction("Service");
         }
 

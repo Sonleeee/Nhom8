@@ -1,32 +1,59 @@
-﻿@using Nhom8.Data
+﻿
 @{
     ViewData["Title"] = "CustomerRating";
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
 }
-@model IEnumerable<Nhom8.Data.Comment>
+
 <div class="HotelBody">
     <div class="BodyItem">
         <h2>Đánh giá của khách hàng</h2>
-        @foreach(var comment in Model)
-        {
-            <div class="customer-review">
-                <div class="review-header">
-                    <span class="customer-name">@(comment.User.TenKh)</span>
-                    <span class="review-date">@comment.TimeCm</span>
-                </div>
-                <div class="review-body">
-                    <p>@comment.CmContent</p>
-                </div>
-                <div class="review-rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">☆</span>
-                </div>
+        <div class="customer-review">
+            <div class="review-header">
+                <span class="customer-name">Nguyễn Văn A</span>
+                <span class="review-date">01/06/2024</span>
             </div>
-        }
-        
-        
+            <div class="review-body">
+                <p>Sản phẩm rất tốt, tôi rất hài lòng với chất lượng và dịch vụ.</p>
+            </div>
+            <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">☆</span>
+            </div>
+        </div>
+        <div class="customer-review">
+            <div class="review-header">
+                <span class="customer-name">Nguyễn Văn B</span>
+                <span class="review-date">01/06/2024</span>
+            </div>
+            <div class="review-body">
+                <p>Sản phẩm rất tốt, tôi rất hài lòng với chất lượng và dịch vụ.</p>
+            </div>
+            <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">☆</span>
+                <span class="star">☆</span>
+            </div>
+        </div>
+        <div class="customer-review">
+            <div class="review-header">
+                <span class="customer-name">Nguyễn Văn C</span>
+                <span class="review-date">01/06/2024</span>
+            </div>
+            <div class="review-body">
+                <p>Sản phẩm rất tốt, tôi rất hài lòng với chất lượng và dịch vụ.</p>
+            </div>
+            <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">☆</span>
+                <span class="star">☆</span>
+                <span class="star">☆</span>
+            </div>
+        </div>
     </div>
 </div>
