@@ -4,11 +4,11 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-@model List<Phong>
+@model Nhom8.ViewModels.RoomAD
 
 <div class="content">
     <h1>Danh sách phòng</h1>
-    <p>bạn đã liên kết được với @Model.Count phòng</p>
+    <p>bạn đã liên kết được với @Model.Phongs.Count phòng</p>
     <div class="content-bang">
         <table>
             <thead>
@@ -30,13 +30,16 @@
             <th>giá thuê</th>
             <th>tình trạng</th>
             <th></th>
+            <th></th>
             </thead>
-            @foreach(var item in Model)
+            @foreach(var item in Model.Phongs)
             {
+               var roomDetail = Model.CTP.FirstOrDefault(ctp => ctp.IdPhong == item.IdPhong);
                <tr>
                     <td>@item.IdPhong</td>
                     <td>@item.IdKsNavigation?.TenKs</td>
-                    <td>@item.TenPhong</td>                    
+                    <td>@item.TenPhong</td>
+                    <td>@roomDetail?.SlGiuong</td>
                     <td>@item.GiaPhong vnd</td>
                     <td>@item.TinhTrangPhong</td>
                     <td>
@@ -46,11 +49,15 @@
                                 <input type="hidden" name="hd"/>
                                 <input type="checkbox" class="form-check-input" id="hd_@item.IdPhong" name="hd" value="@item.Hd"  @(item.Hd.Value ? "checked" : "") onchange="this.form.submit()" />
                             </div>
-                        </form>
-
+                        </form>  
                     </td>
-                    
-               </tr>
+                    <td>
+                        <form asp-action="DeleteR" method="post" asp-controller="Home">
+                            <input type="hidden" name="id" value="@item.IdPhong" />
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
             }                 
                         </div>
                     </div>
