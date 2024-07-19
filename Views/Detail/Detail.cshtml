@@ -1,4 +1,7 @@
-﻿@{
+﻿@using System.Globalization
+@model Nhom8.ViewModels.DetailViewModel
+
+@{
     ViewData["Title"] = "Detail";
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
@@ -36,8 +39,8 @@
                 <!-- Hotel Header -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div style="padding-left: 10px;">
-                        <h1 class="h3">TN Central Hotel</h1>
-                        <p><i class="bi bi-geo-alt-fill"></i> 22 Hai Bà Trưng, Quận 1, TP. Hồ Chí Minh, Việt Nam – <a href="#">Vị trí xuất sắc - hiển thị bản đồ</a></p>
+                        <h1 class="h3">@Model._KhachSan.TenKs</h1>
+                        <p><i class="bi bi-geo-alt-fill"></i>@Model._KhachSan.DiaChi</p>
                     </div>
                 </div>
 
@@ -45,23 +48,35 @@
                 <div class="container img-price">
                     <div class="img-list">
                         <div class="img-main">
-                            <img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg" alt="Main Image" class="img-fluid hotel-image">
+                            <img src="@Model._KhachSan.ImageKs" alt="Main Image" class="img-fluid hotel-image">
                         </div>
 
                         <div class="list-queue">
-                            <!-- <div class="row row-cols-4"> -->
-                            <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
-                            <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
-                            <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
-                            <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
-                            <!-- </div> -->
+                            @* <div class="row row-cols-4">  *@
+                                @* @foreach(var item in Model._ImgRoom) *@
+                                <div class="column"><img src="" /></div>
+                                <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
+                                <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
+                                <div class="column"><img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg"></img></div>
+                            @* </div> *@
                         </div>
                     </div>
 
                     <div class="info-right" style="padding-left: 30px;">
                         <div class="price-room" style="padding: 10px;">
-                            <p class="mb-1"><strong>Giá chỉ từ</strong></p>
-                            <p class="mb-1"><strong>VND 1,436,414</strong><br>Đã bao gồm thuế và phí</p>
+                            <p class="mb-1"><strong>Giá/phòng/đêm từ</strong></p>
+                            @* Tìm giá phòng thấp nhất *@
+                            @{
+                                var lowestPrice = Model._GroupedPhongs
+                                .SelectMany(g => g.Phongs)
+                                .OrderBy(p => p.GiaPhong)
+                                .FirstOrDefault()?.GiaPhong;
+
+                                var formattedPrice = lowestPrice.HasValue
+                                ? String.Format(new CultureInfo("vi-VN"), "{0:C0}", lowestPrice.Value)
+                                : "N/A";
+                            }
+                            <p class="mb-1"><strong>@formattedPrice</strong></p>
                             <a href="#" class="btn btn-primary">Chọn phòng</a>
                         </div>
 
@@ -79,85 +94,67 @@
 
                 <!-- Room -->
                 <div class="room-title">
-                    <h5>Những phòng còn trống</h5>
+                    <h2>Những phòng còn trống</h2>
                 </div>
                 <div class="container room">
-
-                    <div class="row mb-4 ">
-                        <div class="col-md-4">
-                            <div class="room-info">
-                                <h5>Deluxe Double</h5>
-                                <div class="room-image mb-3">
-                                    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/46843072.jpg?k=3470a6a57d8ccad210e3b1e25bf243875180d09cf678ed49cf2f2f7173f73fc3&o=&hp=1" alt="Deluxe Double">
+                    <div class="row mb-4" style="display:flex">
+                        @foreach (var group in Model._GroupedPhongs)
+                        {
+                            <div class="col-md-12" style="margin-bottom: 40px; padding: 12px; border-radius: 10px; border:1px solid #e7e7e7; ">
+                                <h4>@group.LoaiPhong</h4>
+                                <div class="row" style="display:flex;">
+                                    <div class="col-md-4">
+                                        <div class="room-info">
+                                            <div class="room-image mb-3">
+                                                @* ảnh phòng *@
+                                                <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/46843072.jpg?k=3470a6a57d8ccad210e3b1e25bf243875180d09cf678ed49cf2f2f7173f73fc3&o=&hp=1" alt="">
+                                            </div>
+                                            <ul class="room-details">
+                                                <li><strong>@group.Phongs.Select(p => p.ChiTietPhongs.Select(ct => ct.DienTich).FirstOrDefault()).FirstOrDefault() m²</strong></li>
+                                                @foreach (var dv in Model._DichVu.Take(2))
+                                                {
+                                                    <li><span>@dv.TenDichVu</span></li>
+                                                }
+                                            </ul>
+                                            <a href="#" class="text-primary">Xem chi tiết phòng</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <table class="table table-bordered" style="margin-top:33px">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Lựa chọn phòng</th>
+                                                    <th>Khách</th>
+                                                    <th>Giá/phòng/đêm</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var pitem in group.Phongs)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <strong>@pitem.TenPhong</strong>
+                                                        </td>
+                                                        <td><i class="bi bi-people-fill"></i> 2 người lớn</td>
+                                                        <td>
+                                                            <strong>@String.Format(new CultureInfo("vi-VN"), "{0:C0}", pitem.GiaPhong)</strong><br>
+                                                        </td>
+                                                        <td>
+                                                            <a style="text-decoration:none" class="btn btn-primary" 
+                                                            asp-action="Reservation1" asp-controller="Reservation1" asp-route-idP="@pitem.IdPhong" asp-route-IdKs="@Model._KhachSan.IdKs" asp-route-ckin="">Chọn</a>
+                                                        </td> 
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <ul class="room-details">
-                                    <li><strong>39.0 m²</strong></li>
-                                    <li><span>Không hút thuốc</span></li>
-                                    <li><span>Vòi tắm đứng</span></li>
-                                    <li><span>Tủ lạnh</span></li>
-                                    <li><span>Máy lạnh</span></li>
-                                </ul>
-                                <a href="#" class="text-primary">Xem chi tiết phòng</a>
                             </div>
-                        </div>
 
-                        <div class="col-md-8">
-                            <table class="table table-bordered">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>Lựa chọn phòng</th>
-                                        <th>Khách</th>
-                                        <th>Giá/phòng/đêm</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong>Deluxe Double</strong><br>
-                                            Breakfast included for 1 pax<br>
-                                            Miễn phí hủy trước 12 Jun 2024, 13:59<br>
-                                            1 Giường Cỡ Queen
-                                        </td>
-                                        <td><i class="bi bi-people-fill"></i> 2 người lớn</td>
-                                        <td>
-                                            <span class="deal-label">DEAL CHỌN LỌC</span><br>                                            
-                                            <strong>1,436,414 VND</strong><br>
-                                            Chưa bao gồm thuế và phí
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary">Chọn</button><br>
-                                            <span class="text-danger">Chỉ còn 2 phòng</span>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td>
-                                            <strong>Deluxe Double</strong><br>
-                                            Breakfast included for 1 pax<br>
-                                            Miễn phí hủy phòng trước 6 Jun 2024, 13:59<br>
-                                            Thanh Toán Tại Khách Sạn<br>
-                                            Thanh toán khi bạn nhận phòng tại nơi ở<br>
-                                            1 Giường Cỡ Queen
-                                        </td>
-                                        <td><i class="bi bi-people-fill"></i> 2 người lớn</td>
-                                        <td>
-                                            <span class="deal-label">DEAL CHỌN LỌC</span><br>
-                                            <span style="text-decoration: line-through;">2,749,110 VND</span><br>
-                                            <strong>1,512,015 VND</strong><br>
-                                            Chưa bao gồm thuế và phí
-                                        </td>
-                                        <td>
-                                            <a href="" class="btn btn-primary">Chọn</a><br>
-                                            <span class="text-danger">Chỉ còn 2 phòng</span>
-                                        </td>
-                                    </tr>                                    
-                                </tbody>
-                            </table>
-                        </div>
+                            
+                        }
                     </div>
-
                 </div>
             </div>
 

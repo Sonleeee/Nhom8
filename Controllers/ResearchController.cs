@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using static NuGet.Packaging.PackagingConstants;
 
-using Microsoft.EntityFrameworkCore;
 using Nhom8.ViewModels;
-using System;
-using NuGet.Protocol.Plugins;
+
 using Nhom8.Data;
 
 
@@ -29,14 +26,17 @@ namespace Nhom8_DACS.Controllers
         [HttpGet]
         public IActionResult research(int? idTinh, DateOnly? ngay_nhan_phong, DateOnly? ngay_tra_phong, int? nguoi_lon, int? tre_em, int? phong, int? IdKs)
         {
+            HttpContext.Session.SetString("CheckinDate", $"{ngay_nhan_phong}");            
+            HttpContext.Session.SetString("CheckoutDate", $"{ngay_tra_phong}");            
             var result = from ks in db.KhachSans
                          join t in db.Tinhs on ks.TinhId equals t.IdTinh
                          join p in db.Phongs on ks.IdKs equals p.IdKs
+                         join dv in db.DichVus on ks.IdKs equals dv.IdKs
                          join ctp in db.ChiTietPhongs on p.IdPhong equals ctp.IdPhong
-                         join dp in db.DatPhongs on p.IdPhong equals dp.IdPhong into dpGroup
-                         from dp in dpGroup.DefaultIfEmpty()
+                         join dp in db.DatPhongs on p.IdPhong equals dp.IdPhong into ksGroup
+                         from dp in ksGroup.DefaultIfEmpty()
                          where p.Hd == true
-                         select new { ks, p, dp, t, ctp };
+                         select new { ks, p, dp, t, ctp, dv};
 
             if (idTinh.HasValue)
             {
@@ -66,7 +66,8 @@ namespace Nhom8_DACS.Controllers
                                 {
                                     KhachSan = g.Key,
                                     Phong = g.OrderBy(gp => gp.p.GiaPhong).FirstOrDefault().p,
-                                    ChiTietPhong = g.FirstOrDefault().ctp
+                                    ChiTietPhong = g.FirstOrDefault().ctp,
+                                    DichVu = g.FirstOrDefault().dv,
                                 };
 
             // Tạo danh sách cuối cùng

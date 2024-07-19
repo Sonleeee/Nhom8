@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Nhom8.ViewModels.ReservationVM
+
+@{
     ViewData["Title"] = "Setroom";
     Layout = "~/views/shared/_LayoutCustomer.cshtml";
 }
@@ -11,18 +13,18 @@
 
     <div class="content-setroom">
         <div class="content-left">
-            <form asp-action="Reservation1" asp-controller="Reservation1">
+            <form asp-action="Reservation1" asp-controller="Reservation1" method="post">
                 <div class="info left-design">
                     <h4>Thông tin liên hệ</h4>
                     <div class="mb-3">
                         <label for="name" class="form-label">Họ và tên</label>
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" class="form-control" id="name" value="@Model.Name">
                         <p>Như trong Hộ chiếu/CMND/CCCD (không có danh xưng/ký tự đặc biệt)</p>
                     </div>
                     <div class="mail-sdt">
                         <div class="mb-3" style="width:60% ;">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" class="form-control" id="email" value="@Model.Email">
                             <p>Chúng tôi sẽ gửi vé đặt phòng tới email này.</p>
                         </div>
 
@@ -55,10 +57,10 @@
                     </div>
                 </div>
 
-                <div class="request left-design">
+                @* <div class="request left-design">
                     <h4>Bạn có yêu cầu nào không?</h4>
                     <textarea name="request" id="request" rows="4" style="width: 100%; height: auto;"></textarea>
-                </div>
+                </div> *@
 
                 <div class="payment left-design">
                     <h4>Lựa chọn thanh toán linh hoạt</h4>
@@ -77,16 +79,16 @@
                         <h4>Chi tiết giá</h4>
                         <div class="d-flex justify-content-between">
                             <span>Giá phòng</span>
-                            <span>4.306.242 VND</span>
-                        </div>
+                            <span>@Model.KhachSanPhong.Phong.GiaPhong VND</span>
+                        </div>    
                         <div class="d-flex justify-content-between">
-                            <span>Thuế và phí</span>
-                            <span>186.923 VND</span>
+                            @* <span>Tổng ngày</span>
+                            <span>@Model.KhachSanPhong.Phong.GiaPhong VND</span> *@
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between" style="padding-bottom: 20px;">
                             <span class="total-price">Tổng giá</span>
-                            <span class="total-price">4.493.165 VND</span>
+                            <span class="total-price">@Model.Price</span>
                         </div>
                         <input class="btn btn-primary w-100" name="payment" type="submit" value="Thanh toán VnPay" />
                         <p class="text-muted mt-3">
@@ -140,7 +142,6 @@
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
-                        @* <span class="old-price">3.027.500 VND</span> *@
                         <span class="total-price">4.493.165 VND</span>
                     </div>
                 </div>

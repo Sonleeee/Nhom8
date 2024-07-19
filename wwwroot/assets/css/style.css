@@ -223,14 +223,21 @@ button:focus {
 
     .hotel-card img {
         border-radius: 10px;
-        /* height: 240px;
-    width: 240px; */
+
         border: 1px solid #e0e0e0;
     }
 
     .hotel-card .hotel-info {
         flex-grow: 1;
         padding-left: 15px;
+    }
+
+    .hotel-info{
+        width: 90%;
+    }
+
+    .hotel-price{
+        width:40%;
     }
 
     .hotel-card .hotel-price {
@@ -253,7 +260,7 @@ button:focus {
     position: sticky;
     top: 0px;
     width: 98%;
-    margin-left: 18px;
+    margin-left: 12px;
     background-color: rgb(247 249 250);
     padding: 10px 0;
     border-radius: 10px;

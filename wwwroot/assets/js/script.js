@@ -58,9 +58,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const dd = String(today.getDate()).padStart(2, '0');
     const formattedToday = `${yyyy}-${mm}-${dd}`;
 
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yyyyTomorrow = tomorrow.getFullYear();
+    const mmTomorrow = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const ddTomorrow = String(tomorrow.getDate()).padStart(2, '0');
+    const formattedTomorrow = `${yyyyTomorrow}-${mmTomorrow}-${ddTomorrow}`;
+
     // Set giá trị cho các trường input
     document.getElementById('checkInDate').value = formattedToday;
-    document.getElementById('checkOutDate').value = formattedToday;
+    document.getElementById('checkOutDate').value = formattedTomorrow;
 
     // - số lượng người lớn
     document.getElementById('increase-adults').addEventListener('click', function (event) {
