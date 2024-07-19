@@ -18,12 +18,12 @@
 		@foreach (var item in Model.DatPhongs)
 		{
 
-			var today = DateTime.Today;
-			
-			if (item.NgayCheckout == today)
+			var today = DateOnly.FromDateTime(DateTime.Today);
+
+			@* if (item.NgayCheckout == today)
 			{
 				countGO++;
-			}
+			} *@
 
 			if (item.TrangThai == false)
 			{
