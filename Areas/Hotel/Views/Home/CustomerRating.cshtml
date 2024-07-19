@@ -18,11 +18,25 @@
                     <p>@comment.CmContent</p>
                 </div>
                 <div class="review-rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">☆</span>
+                    @for(int i = 1; i<=5; i++)
+                    {
+                        if(i <= comment.Star)
+                        {
+                            
+                            <i class="fa-solid fa-star"></i>
+                        }
+                        else
+                        if (comment.Star.Equals(i-0.5))
+                        {
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        }
+                        else
+                        {
+                            <i class="fa-regular fa-star"></i>
+                        }
+
+
+                    }
                 </div>
             </div>
         }
