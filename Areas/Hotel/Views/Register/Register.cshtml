@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_LayoutCustomer2.cshtml";
-    var Tinhs = ViewBag.DatPhongs as List<Tinh> ?? new List<Tinh>();
+    var Tinhs = ViewBag.Tinhs as List<Tinh> ?? new List<Tinh>();
 }
 
 
@@ -18,34 +18,30 @@
                                 <form asp-action="Register" enctype="multipart/form-data" method="post">
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label"></label>
-                                        <input type="text" class="form-control form-control-lg" placeholder="Tên khách sạn" asp />
+                                        <input name="tenKs" type="text" class="form-control form-control-lg" placeholder="Tên khách sạn" asp />
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label"></label>
-                                        <input type="text" class="form-control form-control-lg" placeholder="Địa chỉ khách sạn" asp />
+                                        <input name="diaChi" type="text" class="form-control form-control-lg" placeholder="Địa chỉ khách sạn" asp />
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label">Tỉnh</label>
                                         
-                                        <select id="tinh" name="tinh">
-                                            <option >Tỉnh thành</option>
+                                        <select id="tinhID" name="tinhID">
+                                            <option value="headTT">Tỉnh thành</option>
                                             @foreach (var tinh in Tinhs)
                                             {
-                                                <h2>@tinh.Tinh1</h2>
+                                                <option value="@tinh.IdTinh">@tinh.Tinh1</option>
                                             }
                                         </select>
                                     </div>
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" ></label>
-                                        <input type="text"  class="form-control form-control-lg" asp />
+                                        <label class="form-label">Hình khách sạn:</label>
+                                        <input name="hinhKS" type="file" class="form-control form-control-lg" asp />
                                     </div>
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label"></label>
-                                        <input type="text" class="form-control form-control-lg asp" />
-                                    </div>
-
+                                    
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" data-mdb-button-init
                                                 data-mdb-ripple-init class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body">

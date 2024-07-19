@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Nhom8.Data;
 using Nhom8.Areas.Hotel.Models;
 using System.Runtime.Intrinsics.Arm;
+using System.Linq;
 namespace Nhom8_DACS.Areas.Hotel.Controllers
 {
 
@@ -17,7 +18,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             this.context = context;
             this.environment = environment;
         }
-        int userID = 1;
+        int userID = 3;
 
         public IActionResult Index()
         {
@@ -44,6 +45,17 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             .Take(5)  // Lấy 5 phần tử đầu tiên
             .ToList();
 
+            // Lấy danh sách các đánh giá cho khách sạn với ID tương ứng
+            var TongComments = context.Comments.Where(c => c.KsId == id).Select(c => (double?)c.Star).ToList();
+
+            // Tính trung bình cộng, nếu danh sách rỗng thì trả về 0
+            var averageStar = TongComments.DefaultIfEmpty(0).Average();
+
+            var starCount = context.Comments
+                             .Where(c => c.KsId == id).Count();
+
+            ViewBag.StarCount = starCount;
+            ViewBag.AverageStar = averageStar;
             ViewBag.Comments = comments.ToList();
             ViewBag.DatPhongs = datPhongs.ToList();
             return View(hotelInfo);

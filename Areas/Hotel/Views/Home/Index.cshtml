@@ -9,11 +9,37 @@
 
 <div class="HotelBody">
     <div class="BodyItem">
-        <div class="item">
+        <div class="item" style="display:flex; justify-content:left;">
             @foreach (var khachSan in Model)
             {
-                <h1>@khachSan.TenKs</h1>
-                <h3>@khachSan.DiaChi</h3>
+                <img src="@khachSan.ImageKs"/>
+                <div>
+                    <h1>@khachSan.TenKs</h1>
+                    <h3>@khachSan.DiaChi</h3>
+                    <span style="color: #e68a00;">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= ViewBag.AverageStar)
+                            {
+
+                                <i class="fa-solid fa-star"></i>
+                            }
+                            else
+                            if (ViewBag.AverageStar.Equals(i - 0.5))
+                            {
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-regular fa-star"></i>
+                            }
+
+
+                        }
+                        <a style="color: black">(@ViewBag.StarCount)</a>
+                    </span>
+                </div>
+                
             }
         </div>
         <div class="item">
