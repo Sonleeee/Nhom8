@@ -27,8 +27,7 @@
                 <!-- Add more years as needed -->
             </select>
         </div>
-        <h3>Báo cáo tổng doanh thu hàng tháng
-        </h3>
+        <h3>Báo cáo tổng doanh thu hàng tháng</h3>
         <div class="divFinanceInform">
             <ul role="tablist" class="bui-tab__nav">
                 @for (int i = 1; i <= 12; i++)
@@ -56,8 +55,24 @@
     @for (int i = 1; i <= 31; i++)
     {
         @($"{i}, ")
+<<<<<<< HEAD
     }
     ];
+=======
+    }];
+
+    // const revenueData = {
+    //     2023: {
+    //         1: [50, 45, 40, 30, 20], // Data for January 2023
+    //         2: [35, 40, 50, 25, 30], // Data for February 2023
+    //     },
+    //     2024: {
+    //         1: [55, 49, 44, 24, 15], // Data for January 2024
+    //         2: [30, 50, 40, 30, 20],  // Data for February 2024
+    //     },
+    //     // Add data for more years and months as needed
+    // };
+>>>>>>> vyx
     const revenueData = {
         @foreach (var year in years)
         {
@@ -65,11 +80,19 @@
             @for (int month = 1; month <= 12; month++)
             {
                 @: @month: [
+<<<<<<< HEAD
                 @for (int day = 1; day <= DateTime.DaysInMonth(year, month); day++)
                 {
                     var dailyRevenue = revenueData.Where(p => p.Year == year && p.Month == month && p.Day == day).Sum(p => p.Revenue);
                     @: @dailyRevenue
                     @if (day < DateTime.DaysInMonth(year, month))
+=======
+                @for (int day = 1; day <= 31; day++)
+                {
+                    var dailyRevenue = revenueData.FirstOrDefault(p => p.Year == year && p.Month == month && p.Day == day)?.Revenue ?? 0;
+                    @: @dailyRevenue
+                    @if (day < 31)
+>>>>>>> vyx
                     {
                         @:,
                     }
@@ -81,7 +104,7 @@
     }
 
 
-    let selectedYear = 2024;
+    let selectedYear = @years.FirstOrDefault();
 
     const chart = new Chart("myChart", {
         type: "bar",
