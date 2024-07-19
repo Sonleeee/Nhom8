@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Nhom8.ViewModels.HotelViewModel>
+﻿@model IEnumerable<Nhom8.ViewModels.ResearchVM>
 @{
     ViewData["Title"] = "Research";
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
@@ -13,18 +13,7 @@
 
                 <div class="filter-content" style="border-top-left-radius: 10px; border-top-right-radius: 10px; ">
                     <h5 style=" margin-bottom: 0px;">Bộ lọc:</h5>
-                </div>
-
-                <div class="filter-content budget">
-
-                    <h5>Ngân sách của bạn</h5>
-                    <div class="slider-bar"></div>
-                    <input type="range" class="form-range slider" min="0" max="3000000" step="10000" id="budgetSlider">
-                    <div class="slider-value">
-                        <span id="minValue">VND 0</span> - <span id="maxValue">VND 3,000,000+</span>
-                    </div>
-
-                </div>
+                </div>               
                 
                 @await Component.InvokeAsync("FilterTNghi")
 
@@ -32,104 +21,37 @@
 
                 @await Component.InvokeAsync("FilterChinhsach")
                                 
-
             </div>
 
             <div class="result">
-                <div class="hotel-card d-flex">
-                    <img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg" alt="Hotel Image" class="img-fluid" style="max-width: 240px;">
-                    <div class="hotel-info">
-                        <h5 class="mt-0">TN Central Hotel<span class="badge bg-warning text-dark">★★★</span></h5>
-                        @* <div class="" style="font-size: 14px;">
-                        <a href="#" class="text-decoration-none" 22 Hai Bà Trưng, Quận 1, TP. Hồ Chí Minh, Việt Nam</a> · <a href="#" class="text-decoration-none">Xem trên bản đồ</a> · Cách trung tâm 300m
-                        </div> *@
+                
+                @foreach (var item in Model)
+                {
+                    <div class="hotel-card d-flex">
+                        <img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg" alt="Hotel Image" class="img-fluid" style="max-width: 240px;">
+                        <div class="hotel-info">
+                            <h5 class="mt-0">@item.KhachSan.TenKs 
+                                <span class="badge bg-warning text-dark">
 
-                        <p class="mt-2"><strong>Phòng Deluxe 2 Giường Đơn Không có Cửa sổ</strong><br>2 giường đơn</p>
-                        <p class="text-success">✔ Miễn phí huỷ</p>
-                    </div>
-                    <div class="hotel-price" style="padding: 10px; font-size: 14px;">
-                        <p class="mb-1"><strong>Tốt</strong> <span class="badge badge-rating">7,3</span></p>
-                        <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
-                        <p class="mb-1"><strong>VND 2.158.547</strong><br>Đã bao gồm thuế và phí</p>
-                        <a href="#" class="btn btn-primary">Xem chỗ trống</a>
-                    </div>
-                </div>
+                                </span>
+                            </h5>
+                            <div class="" style="font-size: 14px;">
+                                <a href="#" class="text-decoration-none"> @item.KhachSan.DiaChi</a>
+                            </div>
 
-                <div class="hotel-card d-flex">
-                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/2c/2b/ff/guestroom-terrace-amenities.jpg" alt="Hotel Image" class="img-fluid" style="max-width: 240px;">
-                    <div class="hotel-info">
-                        <h5 class="mt-0">Sunrise Central Hotel <span class="badge bg-warning text-dark">★★★</span></h5>
-                        @* <div class="" style="font-size: 14px;">
-                        <a href="#" class="text-decoration-none">Quận 1, TP. Hồ Chí Minh</a> · <a href="#" class="text-decoration-none">Xem trên bản đồ</a> · Cách trung tâm 300m
-                        </div> *@
-
-                        <p class="mt-2"><strong>Phòng Deluxe 2 Giường Đơn Không có Cửa sổ</strong><br>2 giường đơn</p>
-                        <p class="text-success">✔ Miễn phí huỷ</p>
-                    </div>
-                    <div class="hotel-price" style="padding: 10px; font-size: 14px;">
-                        <p class="mb-1"><strong>Tốt</strong> <span class="badge badge-rating">7,3</span></p>
-                        <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
-                        <p class="mb-1"><strong>VND 4.493.165</strong><br>Đã bao gồm thuế và phí</p>
-                        <a href="#" class="btn btn-primary">Xem chỗ trống</a>
-                    </div>
-                </div>
-
-                <div class="hotel-card d-flex">
-                    <img src="https://cdn1.ivivu.com/iVivu/2019/08/22/18/landscape-4096-1-800x450.webp?o=jpg" alt="Hotel Image" class="img-fluid" style="max-width: 240px;">
-                    <div class="hotel-info">
-                        <h5 class="mt-0">The Malibu Hotel<span class="badge bg-warning text-dark">★★★</span></h5>
-                        @* <div class="" style="font-size: 14px;">
-                        <a href="#" class="text-decoration-none">Quận 1, TP. Hồ Chí Minh</a> · <a href="#" class="text-decoration-none">Xem trên bản đồ</a> · Cách trung tâm 300m
-                        </div> *@
-
-                        <p class="mt-2"><strong>Phòng Deluxe 2 Giường Đơn Không có Cửa sổ</strong><br>2 giường đơn</p>
-                        <p class="text-success">✔ Miễn phí huỷ</p>
-                    </div>
-                    <div class="hotel-price" style="padding: 10px; font-size: 14px;">
-                        <p class="mb-1"><strong>Tốt</strong> <span class="badge badge-rating">7,3</span></p>
-                        <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
-                        <p class="mb-1"><strong>VND 2.158.547</strong><br>Đã bao gồm thuế và phí</p>
-                        <a href="#" class="btn btn-primary">Xem chỗ trống</a>
-                    </div>
-                </div>
-
-                <div class="hotel-card d-flex">
-                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/2c/2b/ff/guestroom-terrace-amenities.jpg" alt="Hotel Image" class="img-fluid" style="max-width: 240px;">
-                    <div class="hotel-info">
-                        <h5 class="mt-0">Sunrise Central Hotel <span class="badge bg-warning text-dark">★★★</span></h5>
-                        <div class="" style="font-size: 14px;">
-                            <a href="#" class="text-decoration-none">Quận 1, TP. Hồ Chí Minh</a> · <a href="#" class="text-decoration-none">Xem trên bản đồ</a> · Cách trung tâm 300m
+                            <p class="mt-2"><strong>@item.Phong.LoaiPhong</strong></p>
+                            <p class="text-success">✔ miễn phí huỷ</p>
                         </div>
-
-                        <p class="mt-2"><strong>Phòng Deluxe 2 Giường Đơn Không có Cửa sổ</strong><br>2 giường đơn</p>
-                        <p class="text-success">✔ Miễn phí huỷ</p>
-                    </div>
-                    <div class="hotel-price" style="padding: 10px; font-size: 14px;">
-                        <p class="mb-1"><strong>Tốt</strong> <span class="badge badge-rating">7,3</span></p>
-                        <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
-                        <p class="mb-1"><strong>VND 2.158.547</strong><br>Đã bao gồm thuế và phí</p>
-                        <a href="#" class="btn btn-primary">Xem chỗ trống</a>
-                    </div>
-                </div>
-
-                <div class="hotel-card d-flex">
-                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/2c/2b/ff/guestroom-terrace-amenities.jpg" alt="Hotel Image" class="img-fluid" style="max-width: 240px;">
-                    <div class="hotel-info">
-                        <h5 class="mt-0">Sunrise Central Hotel <span class="badge bg-warning text-dark">★★★</span></h5>
-                        <div class="" style="font-size: 14px;">
-                            <a href="#" class="text-decoration-none">Quận 1, TP. Hồ Chí Minh</a> · <a href="#" class="text-decoration-none">Xem trên bản đồ</a> · Cách trung tâm 300m
+                        <div class="hotel-price" style="padding: 10px; font-size: 14px;">
+                            <p class="mb-1"><strong>Tốt</strong> <span class="badge badge-rating">7,3</span></p>
+                            <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
+                            <p class="mb-1"><strong>@item.Phong.GiaPhong</strong><br>Đã bao gồm thuế và phí</p>
+                            <a asp-action="detail" asp-controller="detail" asp-route-idKs="@item.KhachSan.IdKs" class="btn btn-primary">Xem chỗ trống</a>
                         </div>
+                    </div>
+                }
 
-                        <p class="mt-2"><strong>Phòng Deluxe 2 Giường Đơn Không có Cửa sổ</strong><br>2 giường đơn</p>
-                        <p class="text-success">✔ Miễn phí huỷ</p>
-                    </div>
-                    <div class="hotel-price" style="padding: 10px; font-size: 14px;">
-                        <p class="mb-1"><strong>Tốt</strong> <span class="badge badge-rating">7,3</span></p>
-                        <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
-                        <p class="mb-1"><strong>VND 2.158.547</strong><br>Đã bao gồm thuế và phí</p>
-                        <a href="#" class="btn btn-primary">Xem chỗ trống</a>
-                    </div>
-                </div>
+                
 
             </div>
 
