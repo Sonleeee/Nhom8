@@ -5,16 +5,16 @@ using Nhom8.Areas.Hotel.Models;
 using System.Runtime.Intrinsics.Arm;
 namespace Nhom8_DACS.Areas.Hotel.Controllers
 {
-    
+
     [Area("Hotel")]
     public class HomeController : Controller
     {
         private readonly BookingHotelContext context;
-        
+
         public HomeController(BookingHotelContext context)
         {
             this.context = context;
-            
+
         }
         int userID = 1;
 
@@ -151,7 +151,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             var Phong = context.Phongs.Where(p => p.IdKs == id);
             return View(Phong.ToList());
         }
-        
+
         public IActionResult Service(string searchString)
         {
             ViewBag.ActivePage = "Service";
@@ -177,7 +177,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         [HttpPost]
         public IActionResult AddService(string tenDichVu)
         {
-            
+
             int? ksID = context.KhachSans
                   .Where(q => q.UserId.Equals(userID))
                   .Select(p => p.IdKs)
@@ -191,7 +191,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             };
             context.DichVus.Add(dichVuMoi);
             context.SaveChanges();
-            
+
             return RedirectToAction("Service");
         }
         public async Task<IActionResult> UpdateService(int id, bool trangThai)

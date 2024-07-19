@@ -15,7 +15,5 @@ public partial class ChiTietPhong
 
     public virtual Phong? IdPhongNavigation { get; set; }
 
-    public virtual ICollection<Phong> Phongs { get; set; } = new List<Phong>();
-
     public virtual ICollection<TienNghi> TienNghis { get; set; } = new List<TienNghi>();
 }

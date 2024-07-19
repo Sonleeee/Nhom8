@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
+
 using Nhom8.Data;
 using Nhom8.ViewModels;
 
-namespace Nhom8.ViewComponents
+namespace nhom8.viewcomponents
 {
     public class FilterDichvuViewComponent : ViewComponent
     {
@@ -17,7 +19,7 @@ namespace Nhom8.ViewComponents
                 MaDV = dv.IdDichVu,
                 TenDV = dv.TenDichVu,
             }).OrderBy(t => t.TenDV);
-            return View("FilterDichVu", data);
+            return View("FilterDichvu", data);
         }
     }
 }
