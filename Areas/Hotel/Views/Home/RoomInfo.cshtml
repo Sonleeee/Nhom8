@@ -16,6 +16,7 @@
         </button>
 
         <!-- Modal -->
+<<<<<<< HEAD
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -38,6 +39,34 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                         <button type="button" class="btn btn-primary">Thêm</button>
+=======
+        <form id="addRoomForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="AddRoom">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Thêm phòng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="roomName">Tên Phòng:</label>
+                            <input class="form-control" type="text" id="roomName" name="roomName" placeholder="Tên phòng" required>
+                            <label for="roomType">Loại Phòng:</label>
+                            <input class="form-control" type="text" id="roomType" name="roomType" placeholder="Loại phòng" required>
+                            <label for="roomPrice">Giá Phòng (VND):</label>
+                            <input class="form-control" type="number" id="roomPrice" name="roomPrice" placeholder="Giá VND" required>
+                            <label for="roomImage">Hình Ảnh:</label>
+                            <input class="form-control" type="file" id="roomImage" name="roomImage" multiple required>
+                            <label for="RoomBeds">Số lượng giường:</label>
+                            <input class="form-control" type="number" id="RoomBeds" name="roomBedNumber" placeholder="số lượng giường" required>
+                            <label for="RoomArea">Diện tích:</label>
+                            <input class="form-control" type="number" id="RoomArea" name="roomArea" placeholder="Diện tích" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Thêm</button>
+                        </div>
+>>>>>>> vyx
                     </div>
                 </div>
             </div>
@@ -64,6 +93,60 @@
                             <td>@phong.LoaiPhong</td>
                             <td>@phong.TinhTrangPhong</td>
                             <td>@phong.GiaPhong</td>
+<<<<<<< HEAD
+=======
+                            <td>
+                                @if (phong.ImgRooms != null && phong.ImgRooms.Any())
+                                {
+                                    foreach (var img in phong.ImgRooms)
+                                    {
+                                        <img class="room-image" src="@img.Img" alt="Hình ảnh phòng" style="max-width: 100px; max-height: 100px;" />
+                                    }
+                                }
+                                else
+                                {
+                                    <p>Không có hình ảnh</p>
+                                }
+                            </td>
+                            <td>@(phong.ChiTietPhongs.Select(ct => ct.SlGiuong).FirstOrDefault())</td>
+                            <td>@(phong.ChiTietPhongs.Select(ct => ct.DienTich).FirstOrDefault())</td>
+                            <td>
+                                <button type="button" class="btn btn-warning btn-edit" data-id="@phong.IdPhong" data-bs-toggle="modal" data-bs-target="#editModal">Chỉnh Sửa</button>
+                                <!-- Modal Chỉnh Sửa -->
+                                <form id="editRoomForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="EditRoom">
+                                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Phòng</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" id="editRoomId" name="roomId" />
+                                                    <label for="editRoomName">Tên Phòng:</label>
+                                                    <input class="form-control" type="text" id="editRoomName" name="roomName" placeholder="Tên phòng" required>
+                                                    <label for="editRoomType">Loại Phòng:</label>
+                                                    <input class="form-control" type="text" id="editRoomType" name="roomType" placeholder="Loại phòng" required>
+                                                    <label for="editRoomPrice">Giá Phòng (VND):</label>
+                                                    <input class="form-control" type="number" id="editRoomPrice" name="roomPrice" placeholder="Giá VND" required>
+                                                    <label for="editRoomImage">Hình Ảnh:</label>
+                                                    <input class="form-control" type="file" id="editRoomImage" name="roomImage" multiple>
+                                                    <label for="editRoomBeds">Số lượng giường:</label>
+                                                    <input class="form-control" type="number" id="editRoomBeds" name="roomBedNumber" placeholder="số lượng giường" required>
+                                                    <label for="editRoomArea">Diện tích:</label>
+                                                    <input class="form-control" type="number" id="editRoomArea" name="roomArea" placeholder="Diện tích" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </td>
+>>>>>>> vyx
                         </tr>
                     }
                 </tbody>
@@ -78,6 +161,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <script>
     document.getElementById('add-room-form').addEventListener('submit', function (event) {
         event.preventDefault();
@@ -146,13 +230,66 @@
                 overlayImage.alt = image.alt;
                 overlayImage.classList.add('overlay-image');
                 overlayContent.appendChild(overlayImage);
+=======
+    <script>
+        //thêm dữ liệu vào bảng sửa
+        document.addEventListener('DOMContentLoaded', function () {
+            const editButtons = document.querySelectorAll('.btn-edit');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const row = this.closest('tr');
+
+                    // Lấy dữ liệu từ dòng hiện tại
+                    const roomName = row.querySelector('td:nth-child(1)').textContent.trim();
+                    const roomType = row.querySelector('td:nth-child(2)').textContent.trim();
+                    const roomPrice = row.querySelector('td:nth-child(4)').textContent.trim();
+                    const roomBeds = row.querySelector('td:nth-child(6)').textContent.trim();
+                    const roomArea = row.querySelector('td:nth-child(7)').textContent.trim();
+
+                    // Cập nhật các trường trong modal
+                    document.getElementById('editRoomId').value = id;
+                    document.getElementById('editRoomName').value = roomName;
+                    document.getElementById('editRoomType').value = roomType;
+                    document.getElementById('editRoomPrice').value = roomPrice;
+                    document.getElementById('editRoomBeds').value = 2;
+                    document.getElementById('editRoomArea').value = 2;
+                });
+>>>>>>> vyx
             });
             document.getElementById('image-overlay').style.display = 'flex';
         }
     });
 
+<<<<<<< HEAD
     // Đóng overlay khi nhấn vào nó
     document.getElementById('image-overlay').addEventListener('click', function () {
         document.getElementById('image-overlay').style.display = 'none';
     });
 </script>
+=======
+
+        // Hiển thị tất cả hình ảnh của phòng khi nhấn vào hình ảnh
+        document.getElementById('room-table').addEventListener('click', function (event) {
+            if (event.target.tagName === 'IMG') {
+                const roomImages = event.target.closest('tr').querySelectorAll('.room-image');
+                const overlayContent = document.getElementById('overlay-content');
+                overlayContent.innerHTML = '';
+                roomImages.forEach(function (image) {
+                    const overlayImage = document.createElement('img');
+                    overlayImage.src = image.src;
+                    overlayImage.alt = image.alt;
+                    overlayImage.classList.add('overlay-image');
+                    overlayContent.appendChild(overlayImage);
+                });
+                document.getElementById('image-overlay').style.display = 'flex';
+            }
+        });
+
+        // Đóng overlay khi nhấn vào nó
+        document.getElementById('image-overlay').addEventListener('click', function () {
+            document.getElementById('image-overlay').style.display = 'none';
+        });
+    </script>
+>>>>>>> vyx

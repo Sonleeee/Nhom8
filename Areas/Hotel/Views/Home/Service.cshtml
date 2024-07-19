@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Service";
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
+    var QuyDinhs = ViewBag.QuyDinh as List<QuyDinhChung> ?? new List<QuyDinhChung>();
 }
 @model IEnumerable<Nhom8.Data.DichVu>
 
@@ -26,6 +27,7 @@
             <h2>Tiện nghi phổ biến nhất</h2>
             @foreach (var dichVu in Model)
             {
+<<<<<<< HEAD
                 <form asp-action="UpdateService" method="post" id="updateForm_@dichVu.IdDichVu">
                 <div class="facility__row">
                     <h3 style="display: inline-block; width: 78%;">@dichVu.TenDichVu</h3>
@@ -36,22 +38,39 @@
                     </label>
                 </div>
                 </form>
+=======
+                <div class="facility__row">
+                    <h3 style="display: inline-block; width: 78%;">@dichVu.TenDichVu</h3>
+
+                    <form asp-action="UpdateService" method="post" id="updateForm_@dichVu.IdDichVu" style="display: inline-block">
+                        <input type="hidden" name="id" value="@dichVu.IdDichVu" />
+                        <label class="switch">
+                            <input type="checkbox" @(dichVu.TrangThai.GetValueOrDefault() ? "checked" : "") name="trangThai" onchange="this.form.submit()">
+                            <span class="slider"></span>
+                        </label>
+                    </form>
+                    <form asp-action="DeleteService" method="post" style="display: inline-block;">
+                        <input type="hidden" name="id" value="@dichVu.IdDichVu" />
+                        <button type="submit" class="btn btn-danger" style="margin-top:5px;">Xóa</button>
+                    </form>
+                </div>
+>>>>>>> vyx
             }
 
             <!-- Nút kích hoạt modal thêm dịch vụ -->
             <div class="facility__row" style="justify-content:center; display:flex;">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">
                     <i class="fa fa-plus" style="font-size:48px;color:white"></i>
                 </button>
             </div>
 
             <!-- Form trong modal để thêm dịch vụ mới -->
             <form id="addServiceForm" method="post" asp-controller="Home" asp-action="AddService">
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Thêm dịch vụ</h5>
+                                <h5 class="modal-title" id="addServiceModalLabel">Thêm dịch vụ</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -65,7 +84,73 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
 
+    <div class="BodyItem">
+        <h2>Quy định chung</h2>
+
+        <!-- Form tìm kiếm quy Định -->
+        <form method="get" asp-controller="Home" asp-action="Service">
+            <div class="search-box__container">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" class="bk-icon -streamline-magnifying_glass">
+                    <path d="M17.464 6.56a8.313 8.313 0 1 1-15.302 6.504A8.313 8.313 0 0 1 17.464 6.56zm1.38-.586C16.724.986 10.963-1.339 5.974.781.988 2.9-1.337 8.662.783 13.65c2.12 4.987 7.881 7.312 12.87 5.192 4.987-2.12 7.312-7.881 5.192-12.87zM15.691 16.75l7.029 7.03a.75.75 0 0 0 1.06-1.06l-7.029-7.03a.75.75 0 0 0-1.06 1.06z"></path>
+                </svg>
+                <div class="bui-form__group">
+                    <input id="search-QuyDinh" aria-describedby="describe-search-QuyDinh" autocomplete="off" type="text" placeholder="Tìm quy định chung" aria-label="accessible" class="bui-form__control" name="tenQuyDinh">
+                </div>
+            </div>
+        </form>
+
+        <!-- Danh sách quy định -->
+        <div class="bui-panel">
+            <h2>Quy định chung phổ biến nhất</h2>
+            @foreach (var quyDinh in QuyDinhs)
+            {
+                <div class="facility__row">
+                    <h3 style="display: inline-block; width: 78%;">@quyDinh.TenQuyDinh</h3>
+
+                    <form asp-action="UpdateQuyDinh" method="post" id="updateForm_@quyDinh.IdQuyDinh" style="display: inline-block">
+                        <input type="hidden" name="id" value="@quyDinh.IdQuyDinh" />
+                        <label class="switch">
+                            <input type="checkbox" @(quyDinh.TrangThai.GetValueOrDefault() ? "checked" : "") name="trangThai" onchange="this.form.submit()">
+                            <span class="slider"></span>
+                        </label>
+                    </form>
+                    <form asp-action="DeleteQuyDinh" method="post" style="display: inline-block;">
+                        <input type="hidden" name="id" value="@quyDinh.IdQuyDinh" />
+                        <button type="submit" class="btn btn-danger" style="margin-top:5px;">Xóa</button>
+                    </form>
+                </div>
+            }
+
+            <!-- Nút kích hoạt modal thêm quy định -->
+            <div class="facility__row" style="justify-content:center; display:flex;">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRuleModal">
+                    <i class="fa fa-plus" style="font-size:48px;color:white"></i>
+                </button>
+            </div>
+
+            <!-- Form trong modal để thêm quy định mới -->
+            <form id="addRuleForm" method="post" asp-controller="Home" asp-action="AddQuyDinh">
+                <div class="modal fade" id="addRuleModal" tabindex="-1" aria-labelledby="addRuleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addRuleModalLabel">Thêm quy định</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="form-control" id="tenQuyDinh" placeholder="Tên quy định" name="tenQuyDinh" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Thêm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
