@@ -41,12 +41,15 @@ public partial class BookingHotelContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-   
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-8TRVS7F;Initial Catalog=Booking_Hotel;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ChiTietPhong>(entity =>
         {
-            entity.HasKey(e => e.IdChiTietPhong).HasName("PK__ChiTietP__899DC2B3626E0B39");
+            entity.HasKey(e => e.IdChiTietPhong).HasName("PK__ChiTietP__899DC2B3AE4BC55D");
 
             entity.ToTable("ChiTietPhong");
 
@@ -61,7 +64,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.CmId).HasName("PK__Comment__B1B8F6BC04BA0669");
+            entity.HasKey(e => e.CmId).HasName("PK__Comment__B1B8F6BC6EA9BD25");
 
             entity.ToTable("Comment");
 
@@ -85,7 +88,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<Conversation>(entity =>
         {
-            entity.HasKey(e => e.ConversationId).HasName("PK__Conversa__C050D8771A324B0A");
+            entity.HasKey(e => e.ConversationId).HasName("PK__Conversa__C050D8779F6BFA89");
 
             entity.ToTable("Conversation");
 
@@ -101,7 +104,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<DatPhong>(entity =>
         {
-            entity.HasKey(e => e.IdDatPhong).HasName("PK__DatPhong__E570289205E2C77E");
+            entity.HasKey(e => e.IdDatPhong).HasName("PK__DatPhong__E5702892ADDABAD4");
 
             entity.ToTable("DatPhong");
 
@@ -122,7 +125,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<DichVu>(entity =>
         {
-            entity.HasKey(e => e.IdDichVu).HasName("PK__DichVu__6C465C9FD46D83FD");
+            entity.HasKey(e => e.IdDichVu).HasName("PK__DichVu__6C465C9F7BB474F1");
 
             entity.ToTable("DichVu");
 
@@ -137,7 +140,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<ImgRoom>(entity =>
         {
-            entity.HasKey(e => e.ImgId).HasName("PK__ImgRoom__352F541370AA454D");
+            entity.HasKey(e => e.ImgId).HasName("PK__ImgRoom__352F5413E4BADC38");
 
             entity.ToTable("ImgRoom");
 
@@ -152,11 +155,12 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<KhachSan>(entity =>
         {
-            entity.HasKey(e => e.IdKs).HasName("PK__KhachSan__8B62EC92FAA03FB1");
+            entity.HasKey(e => e.IdKs).HasName("PK__KhachSan__8B62EC928132010B");
 
             entity.ToTable("KhachSan");
 
             entity.Property(e => e.IdKs).HasColumnName("ID_KS");
+            entity.Property(e => e.DanhGia).HasColumnType("text");
             entity.Property(e => e.DiaChi).HasMaxLength(100);
             entity.Property(e => e.ImageKs)
                 .HasMaxLength(500)
@@ -178,7 +182,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<Message>(entity =>
         {
-            entity.HasKey(e => e.MessageId).HasName("PK__Messages__C87C0C9C168001B8");
+            entity.HasKey(e => e.MessageId).HasName("PK__Messages__C87C0C9CD442AF50");
 
             entity.Property(e => e.ConVid).HasColumnName("ConVID");
             entity.Property(e => e.MessageContent).HasColumnType("text");
@@ -195,7 +199,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<Phong>(entity =>
         {
-            entity.HasKey(e => e.IdPhong).HasName("PK__Phong__DA88924DCF276789");
+            entity.HasKey(e => e.IdPhong).HasName("PK__Phong__DA88924D20AC835B");
 
             entity.ToTable("Phong");
 
@@ -213,7 +217,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<QuyDinhChung>(entity =>
         {
-            entity.HasKey(e => e.IdQuyDinh).HasName("PK__QuyDinhC__C2AF97D6B6EE2D11");
+            entity.HasKey(e => e.IdQuyDinh).HasName("PK__QuyDinhC__C2AF97D6FA95149D");
 
             entity.ToTable("QuyDinhChung");
 
@@ -228,7 +232,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<TienNghi>(entity =>
         {
-            entity.HasKey(e => e.MaTienNghi).HasName("PK__TienNghi__ED7B8F4DAFC82EF1");
+            entity.HasKey(e => e.MaTienNghi).HasName("PK__TienNghi__ED7B8F4D7DD6C120");
 
             entity.ToTable("TienNghi");
 
@@ -242,12 +246,11 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<Tinh>(entity =>
         {
-            entity.HasKey(e => e.IdTinh).HasName("PK__Tinh__D34E76D1C7991ACA");
+            entity.HasKey(e => e.IdTinh).HasName("PK__Tinh__D34E76D1B27E36A3");
 
             entity.ToTable("Tinh");
 
             entity.Property(e => e.IdTinh).HasColumnName("ID_Tinh");
-            entity.Property(e => e.ImgTinh).HasMaxLength(500);
             entity.Property(e => e.Tinh1)
                 .HasMaxLength(100)
                 .HasColumnName("Tinh");
@@ -255,7 +258,7 @@ public partial class BookingHotelContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC1D010F8F");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACAF947039");
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.Email).HasMaxLength(50);

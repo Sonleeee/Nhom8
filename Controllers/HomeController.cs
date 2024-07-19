@@ -25,8 +25,8 @@ namespace Nhom8.Controllers
                 Id = k.IdKs,
                 Name = k.TenKs ?? "no name",
                 Img = k.ImageKs ?? "",
-                Star = k.Star.GetValueOrDefault(),
-                Tinh = k.Tinh.Tinh1 ?? "",
+                //Star = k.Star.GetValueOrDefault(),
+                //Tinh = k.Tinh.Tinh1 ?? "",
 
             }).AsQueryable();
 
