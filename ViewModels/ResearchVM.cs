@@ -8,5 +8,6 @@ namespace Nhom8.ViewModels
         public KhachSan KhachSan { get; set; }
         public Phong Phong { get; set; }
         public ChiTietPhong ChiTietPhong { get; set; }
+        public DichVu DichVu { get; set; }
     }
 }

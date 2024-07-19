@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Nhom8.ViewModels.ResearchVM>
+﻿@using System.Globalization
+@model IEnumerable<Nhom8.ViewModels.ResearchVM>
 @{
     ViewData["Title"] = "Research";
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
@@ -7,7 +8,7 @@
 
 <div id="content">
 
-    <div class="container" style="padding-left: 100px; padding-right: 100px; padding-top: 100px;">
+    <div class="container" style="padding-left: 100px; padding-right: 100px; padding-top: 100px; padding-bottom:50px">
         <div class="research">
             <div class="filter">
 
@@ -27,28 +28,41 @@
                 
                 @foreach (var item in Model)
                 {
-                    <div class="hotel-card d-flex">
-                        <img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg" alt="Hotel Image" class="img-fluid" style="max-width: 240px;">
-                        <div class="hotel-info">
-                            <h5 class="mt-0">@item.KhachSan.TenKs 
-                                <span class="badge bg-warning text-dark">
-
-                                </span>
-                            </h5>
-                            <div class="" style="font-size: 14px;">
-                                <a href="#" class="text-decoration-none"> @item.KhachSan.DiaChi</a>
+                    <a asp-action="Detail" asp-controller="detail" asp-route-idKs="@item.KhachSan.IdKs" class="" style="text-decoration:none">
+                        <div class="hotel-card d-flex" style="height:max-content; font-size:14px">
+                            <img src="@item.KhachSan.ImageKs" alt="Hotel Image" class="img-fluid" style="max-width: 240px;">
+                            <div class="hotel-info">
+                                <h6 class="mt-0" style="color:black; font-size:18px">
+                                    <strong>
+                                        @item.KhachSan.TenKs
+                                    </strong>                                    
+                                    <span class="badge">
+                                        @for (int i = 0; i < item.KhachSan.Star; i++)
+                                        {
+                                            <i class="fa-solid fa-star" style="font-size:10px; color:#ffdc00"></i>
+                                        }                                        
+                                    </span>
+                                </h6>
+                                <div class="" style="font-size: 14px;">
+                                    <a href="#" class="text-decoration-none"> @item.KhachSan.DiaChi</a>
+                                </div>
+                                @* <p class="mt-2"><strong>@item.Phong.LoaiPhong</strong></p> *@
+                                @* <p class="text-success">@item.DichVu.TenDichVu.Take(2).ToArray().ToString()</p> *@
                             </div>
-
-                            <p class="mt-2"><strong>@item.Phong.LoaiPhong</strong></p>
-                            <p class="text-success">✔ miễn phí huỷ</p>
+                            <div class="hotel-price" style="padding: 5px; font-size: 14px;">                                
+                                <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
+                                <p class="mb-1">
+                                    Giá trung bình <br />
+                                    <strong style="font-size: 20px">                                        
+                                        @String.Format(new CultureInfo("vi-VN"), "{0:C0}", item.Phong.GiaPhong)
+                                    </strong>
+                                    <br />phòng/đêm
+                                    </p>
+                                <a asp-action="Detail" asp-controller="detail" asp-route-idKs="@item.KhachSan.IdKs" class="btn btn-primary">Xem chỗ trống</a>
+                            </div>
                         </div>
-                        <div class="hotel-price" style="padding: 10px; font-size: 14px;">
-                            <p class="mb-1"><strong>Tốt</strong> <span class="badge badge-rating">7,3</span></p>
-                            <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
-                            <p class="mb-1"><strong>@item.Phong.GiaPhong</strong><br>Đã bao gồm thuế và phí</p>
-                            <a asp-action="detail" asp-controller="detail" asp-route-idKs="@item.KhachSan.IdKs" class="btn btn-primary">Xem chỗ trống</a>
-                        </div>
-                    </div>
+                    </a>
+                    
                 }
 
                 

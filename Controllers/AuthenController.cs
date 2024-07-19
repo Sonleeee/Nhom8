@@ -58,7 +58,7 @@ namespace Nhom8.Controllers
                         {
                             new Claim(ClaimTypes.Email, khachhang.Email),
                             new Claim(ClaimTypes.Name, khachhang.TenKh),
-                            new Claim(ClaimTypes.Role, khachhang.Role),
+                            new Claim(ClaimTypes.Role, khachhang.Role),                            
                         };
 
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
