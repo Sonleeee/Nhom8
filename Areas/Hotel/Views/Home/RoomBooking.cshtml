@@ -1,75 +1,39 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "RoomBooking";
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
 }
+
+@model IEnumerable<Nhom8.Data.DatPhong>
 
 <div class="HotelBody">
     <div class="BodyItem">
         <h2>Đặt phòng</h2> <br>
         <div>
-            <div style="display: inline-block;">
-                <h3>Ngày</h3>
-                <select id="date_type" type="select-one" label="Ngày" model="searchForm" name="date_type" class="bui-form__control">
-                    <option value="booking">
-                        Đặt phòng
-                    </option>
-                    <option value="arrival" selected="selected">
-                        Nhận phòng
-                    </option>
-                    <option value="departure">
-                        Ngày đi
-                    </option>
-                </select>
-            </div>
-            <div style="display: inline-block;">
-                <h3>Từ</h3>
-                <input type="date">
-            </div>
-            <div style="display: inline-block;">
-                <h3>Cho đến</h3>
-                <input type="date">
-            </div>
-            <div style="display: inline-block;">
-                <button type="submit" class="bui-button bui-button--primary">Hiển thị</button>
-            </div>
+            <form method="get" asp-controller="Home" asp-action="RoomBooking">
+
+                <div style="display: inline-block;">
+                    <h3>Mục</h3>
+                    <select id="date_type" name="date_type" class="bui-form__control">
+                        <option value="booking">Ngày nhận phòng</option>
+                        <option value="arrival">Ngày đi</option>
+                        <option value="departure" selected="selected">Chưa thanh toán</option>
+                    </select>
+                </div>
+                <div style="display: inline-block;">
+                    <h3>Từ</h3>
+                    <input type="date" id="fromDate" name="fromDate" class="bui-form__control">
+                </div>
+                <div style="display: inline-block;">
+                    <h3>Cho đến</h3>
+                    <input type="date" id="toDate" name="toDate" class="bui-form__control">
+                </div>
+                <div style="display: inline-block;">
+                    <button type="submit" class="bui-button bui-button--primary">Hiển thị</button>
+                </div>
+            </form>
         </div>
         <div>
             <table id="customers">
-<<<<<<< HEAD
-                <tr>
-                    <th>Tên khách</th>
-                    <th>Nhận phòng</th>
-                    <th>Ngày đi</th>
-                    <th>Phòng</th>
-                    <th>Được đặt vào</th>
-                    <th>Giá</th>
-                </tr>
-                <tr>
-                    <td>Nguyễn A</td>
-                    <td>10/12/2023</td>
-                    <td>16/12/2003</td>
-                    <td>102</td>
-                    <td>7/12/2023</td>
-                    <td>1.000.000 đồng</td>
-                </tr>
-                <tr>
-                    <td>Nguyễn B</td>
-                    <td>10/12/2023</td>
-                    <td>16/12/2003</td>
-                    <td>103</td>
-                    <td>7/12/2023</td>
-                    <td>1.000.000 đồng</td>
-                </tr>
-                <tr>
-                    <td>Nguyễn C</td>
-                    <td>10/12/2023</td>
-                    <td>16/12/2003</td>
-                    <td>104</td>
-                    <td>7/12/2023</td>
-                    <td>1.000.000 đồng</td>
-                </tr>
-=======
                 <thead>
                     <tr>
                         <th>Tên khách</th>
@@ -102,8 +66,8 @@
                         </tr>
                     }
                 </tbody>
->>>>>>> vyx
             </table>
         </div>
     </div>
+
 </div>
