@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Nhom8.Data;
+using System.Security.Claims;
 
 namespace Nhom8_DACS.Areas.Hotel.Controllers
 {
@@ -14,9 +15,19 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             this.context = context;
             this.environment = environment;
         }
-        int userID = 5;
+        int userID = 1;
         public IActionResult Register()
         {
+            var userMail = "";
+            var userName = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                //userMail = User.FindFirstValue(ClaimTypes.Email);
+                userName = User.FindFirstValue(ClaimTypes.Name);
+
+            }
+            userID = context.Users.FirstOrDefault(id => id.TenKh == userName).UserId;
+
             var Tinhs = context.Tinhs.ToList();
             //Console.WriteLine($"Số lượng tỉnh: {Tinhs.Count}"); // In số lượng tỉnh ra console hoặc log để kiểm tra
             ViewBag.Tinhs = Tinhs;
@@ -25,8 +36,8 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(string tenKs, string diaChi, int tinhID, IFormFile[] hinhKS)
         {
-            
-             // Lưu hình ảnh vào thư mục wwwroot/assets/img/img_Phong
+
+            // Lưu hình ảnh vào thư mục wwwroot/assets/img/img_Phong
             foreach (var image in hinhKS)
             {
                 if (image != null && image.Length > 0)
@@ -60,9 +71,9 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
 
                     context.KhachSans.Add(khachSanMoi);
                 }
-                var user = context.Users.Where(u=>u.UserId == userID).FirstOrDefault();
+                var user = context.Users.Where(u => u.UserId == userID).FirstOrDefault();
                 user.Role = "KS";
-                
+
             }
             await context.SaveChangesAsync();
             return View();
