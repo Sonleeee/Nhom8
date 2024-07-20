@@ -2,11 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Nhom8.Data;
 using Nhom8.Areas.Hotel.Models;
-<<<<<<< HEAD
-=======
 using System.Runtime.Intrinsics.Arm;
 using System.Linq;
->>>>>>> vyx
+using System.Security.Claims;
 namespace Nhom8_DACS.Areas.Hotel.Controllers
 {
 
@@ -14,16 +12,27 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
     public class HomeController : Controller
     {
         private readonly BookingHotelContext context;
+        private readonly IWebHostEnvironment environment;
 
-        public HomeController(BookingHotelContext context)
+        public HomeController(BookingHotelContext context, IWebHostEnvironment environment)
         {
             this.context = context;
-
+            this.environment = environment;
         }
-        int userID = 3;
+        int userID = 0;
 
         public IActionResult Index()
         {
+            var userMail = "";
+            var userName = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                //userMail = User.FindFirstValue(ClaimTypes.Email);
+                userName = User.FindFirstValue(ClaimTypes.Name);
+                
+            }
+            userID = context.Users.FirstOrDefault(id => id.TenKh == userName).UserId;
+
             ViewBag.ActivePage = "Index";
             var hotelInfo = context.KhachSans.Where(s => s.UserId == userID).ToList();
             int? ksID = context.KhachSans
@@ -34,7 +43,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
 
             var comments = context.Comments
              .Where(s => s.KsId == id)
-             .Include(c=>c.User)
+             .Include(c => c.User)
              .OrderByDescending(c => c.TimeCm)  // Sắp xếp theo ngày tạo giảm dần
              .Take(5)  // Lấy 5 phần tử đầu tiên
              .ToList();
@@ -66,7 +75,14 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         public IActionResult CustomerRating()
         {
             ViewBag.ActivePage = "CustomerRating";
-            return View();
+            int? ksID = context.KhachSans
+                               .Where(q => q.UserId.Equals(userID))
+                               .Select(p => p.IdKs)
+                               .FirstOrDefault();
+            var comments = context.Comments
+                                   .Where(dp => dp.KsId == ksID).Include(c => c.User)
+                                   .ToList();
+            return View(comments);
         }
 
         public IActionResult Revenue()
@@ -117,19 +133,47 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             return View(datPhongs);
         }
 
-<<<<<<< HEAD
-
-
-        public IActionResult RoomBooking()
-=======
         public IActionResult RoomBooking(string date_type, DateOnly? fromDate, DateOnly? toDate)
->>>>>>> vyx
         {
             ViewBag.ActivePage = "RoomBooking";
-            return View();
+
+            int? ksID = context.KhachSans
+                .Where(q => q.UserId.Equals(userID))
+                .Select(p => p.IdKs)
+                .FirstOrDefault();
+
+            int id = ksID.Value;
+            IQueryable<DatPhong> query = context.DatPhongs
+                .Where(dp => dp.IdPhongNavigation.IdKs == id);
+
+            // Apply filters based on date_type and date range
+            if (!string.IsNullOrEmpty(date_type) && fromDate != null && toDate != null)
+            {
+                switch (date_type)
+                {
+                    case "booking":
+                        query = query.Where(dp => dp.NgayCheckin >= fromDate && dp.NgayCheckin <= toDate);
+                        break;
+                    case "arrival":
+                        query = query.Where(dp => dp.NgayCheckout >= fromDate && dp.NgayCheckout <= toDate);
+                        break;
+                    case "departure":
+                        query = query.Where(dp => dp.TrangThai == false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (date_type == "departure")
+                query = query.Where(dp => dp.TrangThai == false);
+
+            // Include related entities
+            query = query.Include(dp => dp.User)
+                         .Include(dp => dp.IdPhongNavigation);
+
+            var datPhongs = query.ToList();
+            return View(datPhongs);
         }
-<<<<<<< HEAD
-=======
         public async Task<IActionResult> ThanhToan(int datPhongId)
         {
             var datPhong = await context.DatPhongs.FirstOrDefaultAsync(p => p.IdDatPhong == datPhongId);
@@ -138,7 +182,6 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction("RoomBooking");
         }
->>>>>>> vyx
 
         public IActionResult RoomInfo()
         {
@@ -148,13 +191,10 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
                  .Select(p => p.IdKs)
                  .FirstOrDefault();
             int id = ksID.Value;
-            var Phong = context.Phongs.Where(p => p.IdKs == id);
+            var Phong = context.Phongs.Where(p => p.IdKs == id).Include(h => h.ImgRooms).Include(ct => ct.ChiTietPhongs);
             return View(Phong.ToList());
         }
 
-<<<<<<< HEAD
-        public IActionResult Service(string searchString)
-=======
         [HttpPost]
         public async Task<IActionResult> AddRoom(string roomName, string roomType, float roomPrice, IFormFile[] roomImage, int roomBedNumber, float roomArea)
         {
@@ -317,7 +357,6 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
         // dịch vụ
 
         public IActionResult Service(string searchString, string tenQuyDinh)
->>>>>>> vyx
         {
             ViewBag.ActivePage = "Service";
             int? ksID = context.KhachSans
@@ -332,7 +371,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             {
                 DichVu = DichVu.Where(d => d.TenDichVu.Contains(searchString));
             }
-            
+
             if (!string.IsNullOrEmpty(tenQuyDinh))
             {
                 QuyDinh = QuyDinh.Where(d => d.TenQuyDinh.Contains(tenQuyDinh));
@@ -376,7 +415,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
                 return NotFound(); // Handle when service is not found
             }
 
-            if(service.TrangThai == true)
+            if (service.TrangThai == true)
                 service.TrangThai = trangThai;
             else
                 service.TrangThai = !trangThai;
@@ -386,6 +425,14 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             await context.SaveChangesAsync();
 
             // Redirect to the "Service" action method
+            return RedirectToAction("Service");
+        }
+        public IActionResult DeleteService(int id)
+        {
+            var dichVu = context.DichVus.Find(id);
+
+            context.DichVus.Remove(dichVu);
+            context.SaveChanges();
             return RedirectToAction("Service");
         }
 
@@ -414,7 +461,7 @@ namespace Nhom8_DACS.Areas.Hotel.Controllers
             context.QuyDinhChungs.Add(quyDinhMoi);
             context.SaveChanges();
 
-            return RedirectToAction ("Service");
+            return RedirectToAction("Service");
         }
         public async Task<IActionResult> UpdateQuyDinh(int id, bool trangThai)
         {

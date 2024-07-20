@@ -1,12 +1,52 @@
-﻿
+﻿@model Nhom8.ViewModels.ProfileViewModel
 @{
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
 
-<h1>Profile</h1>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Profile Image">
+                    <h5 class="card-title">@Model.User.TenKh</h5>
+                    <p class="card-text">@Model.User.Email</p>
+                    <p class="card-text">@Model.User.Sdt</p>
+                    <a asp-action="Logout">Đăng xuất</a>
+                    @* <p class="card-text">@Model.User.</p> *@
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Thông tin cá nhân</h5>
+                    <form asp-action="Profile" asp-controller="Authen" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Tên đăng nhập</label>
+                            <input type="text" class="form-control" id="username" name="Username" value="@Model.User.TenKh" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="Email" value="@Model.User.Email" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="PhoneNumber" value="@Model.User.Sdt" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" name="Password" value="" >
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-<h2>welconm @Context.User.Identity.Name</h2>
 
-<a asp-action="Logout">Đăng xuất</a>

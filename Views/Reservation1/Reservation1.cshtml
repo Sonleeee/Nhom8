@@ -18,19 +18,19 @@
                     <h4>Thông tin liên hệ</h4>
                     <div class="mb-3">
                         <label for="name" class="form-label">Họ và tên</label>
-                        <input type="text" class="form-control" id="name" value="@Model.Name">
+                        <input asp-for=Name type="text" class="form-control" id="name" value="@Model.Name">
                         <p>Như trong Hộ chiếu/CMND/CCCD (không có danh xưng/ký tự đặc biệt)</p>
                     </div>
                     <div class="mail-sdt">
                         <div class="mb-3" style="width:60% ;">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="@Model.Email">
+                            <input asp-for="Email" type="email" class="form-control" id="email" value="@Model.Email">
                             <p>Chúng tôi sẽ gửi vé đặt phòng tới email này.</p>
                         </div>
 
                         <div class="mb-3 form-check" style="width: 40%;">
                             <label for="sdt" class="form-label">Số điện thoại</label>
-                            <input type="text" class="form-control" id="sdt">
+                            <input asp-for="Sdt" type="text" class="form-control" id="sdt">
                         </div>
                     </div>
                     <div class="checked">
@@ -62,7 +62,7 @@
                     <textarea name="request" id="request" rows="4" style="width: 100%; height: auto;"></textarea>
                 </div> *@
 
-                <div class="payment left-design">
+                @* <div class="payment left-design">
                     <h4>Lựa chọn thanh toán linh hoạt</h4>
                     <div class="pay-counter form-check">
                         <input type="radio" id="pay-counter" name="pay-counter" value="" class="form-check-input">
@@ -72,14 +72,15 @@
                         <input type="radio" id="pay-now" name="pay-now" value="" class="form-check-input">
                         <label class="form-check-label" for="pay-now">Thanh toán ngay</label>
                     </div>
-                </div>
+                </div> *@
 
                 <div class="price-detail left-design">
                     <div class="price-detail-box">
                         <h4>Chi tiết giá</h4>
                         <div class="d-flex justify-content-between">
                             <span>Giá phòng</span>
-                            <span>@Model.KhachSanPhong.Phong.GiaPhong VND</span>
+                            <input type="hidden" asp-for="Price"  value="@Model.Price"/>
+                            <span>@String.Format("{0:N0} VND", @Model.Price)</span>
                         </div>    
                         <div class="d-flex justify-content-between">
                             @* <span>Tổng ngày</span>
@@ -88,8 +89,9 @@
                         <hr>
                         <div class="d-flex justify-content-between" style="padding-bottom: 20px;">
                             <span class="total-price">Tổng giá</span>
-                            <span class="total-price">@Model.Price</span>
+                            <span class="total-price">@String.Format("{0:N0} VND", @Model.Price)</span>
                         </div>
+                        @* <input class="btn btn-primary w-100" name="payment" type="submit"  value="Thanh toán tại khách sạn" /> *@
                         <input class="btn btn-primary w-100" name="payment" type="submit" value="Thanh toán VnPay" />
                         <p class="text-muted mt-3">
                             Bằng việc tiếp tục thanh toán, bạn đã đồng ý với <a href="#">Điều khoản & Điều kiện</a> cũng như <a href="#">Chính sách quyền riêng tư</a> của LambiengTravel.
@@ -103,8 +105,8 @@
         <div class="content-right">
             <div class="card">
                 <div class="card-body" style="background-color: rgb(247 249 250);">
-                    <h5 class="card-title">TN Central Hotell</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">The Malibu Hotel</h6>
+                    <h5 class="card-title">@Model.KhachSanPhong.KhachSan.TenKs</h5>
+                    @* <h6 class="card-subtitle mb-2 text-muted">@Model.</h6> *@
                     <div class="rating">
                         <span class="bi bi-star-fill"></span>
                         <span class="bi bi-star-fill"></span>
@@ -115,34 +117,34 @@
                     <p class="card-text">
                         <i class="bi bi-geo-alt"></i> Xếp hạng cao trong danh mục Sạch sẽ
                     </p>
-                    <img src="https://t3.ftcdn.net/jpg/00/29/13/38/240_F_29133877_bfA2n7cWV53fto2BomyZ6pyRujJTBwjd.jpg" class="card-img-top" alt="The Malibu Hotel">
+                    <img src="@Model.KhachSanPhong.KhachSan.ImageKs" class="card-img-top" alt="The Malibu Hotel">
                     <div class="row text-center my-3">
                         <div class="col">
                             <h6>Nhận phòng</h6>
-                            <p>Thứ 2, 17-06-2024<br>Từ 15:00</p>
+                            <p>@Model.CheckinDate<br>Từ 15:00</p>
                         </div>
                         <div class="col">
                             <h6>3 đêm</h6>
                         </div>
                         <div class="col">
                             <h6>Trả phòng</h6>
-                            <p>Thứ 5, 20-Jun-2024<br>Trước 12:00</p>
+                            <p>@Model.CheckoutDate<br>Trước 12:00</p>
                         </div>
                     </div>
                     <hr>
                     <div>
-                        <p>(1x) Deluxe Double</p>
-                        <p class="text-danger">Chỉ còn 3 phòng</p>
-                        <p><i class="bi bi-people"></i> 2 khách</p>
-                        <p><i class="bi bi-bed"></i> 1 Giường Cỡ Queen</p>
-                        <p><i class="bi bi-cup"></i> Breakfast included for 1 pax</p>
-                        <p><i class="bi bi-clock"></i> Chọn thời điểm bạn muốn thanh toán</p>
-                        <p><i class="bi bi-wifi"></i> Wifi</p>
-                        <p><i class="bi bi-car-front"></i> Parking</p>
+                        <p>@Model.KhachSanPhong.Phong.TenPhong</p>
+                        @* <p class="text-danger">@Model.Khac</p> *@
+                        @* <p><i class="bi bi-people"></i> 2 khách</p> *@
+                        @* <p><i class="bi bi-bed"></i> 1 Giường Cỡ Queen</p> *@
+                        @* <p><i class="bi bi-cup"></i> Breakfast included for 1 pax</p> *@
+                        @* <p><i class="bi bi-clock"></i> Chọn thời điểm bạn muốn thanh toán</p> *@
+                        @* <p><i class="bi bi-wifi"></i> Wifi</p>
+                        <p><i class="bi bi-car-front"></i> Parking</p> *@
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
-                        <span class="total-price">4.493.165 VND</span>
+                        <span class="total-price">@String.Format("{0:N0} VND", @Model.Price)</span>
                     </div>
                 </div>
             </div>

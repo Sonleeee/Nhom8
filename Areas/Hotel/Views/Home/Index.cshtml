@@ -1,4 +1,4 @@
-﻿@using Nhom8.Data
+﻿﻿@using Nhom8.Data
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
@@ -12,7 +12,7 @@
         <div class="item" style="display:flex; justify-content:left;">
             @foreach (var khachSan in Model)
             {
-                <img src="@khachSan.ImageKs"/>
+                <img src="@khachSan.ImageKs" />
                 <div>
                     <h1>@khachSan.TenKs</h1>
                     <h3>@khachSan.DiaChi</h3>
@@ -39,7 +39,7 @@
                         <a style="color: black">(@ViewBag.StarCount)</a>
                     </span>
                 </div>
-                
+
             }
         </div>
         <div class="item">

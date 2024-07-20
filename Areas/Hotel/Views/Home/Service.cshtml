@@ -1,4 +1,4 @@
-﻿@using Nhom8.Data
+﻿﻿@using Nhom8.Data
 @{
     ViewData["Title"] = "Service";
     Layout = "~/Areas/Hotel/Views/Shared/_LayoutHotel.cshtml";
@@ -27,18 +27,6 @@
             <h2>Tiện nghi phổ biến nhất</h2>
             @foreach (var dichVu in Model)
             {
-<<<<<<< HEAD
-                <form asp-action="UpdateService" method="post" id="updateForm_@dichVu.IdDichVu">
-                <div class="facility__row">
-                    <h3 style="display: inline-block; width: 78%;">@dichVu.TenDichVu</h3>
-                        <input type="hidden" name="id" value="@dichVu.IdDichVu" />
-                    <label class="switch">
-                            <input type="checkbox" @(dichVu.TrangThai.GetValueOrDefault() ? "checked" : "") name="trangThai" onchange="this.form.submit()">
-                            <span class="slider"></span>
-                    </label>
-                </div>
-                </form>
-=======
                 <div class="facility__row">
                     <h3 style="display: inline-block; width: 78%;">@dichVu.TenDichVu</h3>
 
@@ -54,7 +42,6 @@
                         <button type="submit" class="btn btn-danger" style="margin-top:5px;">Xóa</button>
                     </form>
                 </div>
->>>>>>> vyx
             }
 
             <!-- Nút kích hoạt modal thêm dịch vụ -->

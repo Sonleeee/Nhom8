@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+
 using Nhom8.Data;
 using Nhom8.Services;
 using Nhom8.ViewModels;
 using System.Globalization;
 using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using AutoMapper;
+using System.Runtime.Intrinsics.Arm;
 
 namespace Nhom8.Controllers
 {
@@ -15,7 +19,7 @@ namespace Nhom8.Controllers
         private readonly BookingHotelContext db;
         private readonly IVnPayService _vnPayservice;
 
-        public Reservation1Controller(BookingHotelContext context, IVnPayService vnPayservice)
+        public Reservation1Controller(BookingHotelContext context, IVnPayService vnPayservice, IMapper mapper)
         {
             db = context;
             _vnPayservice = vnPayservice;
@@ -43,6 +47,10 @@ namespace Nhom8.Controllers
 
 
             int differenceInDays = checkoutdate.DayNumber - checkindate.DayNumber;
+            if (differenceInDays == 0)
+            {
+                differenceInDays = 1;
+            }
             var userMail = "";
             var userName = "";
             if (User.Identity.IsAuthenticated)
@@ -82,15 +90,19 @@ namespace Nhom8.Controllers
                     //FullName = model.HoTen,
                     //OrderId = new Random().Next(1000, 100000)
 
-                    TongTien =model.Price,
+                    TongTien =800000,
                     CreatedDate = DateTime.Now,
                     //Mota = $"Lê Hoàng Sơn {model.Sdt}",
-                    TenKH = "Lê Hoàng Sơn",
+                    TenKH = model.Name,
                     OrderId = new Random().Next(1000, 100000),
 
                 };
                 return Redirect(_vnPayservice.CreatePaymentUrl(HttpContext, vnPayModel));
             }
+            //if (payment == "Thanh toán tại khách sạn")
+            //{
+            //    var dp = db.DatPhongs.Where
+            //}
 
             //return View(model);
             return View();

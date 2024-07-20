@@ -37,6 +37,7 @@ builder.Services.AddAuthentication(op =>
     op.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     op.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     op.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    op.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     op.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 })
     .AddCookie(op =>
@@ -50,7 +51,7 @@ builder.Services.AddAuthentication(op =>
     {
         op.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientID").Value;
         op.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
-        op.CallbackPath = "/signin-google";
+        ////op.CallbackPath = "/signin-google";
     })
     ;
 

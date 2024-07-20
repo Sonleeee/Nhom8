@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Nhom8.Areas.Admin.Models;
+using Nhom8.Areas.Hotel.Models;
 using Nhom8.Data;
 using Nhom8.ViewModels;
 using System.Globalization;

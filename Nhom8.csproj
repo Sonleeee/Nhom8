@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Areas\Admin\Models\RevenuePerDay.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.4" />
@@ -35,6 +39,7 @@
     <Folder Include="Areas\Hotel\Controllers\" />
     <Folder Include="Areas\Hotel\Data\" />
     <Folder Include="Data\" />
+    <Folder Include="wwwroot\assets\img\img_Phong\" />
   </ItemGroup>
 
 </Project>

@@ -7,5 +7,5 @@
         public int Day { get; set; }
         public float Revenue { get; set; }
     }
-
+    
 }

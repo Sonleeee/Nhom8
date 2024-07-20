@@ -50,11 +50,12 @@
                                 @* <p class="text-success">@item.DichVu.TenDichVu.Take(2).ToArray().ToString()</p> *@
                             </div>
                             <div class="hotel-price" style="padding: 5px; font-size: 14px;">                                
-                                <p class="mb-1"><strong>3 đêm, 2 người lớn</strong></p>
+                                <p class="mb-1"><strong></strong></p>
                                 <p class="mb-1">
                                     Giá trung bình <br />
-                                    <strong style="font-size: 20px">                                        
-                                        @String.Format(new CultureInfo("vi-VN"), "{0:C0}", item.Phong.GiaPhong)
+                                    <strong style="font-size: 20px">
+                                        @String.Format("{0:N0} VND", item.Phong.GiaPhong)
+                                        @* @String.Format(new CultureInfo("vi-VN"), "{0:C0}", item.Phong.GiaPhong) *@
                                     </strong>
                                     <br />phòng/đêm
                                     </p>
