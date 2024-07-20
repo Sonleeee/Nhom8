@@ -49,9 +49,9 @@ builder.Services.AddAuthentication(op =>
     })
     .AddGoogle(op =>
     {
-        op.ClientId = Environment.GetEnvironmentVariable("GOOGLE_OAUTH_CLIENT_ID");
-        op.ClientSecret = Environment.GetEnvironmentVariable("GOOGLE_OAUTH_CLIENT_SECRET");
-        ////op.CallbackPath = "/signin-google";
+        op.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientID").Value;
+        op.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+        op.CallbackPath = "/signin-google";
     })
     ;
 

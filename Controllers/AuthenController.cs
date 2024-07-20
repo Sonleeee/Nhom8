@@ -92,6 +92,7 @@ namespace Nhom8.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Profile()
         {
             var userMail = "";
@@ -100,7 +101,7 @@ namespace Nhom8.Controllers
             {
                 userMail = User.FindFirstValue(ClaimTypes.Email);
                 userName = User.FindFirstValue(ClaimTypes.Name);
-            }
+        }
             var user = db.Users.Where(u => u.TenKh == userName && u.Email == userMail).FirstOrDefault();
             if (user == null)
             {
@@ -335,9 +336,9 @@ namespace Nhom8.Controllers
         {
             return View();
         }
-    
 
-    [Authorize]
+
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             // Đăng xuất khỏi ứng dụng của bạn
