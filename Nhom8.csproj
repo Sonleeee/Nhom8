@@ -9,12 +9,16 @@
   <ItemGroup>
     <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="Areas\Hotel\Data\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="Areas\Hotel\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Areas\Hotel\Data\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Admin\Models\**" />
+    <None Remove="Areas\Hotel\Data\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +41,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Hotel\Controllers\" />
-    <Folder Include="Areas\Hotel\Data\" />
     <Folder Include="Data\" />
     <Folder Include="wwwroot\assets\img\img_Phong\" />
   </ItemGroup>
